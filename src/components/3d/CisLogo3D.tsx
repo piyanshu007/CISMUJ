@@ -24,9 +24,15 @@ export const CisLogo3D: React.FC = () => {
 
     // 2. Camera setup - calibrated for full-height hero background
     const isDesktop = width > 1024;
-    const isMobile = width < 768;
+    const isTablet = width >= 640 && width <= 1024;
+    const isMobile = width < 640;
+
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(0, 0, isDesktop ? 4.9 : (isMobile ? 6.2 : 5.8));
+    camera.position.set(
+      0,
+      0,
+      isDesktop ? 4.9 : isTablet ? 5.6 : 6.6
+    );
 
     // 3. Renderer with antialiasing and alpha
     const renderer = new THREE.WebGLRenderer({
@@ -53,10 +59,13 @@ export const CisLogo3D: React.FC = () => {
     blueRimLight.position.set(-5, -3, -3);
     scene.add(blueRimLight);
 
-    // 5. Create 3D Emblem Object Group (Offset to right on desktop for typography balance)
+    // 5. Create 3D Emblem Object Group (Balanced scale & offset for mobile, tablet & desktop)
     const mainGroup = new THREE.Group();
-    const defaultOffsetX = isDesktop ? 1.45 : 0;
-    mainGroup.position.set(defaultOffsetX, 0, 0);
+    const initialScale = isDesktop ? 1.0 : isTablet ? 0.75 : 0.42;
+    mainGroup.scale.set(initialScale, initialScale, initialScale);
+    const defaultOffsetX = isDesktop ? 1.45 : isTablet ? 0.9 : 0.1;
+    const defaultOffsetY = isMobile ? -0.1 : 0;
+    mainGroup.position.set(defaultOffsetX, defaultOffsetY, 0);
     scene.add(mainGroup);
 
     // Logo Texture Loader with explicit onLoad trigger
@@ -226,10 +235,15 @@ export const CisLogo3D: React.FC = () => {
       const h = getHeight();
       if (w === 0 || h === 0) return;
       const desktop = w > 1024;
-      const mobile = w < 768;
+      const tablet = w >= 640 && w <= 1024;
+      const mobile = w < 640;
+
       camera.aspect = w / h;
-      camera.position.z = desktop ? 4.9 : (mobile ? 6.2 : 5.8);
-      mainGroup.position.x = desktop ? 1.45 : 0;
+      camera.position.z = desktop ? 4.9 : tablet ? 5.6 : 6.6;
+
+      const scale = desktop ? 1.0 : tablet ? 0.75 : 0.42;
+      mainGroup.scale.set(scale, scale, scale);
+
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };
@@ -267,12 +281,16 @@ export const CisLogo3D: React.FC = () => {
       const elapsedTime = clock.getElapsedTime();
 
       // Floating wave animation
-      const floatY = Math.sin(elapsedTime * 1.3) * 0.12;
-      const floatX = Math.cos(elapsedTime * 0.9) * 0.08;
+      const floatY = Math.sin(elapsedTime * 1.3) * 0.1;
+      const floatX = Math.cos(elapsedTime * 0.9) * 0.06;
       const currentWidth = getWidth();
       const isDsk = currentWidth > 1024;
-      mainGroup.position.y = floatY;
-      mainGroup.position.x = (isDsk ? 1.45 : 0) + floatX;
+      const isTab = currentWidth >= 640 && currentWidth <= 1024;
+      const baseOffsetX = isDsk ? 1.45 : isTab ? 0.9 : 0.1;
+      const baseOffsetY = isDsk ? 0 : isTab ? 0 : -0.1;
+
+      mainGroup.position.y = baseOffsetY + floatY;
+      mainGroup.position.x = baseOffsetX + floatX;
 
       // Continuous gentle spin when not dragging
       if (!isDragging) {
