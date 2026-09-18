@@ -54,8 +54,6 @@ export const WhyCis: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeader
-          number="03"
-          badgeText="MEMBER PERKS"
           title="WHY JOIN IEEE CIS MUJ?"
           subtitle="Discover what being an active student member of our computational intelligence society gives you."
         />

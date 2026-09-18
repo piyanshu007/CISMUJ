@@ -50,8 +50,6 @@ export const CisMujChapter: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeader
-          number="02"
-          badgeText="STUDENT CHAPTER IDENTITY"
           title="THIS IS CIS AT MUJ."
           subtitle="At Manipal University Jaipur, IEEE CIS translates mathematical proofs into working algorithms, embedded hardware prototypes, and student research."
         />
