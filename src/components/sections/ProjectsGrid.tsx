@@ -390,7 +390,7 @@ export const ProjectsGrid: React.FC = () => {
                       </span>
                       <div className="w-5 h-px bg-slate-200" />
                     </div>
-                    <span className="text-[11px] font-sans font-medium px-3 py-0.5 rounded-full bg-slate-100 text-slate-600 group-hover:bg-sky-50 group-hover:text-[#0284C7] transition-colors">
+                    <span className="text-[11px] font-sans font-medium text-slate-500 group-hover:text-[#0284C7] transition-colors">
                       {p.tag}
                     </span>
                   </div>
