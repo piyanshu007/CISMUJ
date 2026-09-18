@@ -40,34 +40,6 @@ export const Hero: React.FC = () => {
             Manipal University Jaipur&apos;s premier student technology chapter exploring artificial intelligence, neural networks, robotics, competitive coding, and high-octane hackathons.
           </p>
 
-          {/* Club Real Stats */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-1 max-w-lg">
-            <div className="p-2.5 sm:p-3.5 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 text-left hover:border-[#0284C7] hover:shadow-md transition-all">
-              <span className="text-xl sm:text-3xl font-display font-black text-[#0F172A] block leading-none">
-                1,500+
-              </span>
-              <span className="font-mono text-[9px] sm:text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1 block truncate">
-                ACTIVE MEMBERS
-              </span>
-            </div>
-            <div className="p-2.5 sm:p-3.5 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 text-left hover:border-[#0284C7] hover:shadow-md transition-all">
-              <span className="text-xl sm:text-3xl font-display font-black text-[#0284C7] block leading-none">
-                30+
-              </span>
-              <span className="font-mono text-[9px] sm:text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1 block truncate">
-                EVENTS &amp; HACKS
-              </span>
-            </div>
-            <div className="p-2.5 sm:p-3.5 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 text-left hover:border-[#0284C7] hover:shadow-md transition-all">
-              <span className="text-xl sm:text-3xl font-display font-black text-[#0F172A] block leading-none">
-                25+
-              </span>
-              <span className="font-mono text-[9px] sm:text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1 block truncate">
-                FLAGSHIP PROJECTS
-              </span>
-            </div>
-          </div>
-
           {/* Action CTAs */}
           <div className="pt-2 flex flex-wrap items-center gap-3 font-mono text-xs">
             <a
