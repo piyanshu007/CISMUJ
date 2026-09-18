@@ -77,7 +77,7 @@ export const PhotoMosaicSection: React.FC = () => {
   useEffect(() => {
     const updateRadius = () => {
       if (window.innerWidth < 640) {
-        setRadius(210);
+        setRadius(Math.min(window.innerWidth * 0.4, 185));
       } else if (window.innerWidth < 1024) {
         setRadius(280);
       } else {
@@ -173,7 +173,7 @@ export const PhotoMosaicSection: React.FC = () => {
 
       {/* 3D Perspective Cylindrical Ring Stage - Compact & Balanced */}
       <div
-        className="relative w-full max-w-6xl mx-auto h-[400px] sm:h-[460px] lg:h-[480px] flex items-center justify-center cursor-grab active:cursor-grabbing my-2"
+        className="relative w-full max-w-6xl mx-auto h-[360px] sm:h-[440px] lg:h-[480px] flex items-center justify-center cursor-grab active:cursor-grabbing my-2"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -183,11 +183,11 @@ export const PhotoMosaicSection: React.FC = () => {
         style={{ perspective: '1100px' }}
       >
         {/* Soft ground depth shadow to make cards look completely free & floating */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] lg:w-[620px] h-[32px] bg-slate-800/[0.08] blur-2xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[280px] sm:w-[500px] lg:w-[620px] h-[32px] bg-slate-800/[0.08] blur-2xl rounded-full pointer-events-none" />
 
         {/* 3D Carousel Cylinder */}
         <div
-          className="relative w-[210px] sm:w-[280px] lg:w-[300px] h-[270px] sm:h-[340px] lg:h-[360px]"
+          className="relative w-[180px] sm:w-[280px] lg:w-[300px] h-[240px] sm:h-[340px] lg:h-[360px]"
           style={{
             transformStyle: 'preserve-3d',
             transform: `rotateX(-1.5deg) rotateY(${rotationY}deg)`,

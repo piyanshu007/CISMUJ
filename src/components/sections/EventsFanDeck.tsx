@@ -109,7 +109,7 @@ export const EventsFanDeck: React.FC = () => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative w-full max-w-[500px] lg:max-w-[560px] aspect-[16/11] flex items-center justify-center select-none mx-auto"
+              className="relative w-full max-w-[500px] lg:max-w-[560px] aspect-[1376/768] flex items-center justify-center select-none mx-auto"
             >
               {/* Enhanced Planetary Artwork (Vibrant contrast, glowing sapphire depth) */}
               <img

@@ -120,21 +120,21 @@ export const WhatIsCis: React.FC = () => {
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 32, repeat: Infinity, ease: 'linear' }}
-                  className="absolute w-[360px] sm:w-[480px] lg:w-[540px] h-[160px] sm:h-[210px] lg:h-[240px] rounded-[100%] border border-[#0284C7]/30"
+                  className="absolute w-[80%] sm:w-[480px] lg:w-[540px] h-[36%] sm:h-[210px] lg:h-[240px] rounded-[100%] border border-[#0284C7]/30"
                   style={{
                     transform: 'rotateX(64deg) rotateZ(-22deg)',
                   }}
                 >
                   {/* 3D Glossy Blue Planetary Sphere */}
                   <div
-                    className="absolute -top-3 left-1/4 w-5 h-5 rounded-full shadow-[0_4px_14px_rgba(2,132,199,0.5)]"
+                    className="absolute -top-3 left-1/4 w-4 sm:w-5 h-4 sm:h-5 rounded-full shadow-[0_4px_14px_rgba(2,132,199,0.5)]"
                     style={{
                       background:
                         'radial-gradient(circle at 35% 35%, #bae6fd 0%, #0284c7 50%, #0369a1 100%)',
                     }}
                   />
                   <div
-                    className="absolute bottom-2 right-1/3 w-3 h-3 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
+                    className="absolute bottom-2 right-1/3 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
                     style={{
                       background:
                         'radial-gradient(circle at 35% 35%, #e0f2fe 0%, #0284c7 60%, #075985 100%)',
@@ -146,21 +146,21 @@ export const WhatIsCis: React.FC = () => {
                 <motion.div
                   animate={{ rotate: -360 }}
                   transition={{ duration: 44, repeat: Infinity, ease: 'linear' }}
-                  className="absolute w-[440px] sm:w-[580px] lg:w-[640px] h-[190px] sm:h-[250px] lg:h-[280px] rounded-[100%] border border-[#0284C7]/20 border-dashed"
+                  className="absolute w-[94%] sm:w-[580px] lg:w-[640px] h-[44%] sm:h-[250px] lg:h-[280px] rounded-[100%] border border-[#0284C7]/20 border-dashed"
                   style={{
                     transform: 'rotateX(58deg) rotateZ(28deg)',
                   }}
                 >
                   {/* Large 3D Planetary Sphere at Bottom-Right */}
                   <div
-                    className="absolute top-1/2 -right-3 w-6 h-6 rounded-full shadow-[0_6px_18px_rgba(2,132,199,0.55)]"
+                    className="absolute top-1/2 -right-3 w-5 sm:w-6 h-5 sm:h-6 rounded-full shadow-[0_6px_18px_rgba(2,132,199,0.55)]"
                     style={{
                       background:
                         'radial-gradient(circle at 35% 35%, #7dd3fc 0%, #0284c7 50%, #0c4a6e 100%)',
                     }}
                   />
                   <div
-                    className="absolute -bottom-2 left-1/5 w-3.5 h-3.5 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
+                    className="absolute -bottom-2 left-1/5 w-3 sm:w-3.5 h-3 sm:h-3.5 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
                     style={{
                       background:
                         'radial-gradient(circle at 35% 35%, #e0f2fe 0%, #0284c7 60%, #0369a1 100%)',

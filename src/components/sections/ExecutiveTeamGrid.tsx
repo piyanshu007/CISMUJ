@@ -326,7 +326,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
 
                     {/* Leader Transparent Cutout Portrait Centered in the Middle */}
                     <div
-                      className="absolute inset-0 z-10 w-full h-full flex items-center justify-center pt-1 sm:pt-2 pb-10 sm:pb-12 px-0.5"
+                      className="absolute inset-0 z-10 w-full h-full flex items-center justify-center pt-1 sm:pt-2 pb-8 sm:pb-12 px-0.5"
                       style={{
                         transform: 'skewY(9.5deg)',
                         transformOrigin: 'center center',
@@ -335,7 +335,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
                       <img
                         src={member.image}
                         alt={member.name}
-                        className="w-full h-auto max-h-[86%] object-contain object-center scale-110 sm:scale-115 filter contrast-[1.05] brightness-[1.05] drop-shadow-[0_10px_22px_rgba(2,132,199,0.22)] group-hover:scale-125 transition-transform duration-500"
+                        className="w-full h-auto max-h-[82%] sm:max-h-[86%] object-contain object-center scale-100 sm:scale-110 md:scale-115 filter contrast-[1.05] brightness-[1.05] drop-shadow-[0_10px_22px_rgba(2,132,199,0.22)] group-hover:scale-120 transition-transform duration-500"
                       />
                     </div>
 

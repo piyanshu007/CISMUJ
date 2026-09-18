@@ -81,7 +81,7 @@ export const ProjectsGrid: React.FC = () => {
         
         {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres (Passing OVER image) */}
         <svg
-          className="absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible"
+          className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible"
           viewBox="0 0 1400 320"
           fill="none"
           preserveAspectRatio="none"
