@@ -39,17 +39,21 @@ export const CisLogo3D: React.FC = () => {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMappingExposure = 1.35;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
-    // 4. Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
+    // 4. Vibrant Lighting for Illuminated "Lit Up" Effect
+    const ambientLight = new THREE.AmbientLight(0xffffff, 3.0);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.0);
-    dirLight1.position.set(5, 5, 5);
-    scene.add(dirLight1);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.8);
+    keyLight.position.set(5, 6, 6);
+    scene.add(keyLight);
+
+    const cyanPointLight = new THREE.PointLight(0x38bdf8, 3.5, 12);
+    cyanPointLight.position.set(0, 0, 1.5);
+    scene.add(cyanPointLight);
 
     // 5. Create 3D Logo Object Group
     const mainGroup = new THREE.Group();
@@ -59,6 +63,39 @@ export const CisLogo3D: React.FC = () => {
     const defaultOffsetY = isMobile ? 0.65 : 0;
     mainGroup.position.set(defaultOffsetX, defaultOffsetY, 0);
     scene.add(mainGroup);
+
+    // Soft Radial Glow Aura Canvas Texture
+    const createGlowTexture = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        const gradient = ctx.createRadialGradient(128, 128, 10, 128, 128, 128);
+        gradient.addColorStop(0, 'rgba(56, 189, 248, 0.85)');
+        gradient.addColorStop(0.35, 'rgba(2, 132, 199, 0.45)');
+        gradient.addColorStop(0.7, 'rgba(2, 132, 199, 0.12)');
+        gradient.addColorStop(1, 'rgba(2, 132, 199, 0)');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 256, 256);
+      }
+      const tex = new THREE.CanvasTexture(canvas);
+      return tex;
+    };
+
+    const glowTex = createGlowTexture();
+    const glowGeo = new THREE.PlaneGeometry(3.6, 3.6);
+    const glowMat = new THREE.MeshBasicMaterial({
+      map: glowTex,
+      transparent: true,
+      opacity: 0.55,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+    });
+    const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+    glowMesh.position.z = -0.05;
+    mainGroup.add(glowMesh);
 
     // Logo Texture Loader with anisotropic filtering for crisp edges
     const textureLoader = new THREE.TextureLoader();
@@ -212,6 +249,9 @@ export const CisLogo3D: React.FC = () => {
       mainGroup.position.y = baseOffsetY + floatY;
       mainGroup.position.x = baseOffsetX + floatX;
 
+      // Illuminated aura gentle breathing effect
+      glowMat.opacity = 0.45 + Math.sin(elapsedTime * 2.2) * 0.12;
+
       // Continuous gentle spin when not dragging
       if (!isDragging) {
         mainGroup.rotation.y += 0.005;
@@ -243,6 +283,9 @@ export const CisLogo3D: React.FC = () => {
 
       logoGeo.dispose();
       logoMat.dispose();
+      glowGeo.dispose();
+      glowMat.dispose();
+      glowTex.dispose();
 
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -260,4 +303,5 @@ export const CisLogo3D: React.FC = () => {
     />
   );
 };
+
 
