@@ -183,7 +183,7 @@ export const NewsletterShowcase: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-white text-[#1A1A1A] pt-20 sm:pt-32 pb-10 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
+    <section className="relative w-full bg-white text-[#1A1A1A] pt-16 sm:pt-28 pb-8 sm:pb-16 px-3 sm:px-6 lg:px-8 overflow-hidden select-none">
       
       {/* Soft Ethereal Ambient Glow on Pure White Canvas */}
       <div
@@ -195,8 +195,8 @@ export const NewsletterShowcase: React.FC = () => {
       />
 
       {/* Editorial Title & Issue Switcher Banner */}
-      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-2 sm:space-y-3 mb-6 sm:mb-14">
-        <h1 className="font-serif font-black text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight uppercase">
+      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-1.5 sm:space-y-3 mb-4 sm:mb-10">
+        <h1 className="font-serif font-black text-2xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight uppercase">
           The CIS Broadsheet
         </h1>
 
@@ -239,7 +239,7 @@ export const NewsletterShowcase: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
             onClick={() => setIsReadingModalOpen(true)}
-            className="relative bg-[#FAF6EE] text-[#111111] rounded-[2px] p-4 sm:p-10 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.28),0_15px_35px_-5px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.06)] border-2 border-[#D2C7B0] font-serif cursor-pointer hover:shadow-[0_40px_95px_-12px_rgba(2,132,199,0.3),0_20px_40px_-5px_rgba(0,0,0,0.18)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden"
+            className="relative bg-[#FAF6EE] text-[#111111] rounded-[2px] p-3.5 sm:p-10 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.28),0_15px_35px_-5px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.06)] border-2 border-[#D2C7B0] font-serif cursor-pointer hover:shadow-[0_40px_95px_-12px_rgba(2,132,199,0.3),0_20px_40px_-5px_rgba(0,0,0,0.18)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden"
             style={{
               backgroundImage: `radial-gradient(rgba(0,0,0,0.035) 1px, transparent 1px)`,
               backgroundSize: '10px 10px',
@@ -254,9 +254,9 @@ export const NewsletterShowcase: React.FC = () => {
             {/* REALISTIC LEFT SPINAL FOLD SHADOW */}
             <div className="absolute top-0 bottom-0 left-0 w-5 bg-gradient-to-r from-black/12 via-black/[0.04] to-transparent pointer-events-none z-20" />
 
-            {/* AUTHENTIC CIS LOGO EMBLEM STAMP IN THE CORNER (Replaces Dotted Circle) */}
-            <div className="absolute top-16 sm:top-20 right-6 sm:right-10 pointer-events-none z-20 transform rotate-[-8deg] opacity-85 group-hover:opacity-100 transition-opacity">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center p-1.5 filter drop-shadow-[0_4px_12px_rgba(2,132,199,0.35)]">
+            {/* AUTHENTIC CIS LOGO EMBLEM STAMP IN THE CORNER */}
+            <div className="absolute top-10 sm:top-20 right-3 sm:right-10 pointer-events-none z-20 transform rotate-[-8deg] opacity-75 group-hover:opacity-100 transition-opacity">
+              <div className="w-14 h-14 sm:w-24 sm:h-24 flex items-center justify-center p-1 filter drop-shadow-[0_4px_12px_rgba(2,132,199,0.35)]">
                 <img
                   src="/logo-mark.png"
                   alt="IEEE CIS Logo Emblem Seal"
@@ -268,11 +268,11 @@ export const NewsletterShowcase: React.FC = () => {
             {/* -------------------------------------------------------- */}
             {/* TOP HEADER: EAR BOXES & FOLIO LINE                       */}
             {/* -------------------------------------------------------- */}
-            <div className="border-b border-black/40 pb-2 mb-2 flex items-center justify-between font-mono text-[9px] text-[#444444] uppercase tracking-wider">
+            <div className="border-b border-black/40 pb-1.5 mb-1.5 flex items-center justify-between font-mono text-[8px] sm:text-[9px] text-[#444444] uppercase tracking-wider">
               {/* Left Ear Box */}
               <div className="text-left space-y-0.5">
                 <span className="font-bold text-black block">MUJ CAMPUS EDITION</span>
-                <span className="text-[8px] text-slate-600 block">WEATHER: {activeEdition.weather} • {activeEdition.temperature}</span>
+                <span className="text-[7px] sm:text-[8px] text-slate-600 block">WEATHER: {activeEdition.weather}</span>
               </div>
 
               {/* Center Motto */}
@@ -283,40 +283,40 @@ export const NewsletterShowcase: React.FC = () => {
               {/* Right Ear Box */}
               <div className="text-right space-y-0.5">
                 <span className="font-bold text-[#0284C7] block">VOL. {activeEdition.volumeNo} • NO. {activeEdition.issueNo}</span>
-                <span className="text-[8px] text-slate-600 block">PRICE: GRATIS / OPEN ACCESS</span>
+                <span className="text-[7px] sm:text-[8px] text-slate-600 block">PRICE: GRATIS</span>
               </div>
             </div>
 
             {/* -------------------------------------------------------- */}
             {/* GRAND OXFORD RULES & BROADSHEET MASTHEAD                 */}
             {/* -------------------------------------------------------- */}
-            <div className="border-t-[3px] border-b border-black py-2 my-1 text-center">
-              <h2 className="font-serif font-black text-3xl sm:text-5xl md:text-6xl tracking-[0.12em] sm:tracking-[0.16em] text-[#0A0A0A] uppercase leading-none select-none">
+            <div className="border-t-[2px] sm:border-t-[3px] border-b border-black py-1.5 sm:py-2 my-1 text-center">
+              <h2 className="font-serif font-black text-2xl sm:text-5xl md:text-6xl tracking-[0.08em] sm:tracking-[0.16em] text-[#0A0A0A] uppercase leading-none select-none">
                 THE CIS SPECTATOR
               </h2>
-              <div className="font-serif italic text-xs sm:text-sm text-[#444444] tracking-widest mt-2 flex items-center justify-center gap-3">
-                <span className="h-px w-8 bg-black/40 inline-block" />
-                <span>The Journal of the IEEE Computational Intelligence Society • Manipal University Jaipur</span>
-                <span className="h-px w-8 bg-black/40 inline-block" />
+              <div className="font-serif italic text-[10px] sm:text-sm text-[#444444] tracking-wider sm:tracking-widest mt-1 sm:mt-2 flex items-center justify-center gap-2 sm:gap-3">
+                <span className="h-px w-4 sm:w-8 bg-black/40 inline-block" />
+                <span className="truncate">Journal of IEEE CIS • MUJ Chapter</span>
+                <span className="h-px w-4 sm:w-8 bg-black/40 inline-block" />
               </div>
             </div>
 
             {/* DATELINE BAR (Between double hairline rules) */}
-            <div className="border-t border-b-[2px] border-black my-1 py-1 flex flex-wrap items-center justify-between font-mono text-[10px] font-bold text-[#222222] uppercase tracking-wider px-1">
+            <div className="border-t border-b sm:border-b-[2px] border-black my-1 py-0.5 sm:py-1 flex flex-wrap items-center justify-between font-mono text-[8px] sm:text-[10px] font-bold text-[#222222] uppercase tracking-wider px-0.5">
               <span>JAIPUR, RAJASTHAN</span>
               <span>{activeEdition.dayDate}</span>
-              <span className="text-[#0284C7] font-black">24 PAGES IN FOUR SECTIONS</span>
+              <span className="text-[#0284C7] font-black hidden sm:inline">24 PAGES IN FOUR SECTIONS</span>
               <span>ISSN 2456-981X</span>
             </div>
 
             {/* -------------------------------------------------------- */}
-            {/* MASSIVE 8-COLUMN BANNER HEADLINE                         */}
+            {/* MASSIVE BANNER HEADLINE                                  */}
             {/* -------------------------------------------------------- */}
-            <div className="pt-3 pb-2 text-center space-y-2 border-b border-black/30">
-              <h3 className="font-serif font-black text-2xl sm:text-3xl md:text-4xl text-[#0A0A0A] tracking-tight uppercase leading-[1.08] select-none">
+            <div className="pt-2 sm:pt-3 pb-1.5 sm:pb-2 text-center space-y-1 sm:space-y-2 border-b border-black/30">
+              <h3 className="font-serif font-black text-lg sm:text-3xl md:text-4xl text-[#0A0A0A] tracking-tight uppercase leading-[1.1] select-none">
                 {activeEdition.headline}
               </h3>
-              <p className="font-serif italic text-xs sm:text-sm text-slate-700 max-w-2xl mx-auto leading-snug">
+              <p className="font-serif italic text-[11px] sm:text-sm text-slate-700 max-w-2xl mx-auto leading-snug">
                 {activeEdition.deck}
               </p>
             </div>
@@ -324,10 +324,57 @@ export const NewsletterShowcase: React.FC = () => {
             {/* -------------------------------------------------------- */}
             {/* 3-COLUMN NEWSPAPER FRONT-PAGE BODY                       */}
             {/* -------------------------------------------------------- */}
-            <div className="pt-4 grid grid-cols-1 md:grid-cols-12 gap-5 text-[#111111]">
+            
+            {/* MOBILE COMPACT VIEW (< md): Clean, fast, single-screen-friendly */}
+            <div className="pt-3 block md:hidden space-y-3 text-[#111111]">
+              {/* Main Photo */}
+              <div className="space-y-1">
+                <div className="relative aspect-[16/10] w-full bg-slate-200 border border-black shadow-2xs overflow-hidden rounded-[1px]">
+                  <img
+                    src={activeEdition.heroImage}
+                    alt={activeEdition.headline}
+                    className="w-full h-full object-cover filter contrast-[1.05]"
+                  />
+                </div>
+                <div className="flex items-center justify-between text-[9px] font-serif text-slate-600">
+                  <span className="italic truncate max-w-[200px]">{activeEdition.imageCaption}</span>
+                  <span className="font-mono text-[8px] text-slate-500 shrink-0 uppercase font-bold">
+                    {activeEdition.photoCredit}
+                  </span>
+                </div>
+              </div>
+
+              {/* Byline */}
+              <div className="border-t border-b border-black/20 py-1 flex items-center justify-between font-mono text-[9px] text-[#333333]">
+                <span className="font-bold text-black uppercase">{activeEdition.byline}</span>
+                <span className="text-[#0284C7] uppercase font-bold text-[8px]">{activeEdition.date}</span>
+              </div>
+
+              {/* Lead Story Paragraph */}
+              <div className="font-serif text-xs text-[#111111] leading-relaxed text-justify">
+                <p>
+                  <span className="float-left text-4xl font-serif font-black leading-[0.8] pr-1.5 pt-0.5 text-black select-none">
+                    {activeEdition.leadArticleP1.charAt(0)}
+                  </span>
+                  {activeEdition.leadArticleP1.slice(1, 240)}...
+                </p>
+              </div>
+
+              {/* Mobile Unfold Tap Bar */}
+              <div className="p-2.5 bg-white/80 border border-black/30 rounded-xs flex items-center justify-between group-hover:border-[#0284C7] transition-colors">
+                <div className="flex items-center gap-1.5 text-[#0284C7] font-mono text-[10px] font-bold uppercase">
+                  <ZoomIn className="w-3.5 h-3.5" />
+                  <span>TAP TO READ FULL ISSUE</span>
+                </div>
+                <span className="font-mono text-[9px] text-slate-500 font-bold">24 PAGES →</span>
+              </div>
+            </div>
+
+            {/* DESKTOP FULL BROADSHEET VIEW (>= md): Full 3-Column Rich Spread */}
+            <div className="pt-4 hidden md:grid md:grid-cols-12 gap-5 text-[#111111]">
               
               {/* Left Column: Sidebar Index & Secondary Story */}
-              <div className="md:col-span-3 border-b md:border-b-0 md:border-r border-black/25 pb-4 md:pb-0 pr-3 space-y-4">
+              <div className="md:col-span-3 border-r border-black/25 pr-3 space-y-4">
                 
                 {/* Index Box */}
                 <div className="border-2 border-black p-3 bg-white/50 space-y-2">
@@ -362,9 +409,9 @@ export const NewsletterShowcase: React.FC = () => {
               </div>
 
               {/* Middle Column: Center Photo & Lead Story Continuation */}
-              <div className="md:col-span-6 border-b md:border-b-0 md:border-r border-black/25 pb-4 md:pb-0 pr-4 space-y-3">
+              <div className="md:col-span-6 border-r border-black/25 pr-4 space-y-3">
                 
-                {/* Main Newsprint Photograph with Solid Black Border & Halftone Feel */}
+                {/* Main Newsprint Photograph */}
                 <div className="space-y-1.5">
                   <div className="relative aspect-[16/10] w-full bg-slate-200 border-2 border-black shadow-xs overflow-hidden">
                     <img
