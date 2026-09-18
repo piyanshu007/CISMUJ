@@ -68,9 +68,6 @@ export const CisMujChapter: React.FC = () => {
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0284C7]" />
 
           <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-[#0284C7] font-mono text-[10px] font-bold tracking-widest uppercase">
-              CHAPTER CHARTER // SECTION 6248
-            </div>
             <h3 className="text-2xl sm:text-3xl font-display font-extrabold text-[#0F172A] uppercase leading-snug">
               BRIDGING ACADEMIC RIGOR &amp; RAPID PROTOTYPING
             </h3>
