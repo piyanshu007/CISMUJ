@@ -43,22 +43,22 @@ const brandLogos: PureLogoItem[] = [
 
 export const TechMarquee: React.FC = () => {
   return (
-    <section className="w-full py-5 bg-slate-50/70 border-y border-slate-200 overflow-hidden relative select-none">
+    <section className="w-full py-4 sm:py-6 bg-white border-y border-slate-100 overflow-hidden relative select-none">
       {/* Subtle edge fades for infinite depth */}
       <div className="absolute left-0 inset-y-0 w-16 sm:w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 inset-y-0 w-16 sm:w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
-      {/* Single Continuous Flowing Row */}
-      <div className="flex w-max animate-marquee space-x-4 hover:[animation-play-state:paused]">
+      {/* Single Continuous Flowing Row with Pure Logos (No Background Tabs) */}
+      <div className="flex w-max items-center animate-marquee space-x-8 sm:space-x-12 hover:[animation-play-state:paused]">
         {[...brandLogos, ...brandLogos, ...brandLogos, ...brandLogos].map((item, idx) => (
           <div
             key={`logo-${idx}`}
-            className="h-16 px-6 sm:px-8 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] hover:shadow-[0_4px_16px_rgba(2,132,199,0.15)] transition-all duration-300 flex items-center justify-center group cursor-pointer hover:-translate-y-0.5 shrink-0"
+            className="flex items-center justify-center px-4 sm:px-6 transition-transform duration-300 hover:scale-110 shrink-0 cursor-pointer"
           >
             <img
               src={item.imageSrc}
               alt={item.alt}
-              className={`${item.className} w-auto object-contain transition-transform duration-300 group-hover:scale-105`}
+              className={`${item.className} w-auto object-contain filter contrast-[1.05]`}
             />
           </div>
         ))}
