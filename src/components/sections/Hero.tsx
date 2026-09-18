@@ -89,28 +89,14 @@ export const Hero: React.FC = () => {
 
       {/* Bottom Hero Status Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20">
-        <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs text-slate-600">
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 font-bold">
-            <span className="text-[#0284C7] flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#0284C7]" /> 01 / AI &amp; MACHINE LEARNING
-            </span>
-            <span className="text-[#0F172A] flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#0F172A]" /> 02 / ROBOTICS &amp; EMBEDDED
-            </span>
-            <span className="text-slate-600 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-slate-400" /> 03 / HACKATHONS &amp; PROJECTS
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <a
-              href="#events"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200 text-slate-700 hover:text-[#0284C7] font-bold transition-colors cursor-pointer shadow-xs"
-            >
-              <span>SCROLL TO DISCOVER</span>
-              <ArrowDown className="w-3.5 h-3.5 text-[#0284C7] animate-bounce" />
-            </a>
-          </div>
+        <div className="pt-4 border-t border-slate-200 flex items-center justify-center sm:justify-end font-mono text-xs text-slate-600">
+          <a
+            href="#events"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200 text-slate-700 hover:text-[#0284C7] font-bold transition-colors cursor-pointer shadow-xs"
+          >
+            <span>SCROLL TO DISCOVER</span>
+            <ArrowDown className="w-3.5 h-3.5 text-[#0284C7] animate-bounce" />
+          </a>
         </div>
       </div>
     </section>
