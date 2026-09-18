@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CIS_TEAM_2026, TeamMember } from '@/data/team';
 import { ArrowRight, X, Linkedin, Instagram } from 'lucide-react';
 
-const CATEGORIES = ['ALL', 'CORE TEAM', 'ADVISORY', 'EXECUTIVE & MANAGEMENT'];
+const CATEGORIES = ['ALL', 'CORE TEAM', 'ADVISORY', 'EXECUTIVE'];
 
 export const ExecutiveTeamGrid: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
@@ -97,7 +97,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
     if (activeCategory === 'ALL') return true;
     if (activeCategory === 'CORE TEAM') return m.category === 'CORE TEAM';
     if (activeCategory === 'ADVISORY') return m.category === 'ADVISORY' || m.category === 'FACULTY ADVISOR';
-    if (activeCategory === 'EXECUTIVE & MANAGEMENT') return m.category === 'HEADS' || m.category === 'COORDINATORS';
+    if (activeCategory === 'EXECUTIVE') return m.category === 'HEADS' || m.category === 'COORDINATORS';
     return true;
   }).sort((a, b) => {
     const getMemberRank = (m: TeamMember): number => {
@@ -466,7 +466,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
                     {/* Category as JUST TEXT (no background round box) */}
                     <span className="font-mono text-[11px] font-bold text-[#0284C7] uppercase tracking-wider block">
                       {member.category === 'HEADS' || member.category === 'COORDINATORS'
-                        ? 'EXECUTIVE & MANAGEMENT'
+                        ? 'EXECUTIVE'
                         : member.category === 'FACULTY ADVISOR'
                         ? 'ADVISORY'
                         : member.category}
@@ -555,7 +555,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
                 <div className="space-y-1">
                   <span className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-wider block">
                     {selectedMember.category === 'HEADS' || selectedMember.category === 'COORDINATORS'
-                      ? 'EXECUTIVE & MANAGEMENT'
+                      ? 'EXECUTIVE'
                       : selectedMember.category === 'FACULTY ADVISOR'
                       ? 'ADVISORY'
                       : selectedMember.category}
