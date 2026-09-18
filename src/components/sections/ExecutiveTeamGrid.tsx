@@ -99,10 +99,10 @@ export const ExecutiveTeamGrid: React.FC = () => {
   });
 
   return (
-    <section className="relative w-full min-h-screen bg-white text-[#0F172A] overflow-hidden select-none flex flex-col justify-between">
+    <section className="relative w-full bg-white text-[#0F172A] overflow-hidden select-none">
       {/* Soft ethereal ambient background glow */}
       <div
-        className="absolute top-0 right-0 w-[950px] h-[750px] rounded-full pointer-events-none opacity-40"
+        className="absolute top-0 right-0 w-[750px] h-[600px] rounded-full pointer-events-none opacity-40"
         style={{
           background:
             'radial-gradient(circle at 70% 30%, rgba(224, 242, 254, 0.7) 0%, rgba(240, 249, 255, 0.25) 50%, transparent 75%)',
@@ -112,7 +112,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO SECTION (5 Core Members in Vertical 3D Panels)  */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-10 sm:pb-14 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-8 sm:pb-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center min-h-[460px] lg:min-h-[520px]">
           
           {/* Left Column: Eyebrow, Heading, Subtitle, CTA */}
@@ -322,7 +322,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 2: TEAM CARDS GRID (1:1 with Reference Image 2)         */}
       {/* ============================================================ */}
-      <div id="team-roster" className="w-full border-t border-slate-100/90 bg-white py-12 sm:py-16 relative z-10">
+      <div id="team-roster" className="w-full border-t border-slate-100/90 bg-white py-8 sm:py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
           
           {/* Category Filter Tabs (1:1 with Image 2: ALL, CORE TEAM, FACULTY ADVISOR, EXECUTIVE, MANAGEMENT) */}

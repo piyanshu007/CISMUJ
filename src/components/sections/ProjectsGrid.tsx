@@ -63,11 +63,11 @@ export const ProjectsGrid: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full min-h-screen bg-white text-[#0F172A] overflow-hidden select-none flex flex-col justify-between">
+    <section className="relative w-full bg-white text-[#0F172A] overflow-hidden select-none">
       
       {/* Soft ethereal ambient background glow */}
       <div
-        className="absolute top-0 right-0 w-[950px] h-[750px] rounded-full pointer-events-none opacity-40"
+        className="absolute top-0 right-0 w-[750px] h-[600px] rounded-full pointer-events-none opacity-40"
         style={{
           background:
             'radial-gradient(circle at 70% 30%, rgba(224, 242, 254, 0.7) 0%, rgba(240, 249, 255, 0.25) 50%, transparent 75%)',
@@ -77,7 +77,7 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO SECTION (1:1 Match with User Reference)        */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-10 sm:pb-14 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-8 sm:pb-12 relative z-10">
         
         {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres (Passing OVER image) */}
         <svg
@@ -364,7 +364,7 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 2: PROJECT CARDS ROW (1:1 Match with User Reference)    */}
       {/* ============================================================ */}
-      <div className="w-full border-t border-slate-100/90 bg-white py-12 sm:py-16 relative z-10">
+      <div className="w-full border-t border-slate-100/90 bg-white py-8 sm:py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">

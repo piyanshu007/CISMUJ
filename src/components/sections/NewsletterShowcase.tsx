@@ -183,11 +183,11 @@ export const NewsletterShowcase: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full min-h-screen bg-white text-[#1A1A1A] py-24 sm:py-28 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
+    <section className="relative w-full bg-white text-[#1A1A1A] pt-28 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       
       {/* Soft Ethereal Ambient Glow on Pure White Canvas */}
       <div
-        className="absolute top-0 right-0 w-[950px] h-[750px] rounded-full pointer-events-none opacity-40"
+        className="absolute top-0 right-0 w-[750px] h-[600px] rounded-full pointer-events-none opacity-40"
         style={{
           background:
             'radial-gradient(circle at 70% 30%, rgba(224, 242, 254, 0.7) 0%, rgba(240, 249, 255, 0.25) 50%, transparent 75%)',

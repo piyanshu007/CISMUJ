@@ -3,70 +3,27 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Calendar, MapPin, Clock, X, ExternalLink } from 'lucide-react';
-
-interface EventItem {
-  id: string;
-  category: string;
-  title: string;
-  description: string;
-  location: string;
-  time: string;
-  date: string;
-  image: string;
-  fullDetails?: string;
-  registrationUrl?: string;
-}
+import { ArrowRight, Calendar, MapPin, Clock, X, ExternalLink, Users, Sparkles, Filter } from 'lucide-react';
+import { EVENTS, EventItem } from '@/data/events';
 
 export const EventsFanDeck: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
 
-  // Real events with our authentic club pictures
-  const eventsList: EventItem[] = [
-    {
-      id: 'event-1',
-      category: 'WORKSHOP',
-      title: 'Introduction to Machine Learning',
-      description: 'Get hands-on with the fundamentals of machine learning and build your first neural classification model.',
-      location: 'Seminar Hall 2',
-      time: '10:00 AM',
-      date: 'OCTOBER 15, 2026',
-      image: '/events/webforge.jpg',
-      fullDetails: 'Comprehensive hands-on workshop guiding undergraduates through Python, PyTorch tensors, gradient descent, and training your first neural vision model on real datasets.',
-      registrationUrl: 'https://unstop.com',
-    },
-    {
-      id: 'event-2',
-      category: 'COMPETITION',
-      title: 'Project Showcase & Hack',
-      description: 'Explore innovative projects, meet fellow student builders, and see applied AI concepts come to life in competitive arena.',
-      location: 'Main Auditorium',
-      time: '2:00 PM',
-      date: 'NOVEMBER 2-3, 2026',
-      image: '/events/robotics.jpg',
-      fullDetails: 'Annual 24-hour hackathon and prototype exhibition for embedded robotics, intelligent edge systems, and computational algorithms evaluated by faculty and industry jury.',
-      registrationUrl: 'https://unstop.com',
-    },
-    {
-      id: 'event-3',
-      category: 'TECH TALK',
-      title: 'Tech Talk: The Future of AI',
-      description: 'Distinguished speakers share key insights on how computational intelligence and transformers are shaping the next generation.',
-      location: 'Seminar Hall 1',
-      time: '11:00 AM',
-      date: 'NOVEMBER 18, 2026',
-      image: '/events/oneiros.jpg',
-      fullDetails: 'Special keynote colloquium hosted with IEEE CIS distinguished researchers discussing large multimodal architectures, neuromorphic computing, and ethical AI safeguards.',
-      registrationUrl: 'https://unstop.com',
-    },
-  ];
+  const categories = ['ALL', 'UPCOMING', 'HACKATHON', 'WORKSHOP', 'FLAGSHIP', 'COMPETITION'];
+
+  const filteredEvents = EVENTS.filter((e) => {
+    if (selectedCategory === 'ALL') return true;
+    if (selectedCategory === 'UPCOMING') return e.status === 'UPCOMING';
+    return e.category === selectedCategory;
+  });
 
   return (
-    <section className="relative w-full min-h-screen bg-white text-[#0F172A] overflow-hidden select-none flex flex-col justify-between">
+    <section className="relative w-full bg-white text-[#0F172A] overflow-hidden select-none">
       
       {/* Soft ethereal ambient background glow */}
       <div
-        className="absolute top-0 right-0 w-[950px] h-[750px] rounded-full pointer-events-none opacity-40"
+        className="absolute top-0 right-0 w-[700px] h-[550px] rounded-full pointer-events-none opacity-40"
         style={{
           background:
             'radial-gradient(circle at 70% 30%, rgba(224, 242, 254, 0.7) 0%, rgba(240, 249, 255, 0.25) 50%, transparent 75%)',
@@ -74,13 +31,13 @@ export const EventsFanDeck: React.FC = () => {
       />
 
       {/* ============================================================ */}
-      {/* PART 1: HERO SECTION (1:1 with User's Reference)             */}
+      {/* PART 1: HERO SECTION (Balanced & Well-Proportioned)          */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-10 sm:pb-14 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center min-h-[460px] lg:min-h-[500px]">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-8 sm:pb-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Eyebrow, Heading, Subtitle, CTA */}
-          <div className="lg:col-span-5 space-y-6 z-10">
+          <div className="lg:col-span-6 space-y-5 z-10">
             {/* Eyebrow: —— OUR EVENTS —— */}
             <motion.div
               initial={{ opacity: 0, x: -16 }}
@@ -101,7 +58,7 @@ export const EventsFanDeck: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.75rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.15]">
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.12]">
                 Learn. Build.
                 <br />
                 Grow <span className="text-[#0284C7] font-normal">Together.</span>
@@ -115,7 +72,7 @@ export const EventsFanDeck: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="font-sans text-slate-500 text-sm sm:text-[15px] max-w-md leading-relaxed"
             >
-              From workshops to competitions, our events bring together curious minds and real-world opportunities.
+              From workshops to competitions, our events bring together curious minds and real-world opportunities across AI, Robotics, and Computational Intelligence.
             </motion.p>
 
             {/* Circular CTA Button with Trailing Line: ( → ) ———— */}
@@ -123,7 +80,7 @@ export const EventsFanDeck: React.FC = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="pt-2 flex items-center gap-4"
+              className="pt-1 flex items-center gap-4"
             >
               <a
                 href="#events-grid"
@@ -133,27 +90,28 @@ export const EventsFanDeck: React.FC = () => {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </a>
               <div className="w-16 h-px bg-[#0284C7]/40" />
+              <span className="font-mono text-xs text-slate-400">Explore {EVENTS.length} Events</span>
             </motion.div>
           </div>
 
-          {/* Right Column: 3D Floating Planetary Sphere & Animated Orbiting Spheres (Enlarged & Centered) */}
-          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[460px] sm:min-h-[520px] lg:min-h-[600px] overflow-visible">
+          {/* Right Column: 3D Floating Planetary Sphere & Animated Orbiting Spheres */}
+          <div className="lg:col-span-6 relative flex items-center justify-center min-h-[300px] sm:min-h-[360px] lg:min-h-[400px] overflow-visible">
             <motion.div
               animate={{
-                y: [-7, 7, -7],
+                y: [-6, 6, -6],
               }}
               transition={{
                 duration: 6,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative w-full max-w-[850px] lg:scale-120 aspect-[16/9] flex items-center justify-center select-none mx-auto"
+              className="relative w-full max-w-[480px] lg:max-w-[540px] aspect-[16/11] flex items-center justify-center select-none mx-auto"
             >
-              {/* Planetary Artwork (Transparent PNG with background removed and static balls cleared) */}
+              {/* Planetary Artwork */}
               <img
                 src="/events-hero-sphere.png"
                 alt="3D Floating Planetary Sphere with Orbital Rings"
-                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_40px_rgba(2,132,199,0.18)]"
+                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_12px_32px_rgba(2,132,199,0.18)]"
               />
 
               {/* Animated Orbiting Spheres SVG Overlay */}
@@ -205,7 +163,6 @@ export const EventsFanDeck: React.FC = () => {
                 {/* Rotated Group aligning orbits to the ring tilt */}
                 <g transform="rotate(-26 706 400)">
                   {/* --- OUTER RING SPHERES --- */}
-                  {/* Outer Ball 1: Major Sphere with halo */}
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="18s" repeatCount="indefinite">
                       <mpath href="#outerOrbitPath" />
@@ -214,7 +171,6 @@ export const EventsFanDeck: React.FC = () => {
                     <circle r="25" stroke="#38BDF8" strokeWidth="1.5" strokeOpacity="0.45" />
                   </g>
 
-                  {/* Outer Ball 2: Staggered Medium Cyan Sphere */}
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="18s" begin="-9s" repeatCount="indefinite">
                       <mpath href="#outerOrbitPath" />
@@ -223,7 +179,6 @@ export const EventsFanDeck: React.FC = () => {
                   </g>
 
                   {/* --- MID-OUTER RING SPHERES --- */}
-                  {/* Mid-Outer Ball 1 */}
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="14s" repeatCount="indefinite">
                       <mpath href="#midOuterOrbitPath" />
@@ -232,7 +187,6 @@ export const EventsFanDeck: React.FC = () => {
                     <circle r="21" stroke="#38BDF8" strokeWidth="1.2" strokeOpacity="0.35" />
                   </g>
 
-                  {/* Mid-Outer Ball 2: Staggered */}
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="14s" begin="-7s" repeatCount="indefinite">
                       <mpath href="#midOuterOrbitPath" />
@@ -241,7 +195,6 @@ export const EventsFanDeck: React.FC = () => {
                   </g>
 
                   {/* --- MID-INNER RING SPHERES --- */}
-                  {/* Mid-Inner Ball 1 */}
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="10.5s" repeatCount="indefinite">
                       <mpath href="#midInnerOrbitPath" />
@@ -249,7 +202,6 @@ export const EventsFanDeck: React.FC = () => {
                     <circle r="14" fill="url(#orbitBallGrad)" />
                   </g>
 
-                  {/* Mid-Inner Ball 2: Staggered */}
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="10.5s" begin="-5.25s" repeatCount="indefinite">
                       <mpath href="#midInnerOrbitPath" />
@@ -258,7 +210,6 @@ export const EventsFanDeck: React.FC = () => {
                   </g>
 
                   {/* --- INNER RING SPHERES --- */}
-                  {/* Inner Ball 1 */}
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="7.5s" repeatCount="indefinite">
                       <mpath href="#innerOrbitPath" />
@@ -266,7 +217,6 @@ export const EventsFanDeck: React.FC = () => {
                     <circle r="12" fill="url(#orbitBallGrad)" />
                   </g>
 
-                  {/* Inner Ball 2 */}
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="7.5s" begin="-3.75s" repeatCount="indefinite">
                       <mpath href="#innerOrbitPath" />
@@ -286,56 +236,88 @@ export const EventsFanDeck: React.FC = () => {
       </div>
 
       {/* ============================================================ */}
-      {/* PART 2: 3 EVENTS CARDS + STAY UPDATED BANNER                 */}
+      {/* PART 2: CATEGORY FILTERS & EVENTS GRID                       */}
       {/* ============================================================ */}
-      <div id="events-grid" className="w-full border-t border-slate-100/90 bg-white py-12 sm:py-16 relative z-10">
+      <div id="events-grid" className="w-full border-t border-slate-100/90 bg-white py-8 sm:py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 space-y-8">
           
-          {/* 3 Event Cards Row (1:1 with Reference) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-            {eventsList.map((evt, idx) => (
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-5">
+            <div className="flex flex-wrap items-center gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
+                    selectedCategory === cat
+                      ? 'bg-[#0284C7] text-white shadow-xs'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200/60'
+                  }`}
+                >
+                  {cat === 'ALL' ? 'ALL EVENTS' : cat}
+                </button>
+              ))}
+            </div>
+
+            <div className="font-mono text-xs text-slate-400">
+              Showing <span className="text-[#0284C7] font-bold">{filteredEvents.length}</span> items
+            </div>
+          </div>
+
+          {/* Event Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+            {filteredEvents.map((evt, idx) => (
               <motion.div
                 key={evt.id}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
                 whileHover={{ y: -4 }}
                 onClick={() => setSelectedEvent(evt)}
                 className="p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] transition-all duration-300 flex flex-col justify-between group cursor-pointer"
               >
                 <div>
-                  {/* Real Event Photo Container with Rounded Corners */}
+                  {/* Event Photo Container */}
                   <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 border border-slate-100">
                     <img
                       src={evt.image}
                       alt={evt.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-[1.02]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute top-3 left-3 flex items-center gap-2">
+                      <span className="px-2.5 py-1 rounded bg-slate-900/90 backdrop-blur-xs text-white font-mono text-[10px] font-bold uppercase tracking-wider">
+                        {evt.category}
+                      </span>
+                      {evt.status === 'UPCOMING' && (
+                        <span className="px-2.5 py-1 rounded bg-[#0284C7] text-white font-mono text-[10px] font-bold uppercase tracking-wider animate-pulse">
+                          UPCOMING
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg sm:text-xl font-sans font-medium text-[#1E293B] group-hover:text-[#0284C7] transition-colors leading-snug mb-2">
+                  <h3 className="text-lg sm:text-xl font-sans font-medium text-[#1E293B] group-hover:text-[#0284C7] transition-colors leading-snug mb-2 line-clamp-2">
                     {evt.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-xs sm:text-[13px] font-sans text-slate-500 leading-relaxed line-clamp-2 mb-6">
+                  <p className="text-xs sm:text-[13px] font-sans text-slate-500 leading-relaxed line-clamp-2 mb-4">
                     {evt.description}
                   </p>
                 </div>
 
                 {/* Bottom Meta & Arrow Action Button */}
                 <div className="pt-4 border-t border-slate-100/90 flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-slate-500 text-xs font-sans">
+                  <div className="flex items-center gap-3 text-slate-500 text-xs font-sans">
                     <div className="flex items-center gap-1">
                       <Calendar className="w-3.5 h-3.5 text-[#0284C7]" />
-                      <span className="text-[11px]">{evt.date.split(',')[0]}</span>
+                      <span className="text-[11px] font-mono">{evt.date}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#0284C7]" />
-                      <span className="text-[11px]">{evt.location}</span>
+                      <Users className="w-3.5 h-3.5 text-[#0284C7]" />
+                      <span className="text-[11px] font-mono">{evt.attendees}</span>
                     </div>
                   </div>
 
@@ -348,17 +330,17 @@ export const EventsFanDeck: React.FC = () => {
             ))}
           </div>
 
-          {/* Stay Updated Bottom Banner (1:1 with Reference) */}
+          {/* Stay Updated Bottom Banner */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-50 via-sky-50/30 to-white border border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4"
           >
             {/* Left Thumbnail + Text */}
             <div className="flex items-center gap-4 w-full sm:w-auto">
-              <div className="w-24 h-16 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-200">
+              <div className="w-20 sm:w-24 h-14 sm:h-16 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-200">
                 <img
                   src="/gallery/orientation.jpg"
                   alt="Students at IEEE CIS Event"
@@ -389,8 +371,8 @@ export const EventsFanDeck: React.FC = () => {
             </Link>
           </motion.div>
 
-          {/* Bottom Telemetry Footer Strip (from Reference: EVENTS —— LEARN / CONNECT / GROW • —— • ) */}
-          <div className="pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 font-mono text-xs">
+          {/* Bottom Telemetry Footer Strip */}
+          <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 font-mono text-xs">
             <div className="flex items-center gap-4">
               <span className="text-[#0284C7] font-bold">EVENTS</span>
               <div className="w-6 h-px bg-slate-200" />
@@ -431,9 +413,15 @@ export const EventsFanDeck: React.FC = () => {
               </button>
 
               <div className="space-y-2 pr-10">
-                <span className="text-xs font-mono font-bold text-[#0284C7] uppercase tracking-wider block">
-                  {selectedEvent.category}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono font-bold text-[#0284C7] uppercase tracking-wider block">
+                    {selectedEvent.category}
+                  </span>
+                  <span className="text-slate-400 font-mono text-xs">•</span>
+                  <span className="text-xs font-mono text-slate-500 uppercase">
+                    {selectedEvent.code}
+                  </span>
+                </div>
                 <h2 className="text-2xl sm:text-3xl font-sans font-bold text-[#0F172A] tracking-tight">
                   {selectedEvent.title}
                 </h2>
@@ -449,9 +437,9 @@ export const EventsFanDeck: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono">
                 <div>
-                  <span className="text-slate-400 block uppercase">DATE & TIME</span>
+                  <span className="text-slate-400 block uppercase">DATE & YEAR</span>
                   <span className="font-bold text-slate-700">
-                    {selectedEvent.date} @ {selectedEvent.time}
+                    {selectedEvent.date}, {selectedEvent.year}
                   </span>
                 </div>
                 <div>
@@ -461,13 +449,30 @@ export const EventsFanDeck: React.FC = () => {
               </div>
 
               <p className="text-sm font-sans text-slate-600 leading-relaxed">
-                {selectedEvent.fullDetails || selectedEvent.description}
+                {selectedEvent.description}
               </p>
+
+              {/* Highlights */}
+              {selectedEvent.highlights && selectedEvent.highlights.length > 0 && (
+                <div className="space-y-2">
+                  <span className="text-slate-500 text-[11px] font-mono uppercase tracking-wider block font-bold">
+                    Key Highlights
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {selectedEvent.highlights.map((h, i) => (
+                      <div key={i} className="p-3 rounded-lg bg-sky-50/70 border border-sky-100 text-slate-800 flex items-center gap-2 text-xs font-sans font-medium">
+                        <span className="text-[#0284C7]">✓</span>
+                        <span>{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                 <button
                   onClick={() => setSelectedEvent(null)}
-                  className="text-xs font-mono text-slate-500 hover:text-slate-800"
+                  className="text-xs font-mono text-slate-500 hover:text-slate-800 cursor-pointer"
                 >
                   Close Window
                 </button>
@@ -478,7 +483,7 @@ export const EventsFanDeck: React.FC = () => {
                     rel="noreferrer"
                     className="px-5 py-2.5 rounded-full bg-[#0284C7] text-white font-sans text-xs font-medium hover:bg-[#0369A1] transition-colors flex items-center gap-2 shadow-xs"
                   >
-                    <span>Register Now</span>
+                    <span>{selectedEvent.status === 'UPCOMING' ? 'Register Now' : 'View On Instagram'}</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 )}
@@ -491,3 +496,4 @@ export const EventsFanDeck: React.FC = () => {
     </section>
   );
 };
+
