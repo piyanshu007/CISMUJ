@@ -11,12 +11,12 @@ export const ExecutiveTeamGrid: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
-  // 7 Core Committee Members for Hero Glass Panels (Chairperson, Vice-Chair, Gen Sec, Treasurer, MD, RD, HRD)
+  // 7 Core Committee Members for Hero Glass Panels (Chairperson, Vice-Chair, Gen Sec, Treasurer, MD, HRD, RD)
   const heroCoreMembers = [
     {
-      name: 'Yash Raj',
-      role: 'Research Director',
-      image: '/team/cutouts/yash_raj.png',
+      name: 'Pranav Kheole',
+      role: 'HR Director',
+      image: '/team/cutouts/pranav_kheole.png',
       left: '0%',
       top: '26%',
       width: '18%',
@@ -80,9 +80,9 @@ export const ExecutiveTeamGrid: React.FC = () => {
       isCenter: false,
     },
     {
-      name: 'Pranav Kheole',
-      role: 'HR Director',
-      image: '/team/cutouts/pranav_kheole.png',
+      name: 'Yash Raj',
+      role: 'Research Director',
+      image: '/team/cutouts/yash_raj.png',
       left: '81%',
       top: '26%',
       width: '18%',
@@ -92,7 +92,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
     },
   ];
 
-  // Filter and sort members
+  // Filter and sort members according to domain grouping (Head -> Joint Head -> Senior Coordinator -> Coordinator)
   const filteredMembers = CIS_TEAM_2026.filter((m) => {
     if (activeCategory === 'ALL') return true;
     if (activeCategory === 'CORE TEAM') return m.category === 'CORE TEAM';
@@ -100,25 +100,65 @@ export const ExecutiveTeamGrid: React.FC = () => {
     if (activeCategory === 'EXECUTIVE & MANAGEMENT') return m.category === 'HEADS' || m.category === 'COORDINATORS';
     return true;
   }).sort((a, b) => {
-    // Prioritize Faculty & Ex-Leadership at top of Advisory, Chairperson and Vice-Chairperson at top of Core
-    const roleRank = (r: string) => {
-      const rl = r.toLowerCase();
-      if (rl.includes('counselor') || (rl.includes('faculty') && rl.includes('advisor'))) return 0.1;
-      if (rl.includes('co-coordinator') || (rl.includes('faculty') && !rl.includes('ex'))) return 0.3;
-      if (rl.includes('ex-chairperson')) return 0.6;
-      if (rl.includes('chairperson') && !rl.includes('vice') && !rl.includes('ex')) return 1;
-      if (rl.includes('vice-chairperson')) return 2;
-      if (rl.includes('general secretary')) return 3;
-      if (rl.includes('treasurer')) return 4;
-      if (rl.includes('managing director')) return 5;
-      if (rl.includes('director')) return 6;
-      if (rl.includes('head') && !rl.includes('joint')) return 7;
-      if (rl.includes('joint head')) return 8;
-      if (rl.includes('senior coordinator')) return 9;
-      if (rl.includes('coordinator')) return 9.5;
-      return 10;
+    const getMemberRank = (m: TeamMember): number => {
+      const r = m.role.toLowerCase();
+      const cat = m.category;
+
+      // 1. Faculty Advisors & Advisory (Top of ALL)
+      if (cat === 'ADVISORY' || cat === 'FACULTY ADVISOR') {
+        if (r.includes('counselor') || (r.includes('faculty') && r.includes('advisor'))) return 1;
+        if (r.includes('co-coordinator') || (r.includes('faculty') && !r.includes('ex'))) return 2;
+        if (r.includes('ex-chairperson') || r.includes('ex-')) return 3;
+        return 4;
+      }
+
+      // 2. Core Committee (Exact handwritten hierarchy: Chair -> Vice -> GenSec -> Treasurer -> MD -> HRD -> RD)
+      if (cat === 'CORE TEAM') {
+        if (r.includes('chairperson') && !r.includes('vice') && !r.includes('ex')) return 10;
+        if (r.includes('vice-chairperson') || r.includes('vice chairperson')) return 20;
+        if (r.includes('general secretary') || r.includes('gensec')) return 30;
+        if (r.includes('treasurer')) return 40;
+        if (r.includes('managing director')) return 50;
+        if (r.includes('human resources director') || r.includes('hr director')) return 60;
+        if (r.includes('research director')) return 70;
+        return 80;
+      }
+
+      // 3. Domain Sorting for Executive & Management (Group by Domain, then Head -> Joint Head -> Senior Coord -> Coord)
+      let domainRank = 500;
+      if (r.includes('finance')) domainRank = 100;
+      else if (r.includes('program')) domainRank = 200;
+      else if (r.includes('research') || r.includes('development') || r.includes('r&d')) domainRank = 300;
+      else if (r.includes('editorial')) domainRank = 400;
+      else if (r.includes('graphic') || r.includes('design')) domainRank = 500;
+      else if (r.includes('webmaster') || r.includes('technical')) domainRank = 600;
+      else if (r.includes('prodops') || r.includes('operation')) domainRank = 700;
+      else if (r.includes('promotion')) domainRank = 800;
+      else if (r.includes('social media') || r.includes('social')) domainRank = 900;
+      else if (r.includes('sponsorship') || r.includes('curation')) domainRank = 1000;
+
+      // Hierarchy within the domain:
+      // Level 1: Head of [Domain]
+      // Level 2: Joint Head of [Domain]
+      // Level 3: Senior Coordinator of [Domain]
+      // Level 4: Technical Webmaster / Coordinator of [Domain]
+      let levelRank = 4;
+      if (r.startsWith('head of') || (r.includes('head') && !r.includes('joint'))) {
+        levelRank = 1;
+      } else if (r.includes('joint head')) {
+        levelRank = 2;
+      } else if (r.includes('senior coordinator')) {
+        levelRank = 3;
+      } else if (r.includes('webmaster')) {
+        levelRank = 3.5;
+      } else if (r.includes('coordinator')) {
+        levelRank = 4;
+      }
+
+      return domainRank + levelRank;
     };
-    return roleRank(a.role) - roleRank(b.role);
+
+    return getMemberRank(a) - getMemberRank(b);
   });
 
   return (
