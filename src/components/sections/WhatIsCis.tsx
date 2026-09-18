@@ -104,13 +104,13 @@ export const WhatIsCis: React.FC = () => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative w-full max-w-[740px] lg:max-w-[820px] aspect-[16/10] flex items-center justify-center select-none"
+              className="relative w-full max-w-[740px] lg:max-w-[820px] aspect-[16/9] flex items-center justify-center select-none"
             >
-              {/* Base Ethereal 3D Swirling Silk Ribbon Artwork (Clean transparent PNG, enlarged with zero grey background box) */}
+              {/* Base Ethereal 3D Swirling Silk Ribbon Artwork */}
               <img
                 src="/orbital-ribbon-transparent.png"
                 alt="3D Translucent Orbital Silk Ribbon"
-                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_36px_rgba(2,132,199,0.18)]"
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none z-10 filter drop-shadow-[0_16px_36px_rgba(2,132,199,0.18)]"
               />
 
               {/* Dynamic CSS/SVG Orbital Track Overlays for Interactive Depth */}
@@ -175,25 +175,28 @@ export const WhatIsCis: React.FC = () => {
                 <span className="absolute bottom-[40%] left-[18%] w-2 h-2 rounded-full bg-[#0284C7]" />
               </div>
 
-              {/* Center Core: IEEE CIS Fluid Logo Emblem */}
-              <motion.div
-                initial={{ scale: 0.85, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.15 }}
-                className="relative z-30 flex items-center justify-center"
-              >
-                {/* Soft blue back aura */}
-                <div className="absolute w-36 h-36 rounded-full bg-[#0284C7]/20 blur-xl pointer-events-none" />
+              {/* Center Core: IEEE CIS Fluid Logo Emblem - Placed DIRECTLY in the center of the ribbon */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+                <motion.div
+                  initial={{ scale: 0.85, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.15 }}
+                  className="relative flex items-center justify-center"
+                >
+                  {/* Soft blue back aura */}
+                  <div className="absolute w-32 h-32 rounded-full bg-[#0284C7]/20 blur-xl pointer-events-none" />
 
-                {/* Logo Emblem centered perfectly in ribbon loop */}
-                <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
-                  <img
-                    src="/logo-mark.png"
-                    alt="IEEE CIS Emblem"
-                    className="w-full h-full object-contain filter drop-shadow-[0_6px_20px_rgba(2,132,199,0.4)]"
-                  />
-                </div>
-              </motion.div>
+                  {/* Logo Emblem centered perfectly inside ribbon loop */}
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center">
+                    <img
+                      src="/logo-mark.png"
+                      alt="IEEE CIS Emblem"
+                      className="w-full h-full object-contain filter drop-shadow-[0_6px_20px_rgba(2,132,199,0.4)]"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+
             </motion.div>
 
           </div>
