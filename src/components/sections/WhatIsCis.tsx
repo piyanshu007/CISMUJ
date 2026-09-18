@@ -7,10 +7,10 @@ import { ArrowRight } from 'lucide-react';
 
 export const WhatIsCis: React.FC = () => {
   return (
-    <section className="relative w-full min-h-screen bg-white text-[#0F172A] overflow-hidden select-none flex flex-col justify-between">
+    <section className="relative w-full bg-white text-[#0F172A] overflow-hidden select-none">
       {/* Soft ethereal ambient background glow */}
       <div
-        className="absolute top-0 right-0 w-[900px] h-[800px] rounded-full pointer-events-none opacity-50"
+        className="absolute top-0 right-0 w-[850px] h-[700px] rounded-full pointer-events-none opacity-45"
         style={{
           background:
             'radial-gradient(circle at 65% 35%, rgba(224, 242, 254, 0.7) 0%, rgba(240, 249, 255, 0.3) 45%, transparent 75%)',
@@ -20,11 +20,11 @@ export const WhatIsCis: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO VIEWPORT (1:1 Match with User's Reference)      */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-12 sm:pb-16 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center min-h-[500px] lg:min-h-[540px]">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-24 sm:pt-28 pb-6 sm:pb-10 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
           
           {/* Left Column: Heading, Indicators, Subtitle & Circular Arrow CTA */}
-          <div className="lg:col-span-6 space-y-6 sm:space-y-7 z-10">
+          <div className="lg:col-span-5 space-y-5 sm:space-y-6 z-10">
             
             {/* Top Micro-indicator: • ——— ▸ */}
             <motion.div
@@ -45,7 +45,7 @@ export const WhatIsCis: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-1"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.65rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.12]">
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.12]">
                 Exploring the Future of
                 <br />
                 <span className="text-[#0284C7] font-normal">
@@ -77,7 +77,7 @@ export const WhatIsCis: React.FC = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="pt-2 flex items-center gap-4"
+              className="pt-1 flex items-center gap-4"
             >
               <Link
                 href="/projects"
@@ -90,100 +90,111 @@ export const WhatIsCis: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: 3D Translucent Orbital Ribbon Artwork & Center Emblem */}
-          <div className="lg:col-span-6 relative flex items-center justify-center min-h-[420px] sm:min-h-[480px] lg:min-h-[520px]">
+          {/* Right Column: 3D Translucent Orbital Ribbon Artwork & Center Emblem (Expanded & Transparent) */}
+          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[320px] sm:min-h-[400px] lg:min-h-[460px]">
             
-            {/* Base Ethereal 3D Swirling Silk Ribbon Artwork */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-              <img
-                src="/orbital-ribbon.jpg"
-                alt="3D Translucent Orbital Silk Ribbon"
-                className="w-[110%] max-w-[620px] h-auto object-contain mix-blend-multiply opacity-80 filter contrast-105"
-              />
-            </div>
-
-            {/* Dynamic CSS/SVG Orbital Track Overlays for Interactive Depth */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              
-              {/* Inner Tilted Orbit Ring */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 36, repeat: Infinity, ease: 'linear' }}
-                className="absolute w-[320px] sm:w-[420px] h-[150px] sm:h-[190px] rounded-[100%] border border-[#0284C7]/30"
-                style={{
-                  transform: 'rotateX(64deg) rotateZ(-22deg)',
-                }}
-              >
-                {/* 3D Glossy Blue Planetary Sphere (Specular Highlight) */}
-                <div
-                  className="absolute -top-3 left-1/4 w-5 h-5 rounded-full shadow-[0_4px_14px_rgba(2,132,199,0.5)]"
-                  style={{
-                    background:
-                      'radial-gradient(circle at 35% 35%, #bae6fd 0%, #0284c7 50%, #0369a1 100%)',
-                  }}
-                />
-                <div
-                  className="absolute bottom-2 right-1/3 w-3 h-3 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
-                  style={{
-                    background:
-                      'radial-gradient(circle at 35% 35%, #e0f2fe 0%, #0284c7 60%, #075985 100%)',
-                  }}
-                />
-              </motion.div>
-
-              {/* Outer Counter-Rotating Orbit Ring */}
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 48, repeat: Infinity, ease: 'linear' }}
-                className="absolute w-[400px] sm:w-[500px] h-[180px] sm:h-[220px] rounded-[100%] border border-[#0284C7]/20 border-dashed"
-                style={{
-                  transform: 'rotateX(58deg) rotateZ(28deg)',
-                }}
-              >
-                {/* Large 3D Planetary Sphere at Bottom-Right */}
-                <div
-                  className="absolute top-1/2 -right-3 w-6 h-6 rounded-full shadow-[0_6px_18px_rgba(2,132,199,0.55)]"
-                  style={{
-                    background:
-                      'radial-gradient(circle at 35% 35%, #7dd3fc 0%, #0284c7 50%, #0c4a6e 100%)',
-                  }}
-                />
-                <div
-                  className="absolute -bottom-2 left-1/5 w-3.5 h-3.5 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
-                  style={{
-                    background:
-                      'radial-gradient(circle at 35% 35%, #e0f2fe 0%, #0284c7 60%, #0369a1 100%)',
-                  }}
-                />
-              </motion.div>
-
-              {/* Faint Floating Constellation Synapse Dots */}
-              <span className="absolute top-[22%] left-[28%] w-1.5 h-1.5 rounded-full bg-[#0284C7] shadow-[0_0_6px_#0284C7]" />
-              <span className="absolute bottom-[26%] right-[22%] w-2 h-2 rounded-full bg-[#38BDF8] shadow-[0_0_8px_#38BDF8]" />
-              <span className="absolute top-[38%] right-[16%] w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
-              <span className="absolute bottom-[40%] left-[18%] w-2 h-2 rounded-full bg-[#0284C7]" />
-            </div>
-
-            {/* Center Core: IEEE CIS Fluid Logo Emblem */}
+            {/* Dynamic Motion Container for Ribbon + Orbits + Logo */}
             <motion.div
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="relative z-20 flex items-center justify-center"
+              animate={{
+                y: [-6, 6, -6],
+                rotateZ: [-0.4, 0.4, -0.4],
+              }}
+              transition={{
+                duration: 6.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="relative w-full max-w-[740px] lg:max-w-[820px] aspect-[16/10] flex items-center justify-center select-none"
             >
-              {/* Soft blue back aura */}
-              <div className="absolute w-36 h-36 rounded-full bg-[#0284C7]/15 blur-xl pointer-events-none" />
+              {/* Base Ethereal 3D Swirling Silk Ribbon Artwork (Clean transparent PNG, enlarged with zero grey background box) */}
+              <img
+                src="/orbital-ribbon-transparent.png"
+                alt="3D Translucent Orbital Silk Ribbon"
+                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_36px_rgba(2,132,199,0.18)]"
+              />
 
-              {/* Logo Emblem without bulky card holding it */}
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
-                <img
-                  src="/logo-mark.png"
-                  alt="IEEE CIS Emblem"
-                  className="w-full h-full object-contain filter drop-shadow-[0_6px_20px_rgba(2,132,199,0.35)]"
-                />
+              {/* Dynamic CSS/SVG Orbital Track Overlays for Interactive Depth */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+                
+                {/* Inner Tilted Orbit Ring */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 32, repeat: Infinity, ease: 'linear' }}
+                  className="absolute w-[360px] sm:w-[480px] lg:w-[540px] h-[160px] sm:h-[210px] lg:h-[240px] rounded-[100%] border border-[#0284C7]/30"
+                  style={{
+                    transform: 'rotateX(64deg) rotateZ(-22deg)',
+                  }}
+                >
+                  {/* 3D Glossy Blue Planetary Sphere */}
+                  <div
+                    className="absolute -top-3 left-1/4 w-5 h-5 rounded-full shadow-[0_4px_14px_rgba(2,132,199,0.5)]"
+                    style={{
+                      background:
+                        'radial-gradient(circle at 35% 35%, #bae6fd 0%, #0284c7 50%, #0369a1 100%)',
+                    }}
+                  />
+                  <div
+                    className="absolute bottom-2 right-1/3 w-3 h-3 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
+                    style={{
+                      background:
+                        'radial-gradient(circle at 35% 35%, #e0f2fe 0%, #0284c7 60%, #075985 100%)',
+                    }}
+                  />
+                </motion.div>
+
+                {/* Outer Counter-Rotating Orbit Ring */}
+                <motion.div
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 44, repeat: Infinity, ease: 'linear' }}
+                  className="absolute w-[440px] sm:w-[580px] lg:w-[640px] h-[190px] sm:h-[250px] lg:h-[280px] rounded-[100%] border border-[#0284C7]/20 border-dashed"
+                  style={{
+                    transform: 'rotateX(58deg) rotateZ(28deg)',
+                  }}
+                >
+                  {/* Large 3D Planetary Sphere at Bottom-Right */}
+                  <div
+                    className="absolute top-1/2 -right-3 w-6 h-6 rounded-full shadow-[0_6px_18px_rgba(2,132,199,0.55)]"
+                    style={{
+                      background:
+                        'radial-gradient(circle at 35% 35%, #7dd3fc 0%, #0284c7 50%, #0c4a6e 100%)',
+                    }}
+                  />
+                  <div
+                    className="absolute -bottom-2 left-1/5 w-3.5 h-3.5 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
+                    style={{
+                      background:
+                        'radial-gradient(circle at 35% 35%, #e0f2fe 0%, #0284c7 60%, #0369a1 100%)',
+                    }}
+                  />
+                </motion.div>
+
+                {/* Floating Constellation Synapse Dots */}
+                <span className="absolute top-[22%] left-[28%] w-1.5 h-1.5 rounded-full bg-[#0284C7] shadow-[0_0_6px_#0284C7]" />
+                <span className="absolute bottom-[26%] right-[22%] w-2 h-2 rounded-full bg-[#38BDF8] shadow-[0_0_8px_#38BDF8]" />
+                <span className="absolute top-[38%] right-[16%] w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
+                <span className="absolute bottom-[40%] left-[18%] w-2 h-2 rounded-full bg-[#0284C7]" />
               </div>
-            </motion.div>
 
+              {/* Center Core: IEEE CIS Fluid Logo Emblem */}
+              <motion.div
+                initial={{ scale: 0.85, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.15 }}
+                className="relative z-30 flex items-center justify-center"
+              >
+                {/* Soft blue back aura */}
+                <div className="absolute w-36 h-36 rounded-full bg-[#0284C7]/20 blur-xl pointer-events-none" />
+
+                {/* Logo Emblem centered perfectly in ribbon loop */}
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
+                  <img
+                    src="/logo-mark.png"
+                    alt="IEEE CIS Emblem"
+                    className="w-full h-full object-contain filter drop-shadow-[0_6px_20px_rgba(2,132,199,0.4)]"
+                  />
+                </div>
+              </motion.div>
+            </motion.div>
 
           </div>
         </div>
@@ -192,7 +203,7 @@ export const WhatIsCis: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 2: OUR FOCUS SECTION (1:1 Match with User's Reference)  */}
       {/* ============================================================ */}
-      <div className="w-full border-t border-slate-100/90 bg-white py-12 sm:py-16 relative z-10">
+      <div className="w-full border-t border-slate-100/90 bg-white py-8 sm:py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             
