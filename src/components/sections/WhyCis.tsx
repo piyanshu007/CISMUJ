@@ -3,10 +3,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeader } from '../ui/SectionHeader';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const WhyCis: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [activeMobileIdx, setActiveMobileIdx] = useState<number>(0);
 
   const benefits = [
     {
@@ -41,8 +42,18 @@ export const WhyCis: React.FC = () => {
     },
   ];
 
+  const handleNext = () => {
+    setActiveMobileIdx((prev) => (prev + 1) % benefits.length);
+  };
+
+  const handlePrev = () => {
+    setActiveMobileIdx((prev) => (prev > 0 ? prev - 1 : benefits.length - 1));
+  };
+
+  const currentBenefit = benefits[activeMobileIdx];
+
   return (
-    <section id="why-cis" className="py-10 sm:py-20 lg:py-32 bg-white border-b border-slate-200 relative overflow-hidden">
+    <section id="why-cis" className="py-8 sm:py-20 lg:py-32 bg-white border-b border-slate-200 relative overflow-hidden">
       {/* Subtle background tech lines */}
       <div
         className="absolute inset-0 opacity-[0.025] pointer-events-none"
@@ -58,8 +69,90 @@ export const WhyCis: React.FC = () => {
           subtitle="Discover what being an active student member of our computational intelligence society gives you."
         />
 
-        {/* 5 Benefits - Horizontally scrollable on mobile, 5-column grid on desktop */}
-        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-5 mt-6 sm:mt-12 overflow-x-auto sm:overflow-x-visible pb-4 sm:pb-0 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x snap-mandatory sm:snap-none no-scrollbar">
+        {/* ------------------------------------------------------------ */}
+        {/* MOBILE VIEW (< sm): Compact Single-Card Slider with Arrows   */}
+        {/* ------------------------------------------------------------ */}
+        <div className="block sm:hidden mt-5 max-w-sm mx-auto">
+          <div className="relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentBenefit.num}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.25 }}
+                className="p-4 rounded-2xl bg-white border-2 border-slate-200 shadow-xs font-mono text-xs flex flex-col justify-between space-y-3.5 relative overflow-hidden"
+              >
+                {/* Large watermark number */}
+                <div className="absolute -bottom-3 -right-1 font-display font-black text-6xl text-slate-100 select-none pointer-events-none">
+                  {currentBenefit.num}
+                </div>
+
+                <div className="space-y-2.5 relative z-10">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                    <span className="text-[#0284C7] font-extrabold text-base tracking-tight font-display">
+                      {currentBenefit.num}
+                    </span>
+                    <span className="font-mono text-[9px] text-[#0284C7] font-bold uppercase tracking-wider bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100">
+                      {currentBenefit.keyword}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-display font-extrabold text-[#0F172A] tracking-tight uppercase">
+                    {currentBenefit.title}
+                  </h3>
+
+                  <p className="font-sans text-slate-600 text-xs leading-relaxed">
+                    {currentBenefit.desc}
+                  </p>
+                </div>
+
+                {/* Bottom Accent Line */}
+                <div className="h-[2px] w-full bg-[#0284C7] rounded-full" />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Compact Left/Right Arrow Navigation & Step Indicators */}
+          <div className="flex items-center justify-between mt-3 px-1">
+            <button
+              onClick={handlePrev}
+              aria-label="Previous Benefit"
+              className="p-2 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-600 hover:text-[#0284C7] bg-white shadow-2xs transition-colors cursor-pointer active:scale-95"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            {/* Step Dots Indicator */}
+            <div className="flex items-center gap-1.5">
+              {benefits.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveMobileIdx(idx)}
+                  aria-label={`Go to benefit ${idx + 1}`}
+                  className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                    activeMobileIdx === idx
+                      ? 'w-6 bg-[#0284C7]'
+                      : 'w-1.5 bg-slate-300 hover:bg-slate-400'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={handleNext}
+              aria-label="Next Benefit"
+              className="p-2 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-600 hover:text-[#0284C7] bg-white shadow-2xs transition-colors cursor-pointer active:scale-95"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------ */}
+        {/* DESKTOP VIEW (>= sm): Full 5-Column Side-by-Side Grid        */}
+        {/* ------------------------------------------------------------ */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-5 mt-8 sm:mt-12">
           {benefits.map((b, i) => {
             const isHovered = hoveredIdx === i;
             return (
@@ -72,7 +165,7 @@ export const WhyCis: React.FC = () => {
                 onHoverStart={() => setHoveredIdx(i)}
                 onHoverEnd={() => setHoveredIdx(null)}
                 whileHover={{ y: -6 }}
-                className="w-[78vw] max-w-[280px] shrink-0 sm:w-auto sm:max-w-none sm:shrink snap-center p-4 sm:p-6 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_32px_rgba(2,132,199,0.14)] transition-all duration-300 font-mono text-xs flex flex-col justify-between space-y-4 sm:space-y-6 group relative overflow-hidden cursor-default"
+                className="p-4 sm:p-6 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_32px_rgba(2,132,199,0.14)] transition-all duration-300 font-mono text-xs flex flex-col justify-between space-y-4 sm:space-y-6 group relative overflow-hidden cursor-default"
               >
                 {/* Large watermark number */}
                 <div className="absolute -bottom-4 -right-2 font-display font-black text-7xl text-slate-100 select-none pointer-events-none group-hover:text-sky-50 transition-colors">
@@ -113,13 +206,8 @@ export const WhyCis: React.FC = () => {
             );
           })}
         </div>
-
-        {/* Mobile Swipe Hint */}
-        <div className="flex items-center justify-center gap-1.5 sm:hidden mt-2 text-slate-400 font-mono text-[10px] uppercase tracking-wider">
-          <span>SWIPE TO EXPLORE BENEFITS</span>
-          <ArrowRight className="w-3 h-3 text-[#0284C7]" />
-        </div>
       </div>
     </section>
   );
 };
+
