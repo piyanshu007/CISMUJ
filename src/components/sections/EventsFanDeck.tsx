@@ -33,11 +33,11 @@ export const EventsFanDeck: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO SECTION (Balanced & Well-Proportioned)          */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-8 sm:pb-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-20 sm:pt-32 pb-4 sm:pb-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
           
           {/* Left Column: Eyebrow, Heading, Subtitle, CTA */}
-          <div className="lg:col-span-6 space-y-5 z-10">
+          <div className="lg:col-span-6 space-y-3.5 sm:space-y-5 z-10">
             {/* Eyebrow: —— OUR EVENTS —— */}
             <motion.div
               initial={{ opacity: 0, x: -16 }}
@@ -45,11 +45,11 @@ export const EventsFanDeck: React.FC = () => {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-2"
             >
-              <div className="w-8 h-px bg-[#0284C7]" />
-              <span className="font-mono text-[11px] font-bold text-[#0284C7] tracking-widest uppercase">
+              <div className="w-6 sm:w-8 h-px bg-[#0284C7]" />
+              <span className="font-mono text-[10px] sm:text-[11px] font-bold text-[#0284C7] tracking-widest uppercase">
                 OUR EVENTS
               </span>
-              <div className="w-8 h-px bg-[#0284C7]" />
+              <div className="w-6 sm:w-8 h-px bg-[#0284C7]" />
             </motion.div>
 
             {/* Editorial Heading */}
@@ -58,7 +58,7 @@ export const EventsFanDeck: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.12]">
+              <h1 className="text-3xl sm:text-5xl lg:text-[3.5rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.12]">
                 Learn. Build.
                 <br />
                 Grow <span className="text-[#0284C7] font-normal">Together.</span>
@@ -249,17 +249,17 @@ export const EventsFanDeck: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 2: CATEGORY FILTERS & EVENTS GRID                       */}
       {/* ============================================================ */}
-      <div id="events-grid" className="w-full border-t border-slate-100/90 bg-white py-8 sm:py-12 relative z-10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 space-y-8">
+      <div id="events-grid" className="w-full border-t border-slate-100/90 bg-white py-6 sm:py-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 space-y-6 sm:space-y-8">
           
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-5">
-            <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3 sm:pb-5">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
                     selectedCategory === cat
                       ? 'bg-[#0284C7] text-white shadow-xs'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200/60'
@@ -270,13 +270,13 @@ export const EventsFanDeck: React.FC = () => {
               ))}
             </div>
 
-            <div className="font-mono text-xs text-slate-400">
+            <div className="font-mono text-[11px] sm:text-xs text-slate-400">
               Showing <span className="text-[#0284C7] font-bold">{filteredEvents.length}</span> items
             </div>
           </div>
 
           {/* Event Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 items-stretch">
             {filteredEvents.map((evt, idx) => (
               <motion.div
                 key={evt.id}
@@ -286,11 +286,11 @@ export const EventsFanDeck: React.FC = () => {
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
                 whileHover={{ y: -4 }}
                 onClick={() => setSelectedEvent(evt)}
-                className="p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] transition-all duration-300 flex flex-col justify-between group cursor-pointer"
               >
                 <div>
                   {/* Event Photo Container */}
-                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-5 bg-slate-100 border border-slate-100">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-3 sm:mb-5 bg-slate-100 border border-slate-100">
                     <img
                       src={evt.image}
                       alt={evt.title}

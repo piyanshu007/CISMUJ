@@ -38,7 +38,7 @@ export const CisMujChapter: React.FC = () => {
   ];
 
   return (
-    <section id="chapter" className="py-24 sm:py-32 bg-slate-50/70 relative border-b border-slate-200 overflow-hidden">
+    <section id="chapter" className="py-10 sm:py-20 lg:py-32 bg-slate-50/70 relative border-b border-slate-200 overflow-hidden">
       {/* Subtle blueprint grid */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -60,34 +60,34 @@ export const CisMujChapter: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="my-12 p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden group"
+          className="my-6 sm:my-12 p-5 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 relative overflow-hidden group"
         >
           {/* Subtle blue accent edge */}
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0284C7]" />
 
-          <div className="space-y-4 max-w-2xl">
-            <h3 className="text-2xl sm:text-3xl font-display font-extrabold text-[#0F172A] uppercase leading-snug">
+          <div className="space-y-3 sm:space-y-4 max-w-2xl">
+            <h3 className="text-xl sm:text-3xl font-display font-extrabold text-[#0F172A] uppercase leading-snug">
               BRIDGING ACADEMIC RIGOR &amp; RAPID PROTOTYPING
             </h3>
-            <p className="text-slate-600 font-sans text-sm sm:text-base leading-relaxed">
+            <p className="text-slate-600 font-sans text-xs sm:text-base leading-relaxed">
               IEEE CIS MUJ operates at the intersection of computer science, electrical engineering, mathematics, and cognitive biology to nurture the next generation of computational intelligence researchers.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 font-mono text-xs w-full md:w-auto shrink-0">
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center shadow-2xs group-hover:border-sky-200 transition-colors">
-              <span className="text-3xl sm:text-4xl font-display font-black text-[#0F172A] block">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 font-mono text-xs w-full md:w-auto shrink-0">
+            <div className="p-4 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center shadow-2xs group-hover:border-sky-200 transition-colors">
+              <span className="text-2xl sm:text-4xl font-display font-black text-[#0F172A] block">
                 500+
               </span>
-              <span className="text-[#0284C7] font-bold text-[10px] uppercase tracking-wider mt-1 block">
+              <span className="text-[#0284C7] font-bold text-[9px] sm:text-[10px] uppercase tracking-wider mt-1 block">
                 Students Engaged
               </span>
             </div>
-            <div className="p-6 rounded-2xl bg-sky-50/60 border border-sky-200 text-center shadow-2xs">
-              <span className="text-3xl sm:text-4xl font-display font-black text-[#0284C7] block">
+            <div className="p-4 sm:p-6 rounded-2xl bg-sky-50/60 border border-sky-200 text-center shadow-2xs">
+              <span className="text-2xl sm:text-4xl font-display font-black text-[#0284C7] block">
                 100%
               </span>
-              <span className="text-[#0284C7] font-bold text-[10px] uppercase tracking-wider mt-1 block">
+              <span className="text-[#0284C7] font-bold text-[9px] sm:text-[10px] uppercase tracking-wider mt-1 block">
                 Research Driven
               </span>
             </div>
@@ -95,7 +95,7 @@ export const CisMujChapter: React.FC = () => {
         </motion.div>
 
         {/* 4 Chapter Wings Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
           {chapterWings.map((wing, idx) => (
             <motion.div
               key={idx}
@@ -104,7 +104,7 @@ export const CisMujChapter: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               whileHover={{ y: -4 }}
-              className="p-7 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] shadow-sm hover:shadow-[0_12px_30px_rgba(2,132,199,0.1)] transition-all duration-300 space-y-4 group font-mono text-xs flex flex-col justify-between"
+              className="p-5 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] shadow-sm hover:shadow-[0_12px_30px_rgba(2,132,199,0.1)] transition-all duration-300 space-y-3 sm:space-y-4 group font-mono text-xs flex flex-col justify-between"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-4">

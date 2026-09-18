@@ -137,28 +137,28 @@ export const DomainsSection: React.FC = () => {
     : DOMAINS.filter((d) => d.category === activeCategory);
 
   return (
-    <section id="domains" className="py-24 bg-white/80 backdrop-blur-xs border-b border-slate-200 select-none relative z-20">
+    <section id="domains" className="py-10 sm:py-20 lg:py-24 bg-white/80 backdrop-blur-xs border-b border-slate-200 select-none relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="space-y-3 mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-[#0284C7]/30 text-[#0284C7] font-mono text-[11px] font-bold uppercase tracking-wider">
+        <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-[#0284C7]/30 text-[#0284C7] font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
             <span>02 // OPERATIONAL DIVISIONS</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl font-black text-[#0F172A] tracking-tight">
             Domains &amp; <span className="text-[#0284C7]">Wings</span>
           </h2>
-          <p className="font-sans text-slate-600 text-sm sm:text-base max-w-2xl">
+          <p className="font-sans text-slate-600 text-xs sm:text-base max-w-2xl">
             Explore the specialized technical and management tracks powering IEEE CIS MUJ. Members contribute across multiple divisions.
           </p>
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap items-center gap-2 mb-10">
+        <div className="flex flex-wrap items-center gap-2 mb-6 sm:mb-10">
           {categories.map((cat) => (
             <button
               key={cat}
               type="button"
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
+              className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeCategory === cat
                   ? 'bg-[#0284C7] text-white shadow-[0_2px_10px_rgba(2,132,199,0.25)]'
                   : 'bg-white text-[#0F172A] hover:bg-slate-100 border border-slate-200'
@@ -170,12 +170,12 @@ export const DomainsSection: React.FC = () => {
         </div>
 
         {/* Domains Grid with 3D TiltCards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredDomains.map((domain) => (
             <TiltCard
               key={domain.id}
               maxTilt={5}
-              className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] hover:shadow-[0_8px_30px_rgba(2,132,199,0.15)] transition-all flex flex-col justify-between group space-y-6"
+              className="p-4 sm:p-6 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] hover:shadow-[0_8px_30px_rgba(2,132,199,0.15)] transition-all flex flex-col justify-between group space-y-4 sm:space-y-6"
             >
               {/* Top Header */}
               <div className="space-y-4">

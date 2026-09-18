@@ -183,7 +183,7 @@ export const NewsletterShowcase: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-white text-[#1A1A1A] pt-28 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
+    <section className="relative w-full bg-white text-[#1A1A1A] pt-20 sm:pt-32 pb-10 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       
       {/* Soft Ethereal Ambient Glow on Pure White Canvas */}
       <div
@@ -195,12 +195,12 @@ export const NewsletterShowcase: React.FC = () => {
       />
 
       {/* Editorial Title & Issue Switcher Banner */}
-      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-3 mb-10 sm:mb-14">
-        <h1 className="font-serif font-black text-4xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight uppercase">
+      <div className="relative z-10 max-w-5xl mx-auto text-center space-y-2 sm:space-y-3 mb-6 sm:mb-14">
+        <h1 className="font-serif font-black text-3xl sm:text-5xl lg:text-6xl text-[#111111] tracking-tight uppercase">
           The CIS Broadsheet
         </h1>
 
-        <p className="font-serif italic text-slate-600 text-sm sm:text-base max-w-xl mx-auto">
+        <p className="font-serif italic text-slate-600 text-xs sm:text-base max-w-xl mx-auto">
           &ldquo;All the Code, Architecture Proofs and Research Dispatches Fit to Print.&rdquo;
         </p>
       </div>
@@ -239,7 +239,7 @@ export const NewsletterShowcase: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
             onClick={() => setIsReadingModalOpen(true)}
-            className="relative bg-[#FAF6EE] text-[#111111] rounded-[2px] p-6 sm:p-10 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.28),0_15px_35px_-5px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.06)] border-2 border-[#D2C7B0] font-serif cursor-pointer hover:shadow-[0_40px_95px_-12px_rgba(2,132,199,0.3),0_20px_40px_-5px_rgba(0,0,0,0.18)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden"
+            className="relative bg-[#FAF6EE] text-[#111111] rounded-[2px] p-4 sm:p-10 shadow-[0_30px_80px_-15px_rgba(0,0,0,0.28),0_15px_35px_-5px_rgba(0,0,0,0.14),0_0_0_1px_rgba(0,0,0,0.06)] border-2 border-[#D2C7B0] font-serif cursor-pointer hover:shadow-[0_40px_95px_-12px_rgba(2,132,199,0.3),0_20px_40px_-5px_rgba(0,0,0,0.18)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden"
             style={{
               backgroundImage: `radial-gradient(rgba(0,0,0,0.035) 1px, transparent 1px)`,
               backgroundSize: '10px 10px',

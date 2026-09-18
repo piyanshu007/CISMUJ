@@ -42,7 +42,7 @@ export const WhyCis: React.FC = () => {
   ];
 
   return (
-    <section id="why-cis" className="py-24 sm:py-32 bg-white border-b border-slate-200 relative overflow-hidden">
+    <section id="why-cis" className="py-10 sm:py-20 lg:py-32 bg-white border-b border-slate-200 relative overflow-hidden">
       {/* Subtle background tech lines */}
       <div
         className="absolute inset-0 opacity-[0.025] pointer-events-none"
@@ -59,7 +59,7 @@ export const WhyCis: React.FC = () => {
         />
 
         {/* 5 Benefits Grid - Strictly 3 Colors */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-5 mt-6 sm:mt-12">
           {benefits.map((b, i) => {
             const isHovered = hoveredIdx === i;
             return (
@@ -72,7 +72,7 @@ export const WhyCis: React.FC = () => {
                 onHoverStart={() => setHoveredIdx(i)}
                 onHoverEnd={() => setHoveredIdx(null)}
                 whileHover={{ y: -6 }}
-                className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] shadow-sm hover:shadow-[0_12px_32px_rgba(2,132,199,0.14)] transition-all duration-300 font-mono text-xs flex flex-col justify-between space-y-6 group relative overflow-hidden cursor-default"
+                className="p-4 sm:p-6 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] shadow-sm hover:shadow-[0_12px_32px_rgba(2,132,199,0.14)] transition-all duration-300 font-mono text-xs flex flex-col justify-between space-y-4 sm:space-y-6 group relative overflow-hidden cursor-default"
               >
                 {/* Large watermark number */}
                 <div className="absolute -bottom-4 -right-2 font-display font-black text-7xl text-slate-100 select-none pointer-events-none group-hover:text-sky-50 transition-colors">

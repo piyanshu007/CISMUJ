@@ -175,11 +175,11 @@ export const ExecutiveTeamGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO SECTION (5 Core Members in Vertical 3D Panels)  */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-8 sm:pb-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center min-h-[460px] lg:min-h-[520px]">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-20 sm:pt-32 pb-6 sm:pb-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center min-h-[380px] sm:min-h-[500px] lg:min-h-[520px]">
           
           {/* Left Column: Eyebrow, Heading, Subtitle, CTA */}
-          <div className="lg:col-span-5 space-y-6 z-10">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-6 z-10">
             {/* Eyebrow: —— OUR TEAM —— */}
             <motion.div
               initial={{ opacity: 0, x: -16 }}
@@ -187,11 +187,11 @@ export const ExecutiveTeamGrid: React.FC = () => {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-2"
             >
-              <div className="w-8 h-px bg-[#0284C7]" />
-              <span className="font-mono text-[11px] font-bold text-[#0284C7] tracking-widest uppercase">
+              <div className="w-6 sm:w-8 h-px bg-[#0284C7]" />
+              <span className="font-mono text-[10px] sm:text-[11px] font-bold text-[#0284C7] tracking-widest uppercase">
                 OUR TEAM
               </span>
-              <div className="w-8 h-px bg-[#0284C7]" />
+              <div className="w-6 sm:w-8 h-px bg-[#0284C7]" />
             </motion.div>
 
             {/* Main Editorial Heading */}
@@ -200,7 +200,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.75rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.15]">
+              <h1 className="text-3xl sm:text-5xl lg:text-[3.75rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.12]">
                 Different Minds.
                 <br />
                 One <span className="text-[#0284C7] font-normal">Intelligence.</span>
@@ -212,7 +212,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="font-sans text-slate-500 text-sm sm:text-[15px] max-w-md leading-relaxed"
+              className="font-sans text-slate-500 text-xs sm:text-[15px] max-w-md leading-relaxed"
             >
               A passionate team of learners, creators and problem solvers, working towards a smarter, more intelligent tomorrow.
             </motion.p>
@@ -222,24 +222,24 @@ export const ExecutiveTeamGrid: React.FC = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="pt-2 flex items-center gap-4"
+              className="pt-1 sm:pt-2 flex items-center gap-4"
             >
               <a
                 href="#team-roster"
-                className="flex items-center gap-3 group cursor-pointer"
+                className="flex items-center gap-2.5 sm:gap-3 group cursor-pointer"
               >
-                <span className="font-mono text-xs font-bold text-slate-600 group-hover:text-[#0284C7] transition-colors uppercase tracking-wider">
+                <span className="font-mono text-[11px] sm:text-xs font-bold text-slate-600 group-hover:text-[#0284C7] transition-colors uppercase tracking-wider">
                   EXPLORE OUR TEAM
                 </span>
-                <div className="w-11 h-11 rounded-full border border-[#0284C7] text-[#0284C7] group-hover:bg-[#0284C7] group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-xs group-hover:shadow-md">
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full border border-[#0284C7] text-[#0284C7] group-hover:bg-[#0284C7] group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-xs group-hover:shadow-md">
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </a>
             </motion.div>
           </div>
 
           {/* Right Column: 7 Core Committee Members in Vertical 3D Translucent Glass Panels */}
-          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[480px] sm:min-h-[540px] lg:min-h-[560px]">
+          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[360px] sm:min-h-[540px] lg:min-h-[560px]">
             
             {/* Encircling 3D Orbital Track SVG matching Reference Image */}
             <svg
@@ -287,7 +287,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
             </svg>
 
             {/* Exact Overlapping 7-Panel Cluster */}
-            <div className="relative w-full max-w-[700px] h-[380px] sm:h-[480px] lg:h-[520px] z-20 mx-auto">
+            <div className="relative w-full max-w-[700px] h-[340px] sm:h-[480px] lg:h-[520px] z-20 mx-auto">
               {heroCoreMembers.map((member, idx) => (
                 <motion.div
                   key={member.name}
@@ -340,20 +340,20 @@ export const ExecutiveTeamGrid: React.FC = () => {
                     </div>
 
                     {/* Bottom Blue Gradient Layer - Conforms 100% to card corners with NO uncoloured gaps */}
-                    <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#0284C7] via-[#0284C7]/80 to-transparent pointer-events-none z-15" />
+                    <div className="absolute inset-x-0 bottom-0 h-20 sm:h-32 bg-gradient-to-t from-[#0284C7] via-[#0284C7]/80 to-transparent pointer-events-none z-15" />
 
                     {/* Text Container with Horizontal Level Orientation */}
                     <div
-                      className="absolute inset-x-0 bottom-0 pb-2 sm:pb-3.5 pt-4 sm:pt-6 px-0.5 sm:px-1 text-white text-center pointer-events-none z-20 flex flex-col justify-end items-center"
+                      className="absolute inset-x-0 bottom-0 pb-1.5 sm:pb-3.5 pt-3 sm:pt-6 px-0.5 sm:px-1 text-white text-center pointer-events-none z-20 flex flex-col justify-end items-center"
                       style={{
                         transform: 'skewY(9.5deg)',
                         transformOrigin: 'center center',
                       }}
                     >
-                      <span className="font-sans font-bold text-[8.5px] sm:text-[11px] md:text-[12.5px] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] block max-w-full truncate px-0.5">
+                      <span className="font-sans font-bold text-[8px] sm:text-[11px] md:text-[12.5px] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] block max-w-full truncate px-0.5">
                         {member.name}
                       </span>
-                      <span className="font-mono text-[6.5px] sm:text-[8px] md:text-[9px] uppercase tracking-wider text-sky-100 mt-0.5 block font-semibold drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] leading-tight max-w-full truncate px-0.5">
+                      <span className="font-mono text-[6px] sm:text-[8px] md:text-[9px] uppercase tracking-wider text-sky-100 mt-0.5 block font-semibold drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] leading-tight max-w-full truncate px-0.5">
                         {member.role}
                       </span>
                     </div>
@@ -372,7 +372,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="absolute bottom-4 right-4 sm:right-6 w-11 h-11 sm:w-13 sm:h-13 rounded-full shadow-[0_10px_30px_rgba(2,132,199,0.6)] pointer-events-none z-30"
+              className="absolute bottom-4 right-4 sm:right-6 w-10 h-10 sm:w-13 sm:h-13 rounded-full shadow-[0_10px_30px_rgba(2,132,199,0.6)] pointer-events-none z-30"
               style={{
                 background:
                   'radial-gradient(circle at 35% 35%, #bae6fd 0%, #0284c7 50%, #075985 100%)',
@@ -385,18 +385,18 @@ export const ExecutiveTeamGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 2: TEAM CARDS GRID (1:1 with Reference Image 2)         */}
       {/* ============================================================ */}
-      <div id="team-roster" className="w-full border-t border-slate-100/90 bg-white py-8 sm:py-12 relative z-10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      <div id="team-roster" className="w-full border-t border-slate-100/90 bg-white py-6 sm:py-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
           
           {/* Category Filter Tabs (1:1 with Image 2: ALL, CORE TEAM, FACULTY ADVISOR, EXECUTIVE, MANAGEMENT) */}
-          <div className="flex flex-wrap items-center gap-6 sm:gap-8 border-b border-slate-200/80 pb-3 mb-10">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-8 border-b border-slate-200/80 pb-2.5 mb-6 sm:mb-10">
             {CATEGORIES.map((cat) => {
               const isActive = activeCategory === cat;
               return (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`font-mono text-xs font-bold tracking-wider uppercase relative pb-3 transition-colors cursor-pointer ${
+                  className={`font-mono text-[11px] sm:text-xs font-bold tracking-wider uppercase relative pb-2 sm:pb-3 transition-colors cursor-pointer ${
                     isActive ? 'text-[#0284C7]' : 'text-slate-400 hover:text-slate-700'
                   }`}
                 >
@@ -412,25 +412,25 @@ export const ExecutiveTeamGrid: React.FC = () => {
             })}
           </div>
 
-          {/* Member Cards Grid (Exact Layout with Transparent Cutouts and IEEE CIS Watermark Badge) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* Member Cards Grid (2-Column on Mobile, 3-Column on Desktop) */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
             {filteredMembers.map((member, idx) => (
               <motion.div
                 key={member.id}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: Math.min(idx * 0.04, 0.4) }}
+                transition={{ duration: 0.35, delay: Math.min(idx * 0.03, 0.3) }}
                 whileHover={{ y: -4 }}
                 onClick={() => setSelectedMember(member)}
-                className="p-5 rounded-3xl bg-white border border-slate-100/90 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+                className="p-3 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-100/90 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] transition-all duration-300 flex flex-col justify-between group cursor-pointer"
               >
                 <div>
                   {/* Photo Container with Organic Blue Fluid Blob & Curved Bottom Wave */}
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-b from-sky-50/50 via-sky-50/20 to-white mb-5 flex items-end justify-center pt-2">
+                  <div className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-gradient-to-b from-sky-50/50 via-sky-50/20 to-white mb-2.5 sm:mb-5 flex items-end justify-center pt-1 sm:pt-2">
                     
                     {/* Faded IEEE CIS Logo Watermark Behind Person */}
-                    <div className="absolute right-2 top-2 w-32 h-32 sm:w-36 sm:h-36 pointer-events-none select-none flex items-center justify-center opacity-20 group-hover:opacity-30 transition-all duration-500 z-0">
+                    <div className="absolute right-1 top-1 sm:right-2 sm:top-2 w-20 h-20 sm:w-36 sm:h-36 pointer-events-none select-none flex items-center justify-center opacity-20 group-hover:opacity-30 transition-all duration-500 z-0">
                       <img
                         src="/logo-mark.png"
                         alt="IEEE CIS Logo"
@@ -453,7 +453,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
 
                     {/* Elegant Smooth Bottom Wave Cutout */}
                     <svg
-                      className="absolute bottom-0 left-0 right-0 h-5 w-full text-white fill-current pointer-events-none z-20"
+                      className="absolute bottom-0 left-0 right-0 h-4 sm:h-5 w-full text-white fill-current pointer-events-none z-20"
                       viewBox="0 0 100 25"
                       preserveAspectRatio="none"
                     >
@@ -462,34 +462,34 @@ export const ExecutiveTeamGrid: React.FC = () => {
                   </div>
 
                   {/* Name & Role */}
-                  <div className="space-y-1">
-                    {/* Category as JUST TEXT (no background round box) */}
-                    <span className="font-mono text-[11px] font-bold text-[#0284C7] uppercase tracking-wider block">
+                  <div className="space-y-0.5 sm:space-y-1">
+                    {/* Category as JUST TEXT */}
+                    <span className="font-mono text-[9px] sm:text-[11px] font-bold text-[#0284C7] uppercase tracking-wider block truncate">
                       {member.category === 'HEADS' || member.category === 'COORDINATORS'
                         ? 'EXECUTIVE'
                         : member.category === 'FACULTY ADVISOR'
                         ? 'ADVISORY'
                         : member.category}
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-sans font-bold text-[#1E293B] group-hover:text-[#0284C7] transition-colors leading-snug">
+                    <h3 className="text-sm sm:text-xl lg:text-2xl font-sans font-bold text-[#1E293B] group-hover:text-[#0284C7] transition-colors leading-snug truncate">
                       {member.name}
                     </h3>
-                    <p className="font-mono text-xs sm:text-[13px] font-bold text-slate-500 uppercase tracking-wider">
+                    <p className="font-mono text-[10px] sm:text-xs sm:text-[13px] font-bold text-slate-500 uppercase tracking-wider truncate">
                       {member.role}
                     </p>
                     {/* Subtle Horizontal Dash */}
-                    <div className="w-6 h-0.5 bg-slate-200 mt-1" />
+                    <div className="w-4 sm:w-6 h-0.5 bg-slate-200 mt-0.5 sm:mt-1" />
                   </div>
                 </div>
 
-                {/* Bottom Action: Circular Blue Arrow Button (from Image 2) */}
-                <div className="pt-3 mt-4 flex items-center justify-between">
-                  <span className="font-mono text-[10px] text-slate-400 group-hover:text-[#0284C7] uppercase tracking-wider">
-                    IEEE CIS MUJ
+                {/* Bottom Action: Circular Blue Arrow Button */}
+                <div className="pt-2 sm:pt-3 mt-2 sm:mt-4 flex items-center justify-between">
+                  <span className="font-mono text-[8px] sm:text-[10px] text-slate-400 group-hover:text-[#0284C7] uppercase tracking-wider truncate">
+                    IEEE CIS
                   </span>
 
-                  <div className="w-9 h-9 rounded-full border border-[#0284C7] text-[#0284C7] group-hover:bg-[#0284C7] group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs">
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full border border-[#0284C7] text-[#0284C7] group-hover:bg-[#0284C7] group-hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs shrink-0">
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform" />
                   </div>
                 </div>
               </motion.div>

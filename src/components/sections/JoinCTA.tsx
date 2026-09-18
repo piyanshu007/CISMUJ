@@ -6,12 +6,12 @@ import { Instagram, Globe, Mail } from 'lucide-react';
 
 export const JoinCTA: React.FC = () => {
   return (
-    <section id="join" className="py-24 bg-white/90 backdrop-blur-xs border-b border-slate-200 relative overflow-hidden select-none z-10">
+    <section id="join" className="py-10 sm:py-20 lg:py-24 bg-white/90 backdrop-blur-xs border-b border-slate-200 relative overflow-hidden select-none z-10">
       {/* Subtle blue accent glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#0284C7]/8 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
+        <div className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-8">
 
           {/* Heading */}
           <h2 className="text-3xl sm:text-6xl lg:text-7xl font-display font-black text-[#0F172A] tracking-tight uppercase leading-[0.95]">

@@ -6,7 +6,7 @@ import { ArrowDown } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-[92vh] lg:min-h-screen flex flex-col justify-between pt-24 pb-8 bg-transparent border-b border-slate-200 overflow-hidden select-none">
+    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-transparent border-b border-slate-200 overflow-hidden select-none">
       {/* 1. Full-Screen Interactive 3D Canvas Background */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden opacity-95 pointer-events-auto">
         <CisLogo3D />
@@ -16,27 +16,27 @@ export const Hero: React.FC = () => {
       <div className="absolute inset-0 pointer-events-none z-1 bg-gradient-to-b from-white/10 via-transparent to-white/60" />
 
       {/* Top Floating Control Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 flex items-center justify-between pt-4 mb-2 pointer-events-none">
-        <div className="pointer-events-auto font-mono text-xs font-bold text-[#0F172A] uppercase tracking-wider">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 flex items-center justify-between pt-2 sm:pt-4 mb-1 sm:mb-2 pointer-events-none">
+        <div className="pointer-events-auto font-mono text-[10px] sm:text-xs font-bold text-[#0F172A] uppercase tracking-wider">
           IEEE CIS MUJ • CHAPTER 2024-2026
         </div>
       </div>
 
       {/* Hero Main Content Floating Layer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 my-auto py-6">
-        <div className="max-w-2xl lg:max-w-3xl space-y-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 my-auto py-3 sm:py-6">
+        <div className="max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-6">
           {/* Main Huge Typography (Direct Crisp Black Font with IEEE Blue Accent) */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-black tracking-tight uppercase leading-[0.93] text-[#0F172A] drop-shadow-xs">
+          <h1 className="text-3xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-black tracking-tight uppercase leading-[0.93] text-[#0F172A] drop-shadow-xs">
             IEEE COMPUTATIONAL
             <br />
             <span className="text-[#0284C7]">INTELLIGENCE</span>
             <br />
             SOCIETY{' '}
-            <span className="font-mono text-3xl sm:text-5xl lg:text-6xl text-slate-400 font-bold">MUJ</span>
+            <span className="font-mono text-2xl sm:text-5xl lg:text-6xl text-slate-400 font-bold">MUJ</span>
           </h1>
 
           {/* Club Description Box with high-contrast backdrop */}
-          <p className="text-base sm:text-lg text-slate-800 font-sans max-w-xl leading-relaxed font-normal bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-slate-200 shadow-sm">
+          <p className="text-xs sm:text-lg text-slate-800 font-sans max-w-xl leading-relaxed font-normal bg-white/95 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm">
             Manipal University Jaipur&apos;s premier student technology chapter exploring artificial intelligence, neural networks, robotics, competitive coding, and high-octane hackathons.
           </p>
 

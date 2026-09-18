@@ -20,11 +20,11 @@ export const WhatIsCis: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO VIEWPORT (1:1 Match with User's Reference)      */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-24 sm:pt-28 pb-6 sm:pb-10 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-20 sm:pt-28 pb-4 sm:pb-10 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-center">
           
           {/* Left Column: Heading, Indicators, Subtitle & Circular Arrow CTA */}
-          <div className="lg:col-span-5 space-y-5 sm:space-y-6 z-10">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-6 z-10">
             
             {/* Top Micro-indicator: • ——— ▸ */}
             <motion.div
@@ -45,7 +45,7 @@ export const WhatIsCis: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="space-y-1"
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.12]">
+              <h1 className="text-3xl sm:text-5xl lg:text-[3.5rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.12]">
                 Exploring the Future of
                 <br />
                 <span className="text-[#0284C7] font-normal">
@@ -206,9 +206,9 @@ export const WhatIsCis: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 2: OUR FOCUS SECTION (1:1 Match with User's Reference)  */}
       {/* ============================================================ */}
-      <div className="w-full border-t border-slate-100/90 bg-white py-8 sm:py-12 relative z-10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+      <div className="w-full border-t border-slate-100/90 bg-white py-6 sm:py-12 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             
             {/* Left Column: Neural Synapse Graphic Card */}
             <div className="lg:col-span-3">

@@ -76,27 +76,27 @@ export const RetroStatsTerminal: React.FC = () => {
   const activeStat = STATS_DATA[activeIndex];
 
   return (
-    <section className="relative w-full min-h-[840px] bg-white/90 backdrop-blur-xs py-24 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-slate-200 select-none">
+    <section className="relative w-full bg-white/90 backdrop-blur-xs py-10 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-slate-200 select-none">
       {/* Background glow */}
       <div className="absolute top-1/3 right-1/4 w-[650px] h-[450px] bg-[#0284C7]/8 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="space-y-3 mb-16">
-          <div className="flex items-center gap-2 font-mono text-xs text-[#0284C7] font-bold tracking-widest uppercase">
+        <div className="space-y-2 sm:space-y-3 mb-8 sm:mb-16">
+          <div className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-[#0284C7] font-bold tracking-widest uppercase">
             <span>TELEMETRY &amp; IMPACT METRICS</span>
           </div>
-          <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-black text-[#0F172A] tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-black text-[#0F172A] tracking-tight">
             IEEE CIS <span className="text-[#0284C7]">MUJ</span> by the Numbers
           </h2>
-          <div className="w-16 h-1 bg-[#0284C7] rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.3)]" />
+          <div className="w-12 sm:w-16 h-1 bg-[#0284C7] rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.3)]" />
         </div>
 
         {/* Main Grid: Interactive Telemetry Cards (Left) vs Interactive Smartphone Mockup (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           {/* LEFT: Giant Stat Cards Matrix */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {STATS_DATA.map((item, idx) => {
                 const isActive = activeIndex === idx;
                 const IconComponent = item.icon;
@@ -105,24 +105,24 @@ export const RetroStatsTerminal: React.FC = () => {
                   <div
                     key={item.id}
                     onClick={() => setActiveIndex(idx)}
-                    className={`group p-6 rounded-2xl transition-all duration-300 cursor-pointer border-2 flex flex-col justify-between ${
+                    className={`group p-4 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer border-2 flex flex-col justify-between ${
                       isActive
-                        ? 'bg-sky-50/70 border-[#0284C7] shadow-[0_8px_24px_rgba(2,132,199,0.18)] translate-x-1'
+                        ? 'bg-sky-50/70 border-[#0284C7] shadow-[0_8px_24px_rgba(2,132,199,0.18)] translate-x-0.5 sm:translate-x-1'
                         : 'bg-white border-slate-200 hover:border-slate-300 hover:shadow-sm'
                     }`}
                   >
                     <div>
-                      <span className="font-mono text-xs font-bold text-slate-500 uppercase tracking-wider block mb-3">
+                      <span className="font-mono text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2 sm:mb-3 truncate">
                         {item.label}
                       </span>
 
-                      <div className="text-4xl sm:text-5xl font-display font-black text-[#0F172A] tracking-tight leading-none">
+                      <div className="text-2xl sm:text-4xl lg:text-5xl font-display font-black text-[#0F172A] tracking-tight leading-none">
                         {item.metric}
                       </div>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-200/80">
-                      <p className="font-sans text-xs text-slate-600 font-normal line-clamp-1">
+                    <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-slate-200/80">
+                      <p className="font-sans text-[11px] sm:text-xs text-slate-600 font-normal line-clamp-1">
                         {item.subtext}
                       </p>
                     </div>
@@ -134,9 +134,9 @@ export const RetroStatsTerminal: React.FC = () => {
 
           {/* RIGHT: High-Precision Interactive Smartphone Mockup */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center w-full">
-            <div className="relative w-full max-w-[280px] sm:max-w-[330px] rounded-[44px] sm:rounded-[48px] bg-[#0F172A] p-3 sm:p-3.5 border-[3px] sm:border-[4px] border-slate-700/80 shadow-[0_20px_60px_rgba(15,23,42,0.35)]">
+            <div className="relative w-full max-w-[270px] sm:max-w-[330px] rounded-[40px] sm:rounded-[48px] bg-[#0F172A] p-3 sm:p-3.5 border-[3px] sm:border-[4px] border-slate-700/80 shadow-[0_20px_60px_rgba(15,23,42,0.35)]">
               {/* Phone Speaker & Dynamic Island */}
-              <div className="absolute top-5 sm:top-6 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-5 sm:h-6 bg-black rounded-full z-40 flex items-center justify-between px-2.5 sm:px-3">
+              <div className="absolute top-4 sm:top-6 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-5 sm:h-6 bg-black rounded-full z-40 flex items-center justify-between px-2.5 sm:px-3">
                 <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-slate-900 border border-slate-800" />
                 <div className="flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse" />
@@ -145,7 +145,7 @@ export const RetroStatsTerminal: React.FC = () => {
               </div>
 
               {/* Smartphone Inner Screen */}
-              <div className="relative w-full h-[520px] sm:h-[570px] rounded-[34px] sm:rounded-[38px] bg-[#080D1A] overflow-hidden p-3.5 sm:p-4 pt-9 sm:pt-10 flex flex-col justify-between border border-slate-800 shadow-inner">
+              <div className="relative w-full h-[470px] sm:h-[570px] rounded-[30px] sm:rounded-[38px] bg-[#080D1A] overflow-hidden p-3.5 sm:p-4 pt-8 sm:pt-10 flex flex-col justify-between border border-slate-800 shadow-inner">
                 {/* Top Phone Status Bar */}
                 <div className="flex items-center justify-between font-mono text-[10px] text-slate-400 px-1 pt-1 z-30">
                   <span className="font-bold text-white">9:41</span>

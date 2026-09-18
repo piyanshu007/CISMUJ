@@ -77,7 +77,7 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO SECTION (1:1 Match with User Reference)        */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-24 sm:pt-28 pb-4 sm:pb-6 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-20 sm:pt-28 pb-3 sm:pb-6 relative z-10">
         
         {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres (Passing OVER image) */}
         <svg
@@ -364,10 +364,10 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 2: PROJECT CARDS ROW (1:1 Match with User Reference)    */}
       {/* ============================================================ */}
-      <div className="w-full border-t border-slate-100/90 bg-white py-6 sm:py-8 relative z-10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      <div className="w-full border-t border-slate-100/90 bg-white py-5 sm:py-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch">
             
             {/* 3 Real Club Project Cards */}
             {displayProjects.map((p, idx) => (
@@ -378,7 +378,7 @@ export const ProjectsGrid: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 whileHover={{ y: -4 }}
-                className="p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] transition-all duration-300 flex flex-col justify-between group cursor-pointer"
                 onClick={() => setSelectedProject(p.caseStudy)}
               >
                 <div>
