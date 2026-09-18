@@ -22,53 +22,45 @@ export const CisLogo3D: React.FC = () => {
     // 1. Scene setup
     const scene = new THREE.Scene();
 
-    // 2. Camera setup - calibrated for full-height hero background
+    // 2. Camera setup
     const isDesktop = width > 1024;
     const isTablet = width >= 640 && width <= 1024;
     const isMobile = width < 640;
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(
-      0,
-      0,
-      isDesktop ? 5.2 : isTablet ? 5.8 : 6.4
-    );
+    camera.position.set(0, 0, isDesktop ? 5.0 : isTablet ? 5.6 : 6.2);
 
     // 3. Renderer with antialiasing and alpha
     const renderer = new THREE.WebGLRenderer({
-      antialias: !isMobile,
+      antialias: true,
       alpha: true,
       powerPreference: 'high-performance',
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.2;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
     // 4. Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2.4);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.8);
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.0);
     dirLight1.position.set(5, 5, 5);
     scene.add(dirLight1);
 
-    const blueRimLight = new THREE.DirectionalLight(0x0284c7, 4.0);
-    blueRimLight.position.set(-5, -3, -3);
-    scene.add(blueRimLight);
-
-    // 5. Create 3D Emblem Object Group (Refined scale & positioning to avoid text overlap on mobile and prevent oversize on laptop)
+    // 5. Create 3D Logo Object Group
     const mainGroup = new THREE.Group();
-    const initialScale = isDesktop ? 0.80 : isTablet ? 0.65 : 0.34;
+    const initialScale = isDesktop ? 0.88 : isTablet ? 0.68 : 0.38;
     mainGroup.scale.set(initialScale, initialScale, initialScale);
-    const defaultOffsetX = isDesktop ? 1.35 : isTablet ? 0.85 : 0.30;
-    const defaultOffsetY = isMobile ? 0.70 : 0;
+    const defaultOffsetX = isDesktop ? 1.35 : isTablet ? 0.85 : 0.32;
+    const defaultOffsetY = isMobile ? 0.65 : 0;
     mainGroup.position.set(defaultOffsetX, defaultOffsetY, 0);
     scene.add(mainGroup);
 
-    // Logo Texture Loader with explicit onLoad trigger
+    // Logo Texture Loader with anisotropic filtering for crisp edges
     const textureLoader = new THREE.TextureLoader();
     const logoMat = new THREE.MeshBasicMaterial({
       transparent: true,
@@ -82,6 +74,7 @@ export const CisLogo3D: React.FC = () => {
         texture.colorSpace = THREE.SRGBColorSpace;
         texture.generateMipmaps = true;
         texture.minFilter = THREE.LinearMipmapLinearFilter;
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
         logoMat.map = texture;
         logoMat.needsUpdate = true;
       },
@@ -91,83 +84,10 @@ export const CisLogo3D: React.FC = () => {
       }
     );
 
-    // Central Floating Logo Decal Plane
-    const logoGeo = new THREE.PlaneGeometry(2.5, 2.5);
+    // Central Clean CIS Logo Mesh (Pure Logo, No Background Clutter)
+    const logoGeo = new THREE.PlaneGeometry(2.8, 2.8);
     const logoMesh = new THREE.Mesh(logoGeo, logoMat);
     mainGroup.add(logoMesh);
-
-    // Outer Glowing Blue Torus Bevel Ring
-    const ringGeo = new THREE.TorusGeometry(1.65, 0.045, 32, 100);
-    const ringMat = new THREE.MeshStandardMaterial({
-      color: 0x0284c7,
-      metalness: 0.8,
-      roughness: 0.2,
-      emissive: 0x0284c7,
-      emissiveIntensity: 0.4,
-    });
-    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-    mainGroup.add(ringMesh);
-
-    // Orbital Kinetic Ring 1 (IEEE Blue)
-    const orbitRing1Geo = new THREE.TorusGeometry(2.7, 0.025, 16, 120);
-    const orbitRing1Mat = new THREE.MeshBasicMaterial({
-      color: 0x0284c7,
-      transparent: true,
-      opacity: 0.85,
-    });
-    const orbitRing1 = new THREE.Mesh(orbitRing1Geo, orbitRing1Mat);
-    orbitRing1.rotation.x = Math.PI / 3;
-    mainGroup.add(orbitRing1);
-
-    // Orbital Kinetic Ring 2 (Deep Slate)
-    const orbitRing2Geo = new THREE.TorusGeometry(3.2, 0.02, 16, 120);
-    const orbitRing2Mat = new THREE.MeshBasicMaterial({
-      color: 0x0f172a,
-      transparent: true,
-      opacity: 0.65,
-    });
-    const orbitRing2 = new THREE.Mesh(orbitRing2Geo, orbitRing2Mat);
-    orbitRing2.rotation.y = Math.PI / 4;
-    mainGroup.add(orbitRing2);
-
-    // Orbital Quantum Nodes / Beads
-    const beadCount = isMobile ? 8 : 14;
-    const beadGeo = new THREE.SphereGeometry(0.06, 16, 16);
-    const beadMat = new THREE.MeshStandardMaterial({
-      color: 0x0284c7,
-      roughness: 0.1,
-      metalness: 0.9,
-      emissive: 0x0284c7,
-      emissiveIntensity: 0.3,
-    });
-    const beads: THREE.Mesh[] = [];
-
-    for (let i = 0; i < beadCount; i++) {
-      const bead = new THREE.Mesh(beadGeo, beadMat);
-      mainGroup.add(bead);
-      beads.push(bead);
-    }
-
-    // Floating Quantum Background Particles
-    const particleCount = isMobile ? 30 : 70;
-    const particleGeo = new THREE.BufferGeometry();
-    const particlePositions = new Float32Array(particleCount * 3);
-
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      particlePositions[i] = (Math.random() - 0.5) * 14;
-      particlePositions[i + 1] = (Math.random() - 0.5) * 11;
-      particlePositions[i + 2] = (Math.random() - 0.5) * 8;
-    }
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-
-    const particleMat = new THREE.PointsMaterial({
-      color: 0x0284c7,
-      size: isMobile ? 0.08 : 0.065,
-      transparent: true,
-      opacity: 0.55,
-    });
-    const particles = new THREE.Points(particleGeo, particleMat);
-    scene.add(particles);
 
     // Interactive Drag Physics
     const targetRotation = { x: 0, y: 0 };
@@ -189,8 +109,8 @@ export const CisLogo3D: React.FC = () => {
         targetRotation.x += deltaY * 0.008;
         previousMousePosition = { x: e.clientX, y: e.clientY };
       } else {
-        targetRotation.x = mouse.y * 0.4;
-        targetRotation.y = mouse.x * 0.6;
+        targetRotation.x = mouse.y * 0.45;
+        targetRotation.y = mouse.x * 0.65;
       }
     };
 
@@ -239,9 +159,9 @@ export const CisLogo3D: React.FC = () => {
       const mobile = w < 640;
 
       camera.aspect = w / h;
-      camera.position.z = desktop ? 5.2 : tablet ? 5.8 : 6.4;
+      camera.position.z = desktop ? 5.0 : tablet ? 5.6 : 6.2;
 
-      const scale = desktop ? 0.80 : tablet ? 0.65 : 0.34;
+      const scale = desktop ? 0.88 : tablet ? 0.68 : 0.38;
       mainGroup.scale.set(scale, scale, scale);
 
       camera.updateProjectionMatrix();
@@ -280,46 +200,29 @@ export const CisLogo3D: React.FC = () => {
 
       const elapsedTime = clock.getElapsedTime();
 
-      // Floating wave animation
-      const floatY = Math.sin(elapsedTime * 1.3) * 0.08;
-      const floatX = Math.cos(elapsedTime * 0.9) * 0.05;
+      // Gentle floating animation
+      const floatY = Math.sin(elapsedTime * 1.3) * 0.07;
+      const floatX = Math.cos(elapsedTime * 0.9) * 0.04;
       const currentWidth = getWidth();
       const isDsk = currentWidth > 1024;
       const isTab = currentWidth >= 640 && currentWidth <= 1024;
-      const baseOffsetX = isDsk ? 1.35 : isTab ? 0.85 : 0.30;
-      const baseOffsetY = isDsk ? 0 : isTab ? 0.1 : 0.70;
+      const baseOffsetX = isDsk ? 1.35 : isTab ? 0.85 : 0.32;
+      const baseOffsetY = isDsk ? 0 : isTab ? 0.1 : 0.65;
 
       mainGroup.position.y = baseOffsetY + floatY;
       mainGroup.position.x = baseOffsetX + floatX;
 
       // Continuous gentle spin when not dragging
       if (!isDragging) {
-        mainGroup.rotation.y += 0.006;
+        mainGroup.rotation.y += 0.005;
       }
 
       // Smooth cursor lerp
       currentRotation.x += (targetRotation.x - currentRotation.x) * 0.08;
       currentRotation.y += (targetRotation.y - currentRotation.y) * 0.08;
 
-      mainGroup.rotation.x = currentRotation.x + Math.sin(elapsedTime * 0.6) * 0.03;
-      mainGroup.rotation.z = -currentRotation.y * 0.12;
-
-      // Rotate kinetic orbital rings
-      orbitRing1.rotation.z = elapsedTime * 0.3;
-      orbitRing2.rotation.x = elapsedTime * -0.22;
-
-      // Update beads
-      beads.forEach((bead, i) => {
-        const angle = (i / beadCount) * Math.PI * 2 + elapsedTime * 0.5;
-        const radius = 2.7;
-        bead.position.x = Math.cos(angle) * radius;
-        bead.position.y = Math.sin(angle) * Math.sin(Math.PI / 3) * radius;
-        bead.position.z = Math.sin(angle) * Math.cos(Math.PI / 3) * radius;
-      });
-
-      // Background particle drift
-      particles.rotation.y = elapsedTime * 0.012;
-      particles.rotation.x = elapsedTime * 0.006;
+      mainGroup.rotation.x = currentRotation.x + Math.sin(elapsedTime * 0.6) * 0.025;
+      mainGroup.rotation.z = -currentRotation.y * 0.1;
 
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
@@ -338,6 +241,9 @@ export const CisLogo3D: React.FC = () => {
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
 
+      logoGeo.dispose();
+      logoMat.dispose();
+
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -354,3 +260,4 @@ export const CisLogo3D: React.FC = () => {
     />
   );
 };
+
