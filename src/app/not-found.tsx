@@ -129,10 +129,6 @@ export default function NotFound() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-[#0284C7] font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-2">
-              <span>HTTP 404 // NETWORK PATH UNDETECTABLE</span>
-            </div>
-
             <h1 className="text-2xl sm:text-4xl font-sans font-bold text-[#0F172A] tracking-tight">
               Page Lost in Cyber Space
             </h1>
