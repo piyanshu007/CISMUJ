@@ -115,7 +115,7 @@ export const CisMujChapter: React.FC = () => {
                       0{idx + 1} // CHAPTER WING
                     </span>
                   </div>
-                  <span className="text-[10px] px-2.5 py-1 rounded-full bg-slate-100 text-[#0F172A] border border-slate-200 font-bold group-hover:border-sky-200 group-hover:text-[#0284C7] transition-colors">
+                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider group-hover:text-[#0284C7] transition-colors">
                     {wing.badge}
                   </span>
                 </div>
