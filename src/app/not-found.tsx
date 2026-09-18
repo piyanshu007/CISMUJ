@@ -3,41 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Home, Compass } from 'lucide-react';
 
 export default function NotFound() {
   const router = useRouter();
 
-  // Smooth 3D Mouse Parallax Tilt for the centered 404 neural fluid sculpture
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const smoothX = useSpring(mouseX, { stiffness: 120, damping: 22 });
-  const smoothY = useSpring(mouseY, { stiffness: 120, damping: 22 });
-
-  const rotateX = useTransform(smoothY, [-250, 250], [7, -7]);
-  const rotateY = useTransform(smoothX, [-250, 250], [-8, 8]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - (rect.left + rect.width / 2);
-    const y = e.clientY - (rect.top + rect.height / 2);
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
   return (
-    <div
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="min-h-screen bg-white text-[#0F172A] flex flex-col justify-between selection:bg-[#0284C7] selection:text-white relative overflow-hidden font-sans"
-    >
+    <div className="min-h-screen bg-white text-[#0F172A] flex flex-col justify-between selection:bg-[#0284C7] selection:text-white relative overflow-hidden font-sans">
       {/* Soft Ethereal Blue Ambient Glow Centered Behind 404 */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[500px] sm:h-[650px] pointer-events-none opacity-40"
@@ -126,78 +99,35 @@ export default function NotFound() {
       </header>
 
       {/* ============================================================ */}
-      {/* 2. CENTERED HERO CONTENT                                     */}
+      {/* 2. CENTERED HERO CONTENT (STATIONARY & CLEAN)                */}
       {/* ============================================================ */}
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center py-6 sm:py-10 relative z-10 text-center">
-        {/* Centered 3D Fluid Water Splash 404 Sculpture */}
-        <div
-          style={{ perspective: 1200 }}
-          className="relative w-full max-w-[560px] sm:max-w-[680px] lg:max-w-[760px] flex items-center justify-center select-none"
-        >
-          {/* 3D Floating Motion Container with Parallax Tilt */}
+        {/* Centered Fluid Water Splash 404 Sculpture (Stationary) */}
+        <div className="relative w-full max-w-[560px] sm:max-w-[680px] lg:max-w-[760px] flex items-center justify-center select-none">
           <motion.div
-            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-            animate={{
-              y: [-6, 6, -6],
-              rotateZ: [-0.3, 0.3, -0.3],
-            }}
-            transition={{
-              duration: 5.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="relative w-full aspect-[4/3] max-h-[340px] sm:max-h-[420px] flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="relative w-full aspect-[16/10] max-h-[340px] sm:max-h-[420px] flex items-center justify-center"
           >
-            {/* Soft Cyan Glow inside 404 Center Vortex */}
-            <motion.div
-              animate={{
-                scale: [0.92, 1.08, 0.92],
-                opacity: [0.4, 0.7, 0.4],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-60 sm:h-60 rounded-full bg-gradient-to-tr from-sky-400/30 via-cyan-400/20 to-transparent blur-2xl pointer-events-none"
-            />
+            {/* Soft Cyan Ambient Glow inside Center */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-60 sm:h-60 rounded-full bg-gradient-to-tr from-sky-400/25 via-cyan-400/15 to-transparent blur-2xl pointer-events-none" />
 
-            {/* Clean, Background-Free 404 Neural Fluid Sculpture */}
+            {/* Clean, Background-Free, Artifact-Free 404 Neural Fluid Sculpture */}
             <img
               src="/404-sculpture.png"
               alt="404 Neural Water Splash Sculpture"
               className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_12px_28px_rgba(2,132,199,0.18)]"
             />
-
-            {/* Orbiting Quantum Energy Droplet around 0 */}
-            <motion.div
-              animate={{
-                rotate: 360,
-              }}
-              transition={{
-                duration: 14,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 sm:w-48 sm:h-48 rounded-full pointer-events-none z-20"
-            >
-              <div
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full shadow-[0_0_10px_#0284c7]"
-                style={{
-                  background:
-                    'radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 40%, #0284c7 100%)',
-                }}
-              />
-            </motion.div>
           </motion.div>
         </div>
 
         {/* Centered Typography & Info */}
-        <div className="space-y-4 max-w-xl mx-auto mt-1 sm:mt-3 z-20">
+        <div className="space-y-4 max-w-xl mx-auto mt-2 sm:mt-4 z-20">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-[#0284C7] font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-2">
               <span>HTTP 404 // NETWORK PATH UNDETECTABLE</span>
@@ -217,7 +147,7 @@ export default function NotFound() {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="pt-2 flex flex-wrap items-center justify-center gap-3 font-mono text-xs"
           >
             <Link
