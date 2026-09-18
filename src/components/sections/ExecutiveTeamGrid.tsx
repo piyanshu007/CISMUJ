@@ -11,60 +11,82 @@ export const ExecutiveTeamGrid: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
-  // 5 Core Members for Hero Glass Panels with exact staggered overlapping placement from Reference Image
+  // 7 Core Committee Members for Hero Glass Panels (Chairperson, Vice-Chair, Gen Sec, Treasurer, MD, RD, HRD)
   const heroCoreMembers = [
+    {
+      name: 'Yash Raj',
+      role: 'Research Director',
+      image: '/team/cutouts/yash_raj.png',
+      left: '0%',
+      top: '26%',
+      width: '18%',
+      height: '64%',
+      zIndex: 10,
+      isCenter: false,
+    },
     {
       name: 'Harsh Raj',
       role: 'Treasurer',
       image: '/team/cutouts/harsh_raj.png',
-      left: '2%',
-      top: '24%',
-      width: '23%',
-      height: '68%',
-      zIndex: 10,
+      left: '13.5%',
+      top: '17%',
+      width: '18.5%',
+      height: '74%',
+      zIndex: 15,
       isCenter: false,
     },
     {
       name: 'Manya Moonat',
       role: 'Vice-Chairperson',
       image: '/team/cutouts/manya_moonat.png',
-      left: '19%',
-      top: '10%',
-      width: '24%',
-      height: '82%',
-      zIndex: 20,
+      left: '27%',
+      top: '8%',
+      width: '19%',
+      height: '84%',
+      zIndex: 25,
       isCenter: false,
     },
     {
       name: 'Shubhanshu Dixit',
       role: 'Chairperson',
       image: '/team/cutouts/shubhanshu_dixit.png',
-      left: '38%',
+      left: '40.5%',
       top: '0%',
-      width: '24%',
+      width: '19.5%',
       height: '98%',
-      zIndex: 30,
+      zIndex: 35,
       isCenter: true,
     },
     {
       name: 'Rishan Mazumdar',
       role: 'General Secretary',
       image: '/team/cutouts/rishan_mazumdar.png',
-      left: '57%',
-      top: '10%',
-      width: '24%',
-      height: '82%',
-      zIndex: 20,
+      left: '54%',
+      top: '8%',
+      width: '19%',
+      height: '84%',
+      zIndex: 25,
       isCenter: false,
     },
     {
       name: 'Garv Sharma',
       role: 'Managing Director',
       image: '/team/cutouts/garv_sharma.png',
-      left: '75%',
-      top: '24%',
-      width: '23%',
-      height: '68%',
+      left: '67.5%',
+      top: '17%',
+      width: '18.5%',
+      height: '74%',
+      zIndex: 15,
+      isCenter: false,
+    },
+    {
+      name: 'Pranav Kheole',
+      role: 'HR Director',
+      image: '/team/cutouts/pranav_kheole.png',
+      left: '81%',
+      top: '26%',
+      width: '18%',
+      height: '64%',
       zIndex: 10,
       isCenter: false,
     },
@@ -176,62 +198,62 @@ export const ExecutiveTeamGrid: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: 5 Core Members in Vertical 3D Translucent Glass Panels (Exact 1:1 with Reference Image) */}
+          {/* Right Column: 7 Core Committee Members in Vertical 3D Translucent Glass Panels */}
           <div className="lg:col-span-7 relative flex items-center justify-center min-h-[480px] sm:min-h-[540px] lg:min-h-[560px]">
             
             {/* Encircling 3D Orbital Track SVG matching Reference Image */}
             <svg
               className="absolute inset-0 w-full h-full pointer-events-none z-25 overflow-visible"
-              viewBox="0 0 640 500"
+              viewBox="0 0 700 500"
               fill="none"
             >
               {/* Primary tilted orbital ellipse */}
               <ellipse
-                cx="320"
+                cx="350"
                 cy="270"
-                rx="300"
-                ry="130"
-                transform="rotate(-12 320 270)"
+                rx="330"
+                ry="135"
+                transform="rotate(-12 350 270)"
                 stroke="#0284C7"
                 strokeWidth="1.4"
                 strokeOpacity="0.45"
               />
               {/* Secondary dashed orbit ring */}
               <ellipse
-                cx="320"
+                cx="350"
                 cy="270"
-                rx="280"
-                ry="115"
-                transform="rotate(-16 320 270)"
+                rx="310"
+                ry="120"
+                transform="rotate(-16 350 270)"
                 stroke="#38BDF8"
                 strokeWidth="0.9"
                 strokeDasharray="4 4"
                 strokeOpacity="0.35"
               />
               {/* Network nodes along orbit */}
-              <circle cx="70" cy="305" r="3" fill="#0284C7" />
-              <line x1="70" y1="305" x2="50" y2="320" stroke="#0284C7" strokeWidth="0.8" strokeOpacity="0.5" />
+              <circle cx="50" cy="305" r="3" fill="#0284C7" />
+              <line x1="50" y1="305" x2="30" y2="320" stroke="#0284C7" strokeWidth="0.8" strokeOpacity="0.5" />
               
               <circle cx="210" cy="385" r="3.5" fill="#0284C7" />
               <line x1="210" y1="385" x2="230" y2="405" stroke="#38BDF8" strokeWidth="0.8" strokeOpacity="0.5" />
               
-              <circle cx="410" cy="350" r="3" fill="#0284C7" />
-              <circle cx="490" cy="180" r="3" fill="#38BDF8" />
-              <circle cx="580" cy="210" r="3.5" fill="#0284C7" />
+              <circle cx="450" cy="360" r="3" fill="#0284C7" />
+              <circle cx="550" cy="180" r="3" fill="#38BDF8" />
+              <circle cx="640" cy="210" r="3.5" fill="#0284C7" />
 
               {/* Connector line to the glossy 3D Sphere at bottom right */}
-              <line x1="530" y1="390" x2="575" y2="435" stroke="#0284C7" strokeWidth="1" strokeOpacity="0.55" />
-              <circle cx="530" cy="390" r="2.5" fill="#0284C7" />
+              <line x1="580" y1="390" x2="635" y2="435" stroke="#0284C7" strokeWidth="1" strokeOpacity="0.55" />
+              <circle cx="580" cy="390" r="2.5" fill="#0284C7" />
             </svg>
 
-            {/* Exact Overlapping 5-Panel Cluster matching Reference Image */}
-            <div className="relative w-full max-w-[640px] h-[460px] sm:h-[500px] lg:h-[520px] z-20 mx-auto">
+            {/* Exact Overlapping 7-Panel Cluster */}
+            <div className="relative w-full max-w-[700px] h-[460px] sm:h-[500px] lg:h-[520px] z-20 mx-auto">
               {heroCoreMembers.map((member, idx) => (
                 <motion.div
                   key={member.name}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: idx * 0.08 }}
+                  transition={{ duration: 0.6, delay: idx * 0.06 }}
                   whileHover={{ y: -10, scale: 1.05, zIndex: 50 }}
                   style={{
                     position: 'absolute',
@@ -264,7 +286,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
 
                     {/* Leader Transparent Cutout Portrait Centered in the Middle */}
                     <div
-                      className="absolute inset-0 z-10 w-full h-full flex items-center justify-center pt-2 pb-14 px-1"
+                      className="absolute inset-0 z-10 w-full h-full flex items-center justify-center pt-2 pb-12 px-0.5"
                       style={{
                         transform: 'skewY(9.5deg)',
                         transformOrigin: 'center center',
@@ -273,25 +295,25 @@ export const ExecutiveTeamGrid: React.FC = () => {
                       <img
                         src={member.image}
                         alt={member.name}
-                        className="w-full h-auto max-h-[84%] object-contain object-center scale-110 sm:scale-115 filter contrast-[1.05] brightness-[1.05] drop-shadow-[0_10px_22px_rgba(2,132,199,0.22)] group-hover:scale-125 transition-transform duration-500"
+                        className="w-full h-auto max-h-[86%] object-contain object-center scale-110 sm:scale-115 filter contrast-[1.05] brightness-[1.05] drop-shadow-[0_10px_22px_rgba(2,132,199,0.22)] group-hover:scale-125 transition-transform duration-500"
                       />
                     </div>
 
                     {/* Bottom Blue Gradient Layer - Conforms 100% to card corners with NO uncoloured gaps */}
-                    <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0284C7] via-[#0284C7]/75 to-transparent pointer-events-none z-15" />
+                    <div className="absolute inset-x-0 bottom-0 h-28 sm:h-32 bg-gradient-to-t from-[#0284C7] via-[#0284C7]/80 to-transparent pointer-events-none z-15" />
 
                     {/* Text Container with Horizontal Level Orientation */}
                     <div
-                      className="absolute inset-x-0 bottom-0 pb-3.5 pt-8 px-2 sm:px-3 text-white text-center pointer-events-none z-20"
+                      className="absolute inset-x-0 bottom-0 pb-2.5 sm:pb-3.5 pt-6 px-1 text-white text-center pointer-events-none z-20 flex flex-col justify-end items-center"
                       style={{
                         transform: 'skewY(9.5deg)',
                         transformOrigin: 'center center',
                       }}
                     >
-                      <span className="font-sans font-bold text-xs sm:text-sm md:text-[15px] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] block truncate">
+                      <span className="font-sans font-bold text-[10px] sm:text-[11px] md:text-[12.5px] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] block max-w-full truncate">
                         {member.name}
                       </span>
-                      <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-widest text-sky-100 mt-1 block font-semibold drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] truncate">
+                      <span className="font-mono text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-wider text-sky-100 mt-0.5 block font-semibold drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] leading-tight max-w-full truncate">
                         {member.role}
                       </span>
                     </div>
