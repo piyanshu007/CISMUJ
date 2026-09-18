@@ -1,23 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Home, Compass } from 'lucide-react';
 
 export default function NotFound() {
   const router = useRouter();
 
-  // Smooth 3D Mouse Parallax Tilt for the 404 neural water sculpture
+  // Smooth 3D Mouse Parallax Tilt for the centered 404 neural fluid sculpture
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const smoothX = useSpring(mouseX, { stiffness: 100, damping: 20 });
-  const smoothY = useSpring(mouseY, { stiffness: 100, damping: 20 });
+  const smoothX = useSpring(mouseX, { stiffness: 120, damping: 22 });
+  const smoothY = useSpring(mouseY, { stiffness: 120, damping: 22 });
 
-  const rotateX = useTransform(smoothY, [-250, 250], [6, -6]);
-  const rotateY = useTransform(smoothX, [-250, 250], [-7, 7]);
+  const rotateX = useTransform(smoothY, [-250, 250], [7, -7]);
+  const rotateY = useTransform(smoothX, [-250, 250], [-8, 8]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -33,103 +33,92 @@ export default function NotFound() {
   };
 
   return (
-    <div 
+    <div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className="min-h-screen bg-white text-[#0F172A] flex flex-col justify-between selection:bg-[#0284C7] selection:text-white relative overflow-hidden font-sans"
     >
-      
-      {/* Soft Ethereal Blue Ambient Glow in Top-Right Corner (Matches Reference) */}
-      <div 
-        className="absolute top-0 right-0 w-[850px] h-[650px] pointer-events-none opacity-45"
+      {/* Soft Ethereal Blue Ambient Glow Centered Behind 404 */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[900px] h-[500px] sm:h-[650px] pointer-events-none opacity-40"
         style={{
-          background: 'radial-gradient(circle at 85% 15%, rgba(186, 230, 253, 0.7) 0%, rgba(224, 242, 254, 0.3) 45%, transparent 72%)',
+          background:
+            'radial-gradient(circle at 50% 45%, rgba(186, 230, 253, 0.6) 0%, rgba(224, 242, 254, 0.25) 45%, transparent 70%)',
         }}
       />
 
       {/* ============================================================ */}
-      {/* 1. TOP NAVBAR (Exact 1:1 Match with Reference Image 2)       */}
+      {/* 1. TOP NAVBAR                                                */}
       {/* ============================================================ */}
-      <header className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-6 sm:pt-8 flex items-center justify-between relative z-20">
-        
-        {/* Left: CIS Logo + Vertical Divider + Navigation Links */}
-        <div className="flex items-center gap-6 sm:gap-8">
-          <Link href="/" className="flex items-center gap-3 group">
+      <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-6 flex items-center justify-between relative z-20">
+        {/* Left: CIS Logo + Vertical Divider + Nav Links */}
+        <div className="flex items-center gap-5 sm:gap-8">
+          <Link href="/" className="flex items-center gap-2.5 group">
             <img
               src="/logo-mark.png"
               alt="IEEE CIS MUJ Logo"
-              className="w-8 h-8 object-contain filter group-hover:scale-105 transition-transform"
+              className="w-8 h-8 object-contain group-hover:scale-105 transition-transform"
             />
             <div className="w-px h-5 bg-slate-200 hidden sm:block" />
+            <span className="font-mono text-xs font-bold tracking-wider text-slate-800 uppercase hidden sm:inline-block">
+              IEEE CIS MUJ
+            </span>
           </Link>
 
-          {/* Navigation Links matching reference */}
-          <nav className="hidden md:flex items-center gap-7 text-[13px] font-sans">
+          {/* Navigation Links */}
+          <nav className="hidden md:flex items-center gap-6 text-[13px] font-sans">
             <Link
               href="/"
-              className="relative text-[#0284C7] font-medium transition-colors pb-1"
+              className="text-slate-500 hover:text-[#0284C7] transition-colors pb-0.5"
             >
-              <span>Home</span>
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#0284C7] rounded-full" />
+              Home
             </Link>
-
             <Link
               href="/about"
-              className="text-slate-500 hover:text-[#0F172A] transition-colors pb-1"
+              className="text-slate-500 hover:text-[#0284C7] transition-colors pb-0.5"
             >
               About
             </Link>
-
             <Link
               href="/events"
-              className="text-slate-500 hover:text-[#0F172A] transition-colors pb-1"
+              className="text-slate-500 hover:text-[#0284C7] transition-colors pb-0.5"
             >
               Events
             </Link>
-
             <Link
               href="/team"
-              className="text-slate-500 hover:text-[#0F172A] transition-colors pb-1"
+              className="text-slate-500 hover:text-[#0284C7] transition-colors pb-0.5"
             >
               Team
             </Link>
-
             <Link
               href="/newsletter"
-              className="text-slate-500 hover:text-[#0F172A] transition-colors pb-1"
+              className="text-slate-500 hover:text-[#0284C7] transition-colors pb-0.5"
             >
-              Resources
+              Newsletter
             </Link>
-
             <Link
               href="/projects"
-              className="text-slate-500 hover:text-[#0F172A] transition-colors pb-1"
+              className="text-slate-500 hover:text-[#0284C7] transition-colors pb-0.5"
             >
               Projects
-            </Link>
-
-            <Link
-              href="/#contact"
-              className="text-slate-500 hover:text-[#0F172A] transition-colors pb-1"
-            >
-              Contact
             </Link>
           </nav>
         </div>
 
-        {/* Right: History Navigation Buttons ( ←  → ) */}
-        <div className="flex items-center gap-2.5">
+        {/* Right: History Navigation Buttons */}
+        <div className="flex items-center gap-2">
           <button
             onClick={() => router.back()}
             aria-label="Go Back"
-            className="w-8 h-8 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-400 hover:text-[#0284C7] flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-500 hover:text-[#0284C7] flex items-center justify-center transition-colors cursor-pointer bg-white/80 backdrop-blur-xs"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => router.forward()}
             aria-label="Go Forward"
-            className="w-8 h-8 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-400 hover:text-[#0284C7] flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-500 hover:text-[#0284C7] flex items-center justify-center transition-colors cursor-pointer bg-white/80 backdrop-blur-xs"
           >
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
@@ -137,191 +126,125 @@ export default function NotFound() {
       </header>
 
       {/* ============================================================ */}
-      {/* 2. HERO CONTENT: Left Heading & CTA + Right 404 Sculpture   */}
+      {/* 2. CENTERED HERO CONTENT                                     */}
       {/* ============================================================ */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 flex items-center py-6 sm:py-10 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
-          
-          {/* Left Column: Heading & Pill CTA (1:1 with Reference Image 2) */}
-          <div className="lg:col-span-5 space-y-7 z-20">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-sans font-light text-[#0F172A] tracking-tight leading-[1.18]">
-                404 ERROR - Network
-                <br />
-                Path Undetectable
-                <br />
-                Undetectable
-              </h1>
-            </motion.div>
-
-            {/* Pill-shaped Button: RETURN TO SAFE DATASPACE → */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Link
-                href="/"
-                className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full border border-slate-300 hover:border-[#0284C7] bg-white text-slate-700 hover:text-[#0284C7] font-mono text-xs tracking-wider uppercase transition-all shadow-xs hover:shadow-md group cursor-pointer"
-              >
-                <span>RETURN TO SAFE DATASPACE</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#0284C7]" />
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Right Column: 3D Fluid Water Splash 404 Sculpture with Moving Animations */}
-          <div
-            style={{ perspective: 1200 }}
-            className="lg:col-span-7 relative flex items-center justify-center min-h-[360px] sm:min-h-[440px] lg:min-h-[500px]"
+      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center py-6 sm:py-10 relative z-10 text-center">
+        {/* Centered 3D Fluid Water Splash 404 Sculpture */}
+        <div
+          style={{ perspective: 1200 }}
+          className="relative w-full max-w-[560px] sm:max-w-[680px] lg:max-w-[760px] flex items-center justify-center select-none"
+        >
+          {/* 3D Floating Motion Container with Parallax Tilt */}
+          <motion.div
+            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+            animate={{
+              y: [-6, 6, -6],
+              rotateZ: [-0.3, 0.3, -0.3],
+            }}
+            transition={{
+              duration: 5.5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            className="relative w-full aspect-[4/3] max-h-[340px] sm:max-h-[420px] flex items-center justify-center"
           >
-            {/* 3D Floating Motion Container with Interactive Tilt */}
+            {/* Soft Cyan Glow inside 404 Center Vortex */}
             <motion.div
-              style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
               animate={{
-                y: [-6, 6, -6],
-                rotateZ: [-0.4, 0.4, -0.4],
+                scale: [0.92, 1.08, 0.92],
+                opacity: [0.4, 0.7, 0.4],
               }}
               transition={{
-                duration: 6,
+                duration: 4,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative w-full max-w-[880px] lg:max-w-[940px] aspect-[16/9] flex items-center justify-center select-none"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-60 sm:h-60 rounded-full bg-gradient-to-tr from-sky-400/30 via-cyan-400/20 to-transparent blur-2xl pointer-events-none"
+            />
+
+            {/* Clean, Background-Free 404 Neural Fluid Sculpture */}
+            <img
+              src="/404-sculpture.png"
+              alt="404 Neural Water Splash Sculpture"
+              className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_12px_28px_rgba(2,132,199,0.18)]"
+            />
+
+            {/* Orbiting Quantum Energy Droplet around 0 */}
+            <motion.div
+              animate={{
+                rotate: 360,
+              }}
+              transition={{
+                duration: 14,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 sm:w-48 sm:h-48 rounded-full pointer-events-none z-20"
             >
-              {/* Soft Ethereal Blue Glow behind 404 Center Vortex */}
-              <motion.div
-                animate={{
-                  scale: [0.92, 1.1, 0.92],
-                  opacity: [0.35, 0.65, 0.35],
-                }}
-                transition={{
-                  duration: 4.5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                className="absolute left-[56%] top-[48%] -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-gradient-to-tr from-sky-400/25 via-cyan-400/20 to-transparent blur-2xl pointer-events-none"
-              />
-
-              {/* Exact High-Resolution 404 Neural Water Splash Sculpture */}
-              <img
-                src="/404-sculpture.png"
-                alt="404 Neural Water Splash Sculpture"
-                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_36px_rgba(2,132,199,0.14)]"
-              />
-
-              {/* Animated Floating Energy Particles & Glossy Spheres around the 404 */}
-              
-              {/* Floating Bead 1: Hovering above top curve of '0' */}
-              <motion.div
-                animate={{
-                  y: [-8, 8, -8],
-                  x: [-3, 3, -3],
-                  scale: [1, 1.12, 1],
-                }}
-                transition={{
-                  duration: 4.2,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                className="absolute left-[52%] top-[19%] w-3.5 h-3.5 rounded-full pointer-events-none z-20 shadow-[0_4px_12px_rgba(2,132,199,0.6)]"
+              <div
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full shadow-[0_0_10px_#0284c7]"
                 style={{
-                  background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 35%, #0284c7 75%, #075985 100%)',
+                  background:
+                    'radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 40%, #0284c7 100%)',
                 }}
               />
-
-              {/* Floating Bead 2: Hovering near top ribbon of second '4' */}
-              <motion.div
-                animate={{
-                  y: [7, -7, 7],
-                  x: [3, -3, 3],
-                  scale: [1, 1.15, 1],
-                }}
-                transition={{
-                  duration: 4.8,
-                  repeat: Infinity,
-                  delay: 0.8,
-                  ease: 'easeInOut',
-                }}
-                className="absolute right-[22%] top-[31%] w-3 h-3 rounded-full pointer-events-none z-20 shadow-[0_4px_10px_rgba(2,132,199,0.5)]"
-                style={{
-                  background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #7dd3fc 35%, #0284c7 80%, #0369a1 100%)',
-                }}
-              />
-
-              {/* Floating Bead 3: Hovering inside '0' vortex near center logo */}
-              <motion.div
-                animate={{
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 16,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-                className="absolute left-[56.5%] top-[45%] -translate-x-1/2 -translate-y-1/2 w-44 h-44 sm:w-56 sm:h-56 rounded-full pointer-events-none z-20"
-              >
-                <div 
-                  className="absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full shadow-[0_0_8px_#0284c7]"
-                  style={{
-                    background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 40%, #0284c7 100%)',
-                  }}
-                />
-                <div 
-                  className="absolute bottom-6 right-8 w-2 h-2 rounded-full shadow-[0_0_6px_#38bdf8]"
-                  style={{
-                    background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #bae6fd 50%, #0284c7 100%)',
-                  }}
-                />
-              </motion.div>
-
-              {/* Floating Bead 4: Near lower droplet splash of first '4' */}
-              <motion.div
-                animate={{
-                  y: [-6, 6, -6],
-                  opacity: [0.6, 1, 0.6],
-                }}
-                transition={{
-                  duration: 3.6,
-                  repeat: Infinity,
-                  delay: 0.4,
-                  ease: 'easeInOut',
-                }}
-                className="absolute left-[40%] bottom-[22%] w-2 h-2 rounded-full bg-[#0284c7] shadow-[0_0_6px_#0284c7] pointer-events-none z-20"
-              />
-
-              {/* Twinkling Diamond Star Sparkle near ribbon */}
-              <motion.div
-                animate={{
-                  scale: [0.75, 1.25, 0.75],
-                  opacity: [0.35, 0.95, 0.35],
-                }}
-                transition={{
-                  duration: 2.8,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                className="absolute top-[8%] right-[12%] text-[#0284C7] text-xl select-none pointer-events-none z-20"
-              >
-                ✦
-              </motion.div>
             </motion.div>
-          </div>
+          </motion.div>
+        </div>
 
+        {/* Centered Typography & Info */}
+        <div className="space-y-4 max-w-xl mx-auto mt-1 sm:mt-3 z-20">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-[#0284C7] font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-2">
+              <span>HTTP 404 // NETWORK PATH UNDETECTABLE</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-4xl font-sans font-bold text-[#0F172A] tracking-tight">
+              Page Lost in Cyber Space
+            </h1>
+
+            <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mt-2 max-w-md mx-auto">
+              The coordinates you requested do not point to an active data stream.
+              Return to our main workspace to continue exploring.
+            </p>
+          </motion.div>
+
+          {/* Action CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="pt-2 flex flex-wrap items-center justify-center gap-3 font-mono text-xs"
+          >
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold tracking-wider shadow-[0_4px_14px_rgba(2,132,199,0.25)] hover:shadow-[0_6px_20px_rgba(2,132,199,0.35)] transition-all cursor-pointer hover:-translate-y-0.5"
+            >
+              <Home className="w-3.5 h-3.5" />
+              <span>RETURN HOME</span>
+            </Link>
+
+            <Link
+              href="/events"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 hover:text-[#0284C7] border border-slate-200 font-bold tracking-wider transition-all cursor-pointer shadow-xs hover:border-[#0284C7] hover:-translate-y-0.5"
+            >
+              <Compass className="w-3.5 h-3.5" />
+              <span>DISCOVER EVENTS</span>
+            </Link>
+          </motion.div>
         </div>
       </main>
 
       {/* ============================================================ */}
-      {/* 3. FOOTER TELEMETRY STRIP (1:1 with Reference)               */}
+      {/* 3. FOOTER TELEMETRY STRIP                                    */}
       {/* ============================================================ */}
-      <footer className="w-full py-4 text-center text-xs font-mono text-slate-400 border-t border-slate-100">
+      <footer className="w-full py-4 text-center text-[11px] sm:text-xs font-mono text-slate-400 border-t border-slate-100 relative z-20">
         IEEE COMPUTATIONAL INTELLIGENCE SOCIETY • MANIPAL UNIVERSITY JAIPUR
       </footer>
-
     </div>
   );
 }
