@@ -94,8 +94,12 @@ export const EventsFanDeck: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: 3D Floating Planetary Sphere & Animated Orbiting Spheres */}
-          <div className="lg:col-span-6 relative flex items-center justify-center min-h-[300px] sm:min-h-[360px] lg:min-h-[400px] overflow-visible">
+          {/* Right Column: 3D Floating Planetary Sphere & Animated Orbiting Spheres (Bright & Luminous) */}
+          <div className="lg:col-span-6 relative flex items-center justify-center min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] overflow-visible">
+            
+            {/* Luminous Glowing Backlight Aura behind Sphere */}
+            <div className="absolute w-[360px] h-[360px] sm:w-[440px] sm:h-[440px] rounded-full bg-radial from-sky-400/40 via-[#0284C7]/20 to-transparent blur-3xl pointer-events-none" />
+
             <motion.div
               animate={{
                 y: [-6, 6, -6],
@@ -105,13 +109,13 @@ export const EventsFanDeck: React.FC = () => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative w-full max-w-[480px] lg:max-w-[540px] aspect-[16/11] flex items-center justify-center select-none mx-auto"
+              className="relative w-full max-w-[500px] lg:max-w-[560px] aspect-[16/11] flex items-center justify-center select-none mx-auto"
             >
-              {/* Planetary Artwork */}
+              {/* Enhanced Planetary Artwork (Vibrant contrast, glowing sapphire depth) */}
               <img
                 src="/events-hero-sphere.png"
                 alt="3D Floating Planetary Sphere with Orbital Rings"
-                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_12px_32px_rgba(2,132,199,0.18)]"
+                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_20px_45px_rgba(2,132,199,0.35)] contrast-[1.15] brightness-[1.05]"
               />
 
               {/* Animated Orbiting Spheres SVG Overlay */}
@@ -124,21 +128,21 @@ export const EventsFanDeck: React.FC = () => {
                   {/* Sphere 3D Radial Gradient */}
                   <radialGradient id="orbitBallGrad" cx="35%" cy="35%" r="65%">
                     <stop offset="0%" stopColor="#FFFFFF" />
-                    <stop offset="25%" stopColor="#7DD3FC" />
-                    <stop offset="70%" stopColor="#0284C7" />
+                    <stop offset="20%" stopColor="#7DD3FC" />
+                    <stop offset="60%" stopColor="#0284C7" />
                     <stop offset="100%" stopColor="#0369A1" />
                   </radialGradient>
                   
                   <radialGradient id="orbitBallCyan" cx="35%" cy="35%" r="65%">
-                    <stop offset="0%" stopColor="#E0F2FE" />
-                    <stop offset="35%" stopColor="#38BDF8" />
-                    <stop offset="80%" stopColor="#0284C7" />
+                    <stop offset="0%" stopColor="#FFFFFF" />
+                    <stop offset="30%" stopColor="#38BDF8" />
+                    <stop offset="75%" stopColor="#0284C7" />
                     <stop offset="100%" stopColor="#0C4A6E" />
                   </radialGradient>
 
                   {/* Sphere 3D Glow & Shadow Filter */}
                   <filter id="orbitGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feDropShadow dx="0" dy="3" stdDeviation="5" floodColor="#0284C7" floodOpacity="0.6" />
+                    <feDropShadow dx="0" dy="3" stdDeviation="6" floodColor="#0284C7" floodOpacity="0.75" />
                   </filter>
 
                   {/* Concentric Elliptical Paths matching -26deg planetary tilt on 1376x768 */}
@@ -162,20 +166,27 @@ export const EventsFanDeck: React.FC = () => {
 
                 {/* Rotated Group aligning orbits to the ring tilt */}
                 <g transform="rotate(-26 706 400)">
+                  
+                  {/* Visible Glowing Orbit Ellipses */}
+                  <ellipse cx="706" cy="400" rx="670" ry="220" stroke="#0284C7" strokeWidth="1.2" strokeOpacity="0.35" fill="none" />
+                  <ellipse cx="706" cy="400" rx="560" ry="185" stroke="#38BDF8" strokeWidth="1.2" strokeDasharray="6 6" strokeOpacity="0.45" fill="none" />
+                  <ellipse cx="706" cy="400" rx="440" ry="145" stroke="#0284C7" strokeWidth="1.4" strokeOpacity="0.4" fill="none" />
+                  <ellipse cx="706" cy="400" rx="340" ry="112" stroke="#38BDF8" strokeWidth="1" strokeDasharray="4 4" strokeOpacity="0.5" fill="none" />
+
                   {/* --- OUTER RING SPHERES --- */}
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="18s" repeatCount="indefinite">
                       <mpath href="#outerOrbitPath" />
                     </animateMotion>
-                    <circle r="18" fill="url(#orbitBallGrad)" />
-                    <circle r="25" stroke="#38BDF8" strokeWidth="1.5" strokeOpacity="0.45" />
+                    <circle r="19" fill="url(#orbitBallGrad)" />
+                    <circle r="26" stroke="#38BDF8" strokeWidth="1.5" strokeOpacity="0.6" />
                   </g>
 
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="18s" begin="-9s" repeatCount="indefinite">
                       <mpath href="#outerOrbitPath" />
                     </animateMotion>
-                    <circle r="13" fill="url(#orbitBallCyan)" />
+                    <circle r="14" fill="url(#orbitBallCyan)" />
                   </g>
 
                   {/* --- MID-OUTER RING SPHERES --- */}
@@ -183,15 +194,15 @@ export const EventsFanDeck: React.FC = () => {
                     <animateMotion dur="14s" repeatCount="indefinite">
                       <mpath href="#midOuterOrbitPath" />
                     </animateMotion>
-                    <circle r="15" fill="url(#orbitBallGrad)" />
-                    <circle r="21" stroke="#38BDF8" strokeWidth="1.2" strokeOpacity="0.35" />
+                    <circle r="16" fill="url(#orbitBallGrad)" />
+                    <circle r="22" stroke="#38BDF8" strokeWidth="1.3" strokeOpacity="0.5" />
                   </g>
 
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="14s" begin="-7s" repeatCount="indefinite">
                       <mpath href="#midOuterOrbitPath" />
                     </animateMotion>
-                    <circle r="11" fill="url(#orbitBallCyan)" />
+                    <circle r="12" fill="url(#orbitBallCyan)" />
                   </g>
 
                   {/* --- MID-INNER RING SPHERES --- */}
@@ -199,14 +210,14 @@ export const EventsFanDeck: React.FC = () => {
                     <animateMotion dur="10.5s" repeatCount="indefinite">
                       <mpath href="#midInnerOrbitPath" />
                     </animateMotion>
-                    <circle r="14" fill="url(#orbitBallGrad)" />
+                    <circle r="15" fill="url(#orbitBallGrad)" />
                   </g>
 
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="10.5s" begin="-5.25s" repeatCount="indefinite">
                       <mpath href="#midInnerOrbitPath" />
                     </animateMotion>
-                    <circle r="10" fill="url(#orbitBallCyan)" />
+                    <circle r="11" fill="url(#orbitBallCyan)" />
                   </g>
 
                   {/* --- INNER RING SPHERES --- */}
@@ -214,14 +225,14 @@ export const EventsFanDeck: React.FC = () => {
                     <animateMotion dur="7.5s" repeatCount="indefinite">
                       <mpath href="#innerOrbitPath" />
                     </animateMotion>
-                    <circle r="12" fill="url(#orbitBallGrad)" />
+                    <circle r="13" fill="url(#orbitBallGrad)" />
                   </g>
 
                   <g filter="url(#orbitGlow)">
                     <animateMotion dur="7.5s" begin="-3.75s" repeatCount="indefinite">
                       <mpath href="#innerOrbitPath" />
                     </animateMotion>
-                    <circle r="9" fill="url(#orbitBallCyan)" />
+                    <circle r="10" fill="url(#orbitBallCyan)" />
                   </g>
                 </g>
               </svg>
