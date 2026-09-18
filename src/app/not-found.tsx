@@ -3,18 +3,21 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
   const router = useRouter();
 
-  // Mouse Parallax 3D Tilt for the 404 neural sculpture
+  // Smooth 3D Mouse Parallax Tilt for the 404 neural water sculpture
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useTransform(mouseY, [-200, 200], [6, -6]);
-  const rotateY = useTransform(mouseX, [-200, 200], [-8, 8]);
+  const smoothX = useSpring(mouseX, { stiffness: 100, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 100, damping: 20 });
+
+  const rotateX = useTransform(smoothY, [-250, 250], [6, -6]);
+  const rotateY = useTransform(smoothX, [-250, 250], [-7, 7]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -30,22 +33,26 @@ export default function NotFound() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#0F172A] flex flex-col justify-between selection:bg-[#0284C7] selection:text-white relative overflow-hidden font-sans">
+    <div 
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="min-h-screen bg-white text-[#0F172A] flex flex-col justify-between selection:bg-[#0284C7] selection:text-white relative overflow-hidden font-sans"
+    >
       
-      {/* Soft Ambient Neural Smoke Glow in Top-Right */}
+      {/* Soft Ethereal Blue Ambient Glow in Top-Right Corner (Matches Reference) */}
       <div 
-        className="absolute -top-24 -right-24 w-[750px] h-[600px] pointer-events-none opacity-45"
+        className="absolute top-0 right-0 w-[850px] h-[650px] pointer-events-none opacity-45"
         style={{
-          background: 'radial-gradient(circle at 80% 20%, rgba(186, 230, 253, 0.65) 0%, rgba(224, 242, 254, 0.25) 45%, transparent 70%)',
+          background: 'radial-gradient(circle at 85% 15%, rgba(186, 230, 253, 0.7) 0%, rgba(224, 242, 254, 0.3) 45%, transparent 72%)',
         }}
       />
 
       {/* ============================================================ */}
-      {/* 1. TOP NAVBAR (1:1 Match with Reference)                     */}
+      {/* 1. TOP NAVBAR (Exact 1:1 Match with Reference Image 2)       */}
       {/* ============================================================ */}
       <header className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-6 sm:pt-8 flex items-center justify-between relative z-20">
         
-        {/* Left: Logo Mark + Divider + Nav Links */}
+        {/* Left: CIS Logo + Vertical Divider + Navigation Links */}
         <div className="flex items-center gap-6 sm:gap-8">
           <Link href="/" className="flex items-center gap-3 group">
             <img
@@ -56,8 +63,8 @@ export default function NotFound() {
             <div className="w-px h-5 bg-slate-200 hidden sm:block" />
           </Link>
 
-          {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-6 text-[13px] font-sans">
+          {/* Navigation Links matching reference */}
+          <nav className="hidden md:flex items-center gap-7 text-[13px] font-sans">
             <Link
               href="/"
               className="relative text-[#0284C7] font-medium transition-colors pb-1"
@@ -88,6 +95,13 @@ export default function NotFound() {
             </Link>
 
             <Link
+              href="/newsletter"
+              className="text-slate-500 hover:text-[#0F172A] transition-colors pb-1"
+            >
+              Resources
+            </Link>
+
+            <Link
               href="/projects"
               className="text-slate-500 hover:text-[#0F172A] transition-colors pb-1"
             >
@@ -95,7 +109,7 @@ export default function NotFound() {
             </Link>
 
             <Link
-              href="/contact"
+              href="/#contact"
               className="text-slate-500 hover:text-[#0F172A] transition-colors pb-1"
             >
               Contact
@@ -103,39 +117,39 @@ export default function NotFound() {
           </nav>
         </div>
 
-        {/* Right: History Navigation Arrows (← →) */}
-        <div className="flex items-center gap-3">
+        {/* Right: History Navigation Buttons ( ←  → ) */}
+        <div className="flex items-center gap-2.5">
           <button
             onClick={() => router.back()}
             aria-label="Go Back"
-            className="w-8 h-8 rounded-full border border-slate-200 hover:border-slate-300 text-slate-400 hover:text-slate-700 flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-400 hover:text-[#0284C7] flex items-center justify-center transition-colors cursor-pointer"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => router.forward()}
             aria-label="Go Forward"
-            className="w-8 h-8 rounded-full border border-slate-200 hover:border-slate-300 text-slate-400 hover:text-slate-700 flex items-center justify-center transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-400 hover:text-[#0284C7] flex items-center justify-center transition-colors cursor-pointer"
           >
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </header>
 
       {/* ============================================================ */}
-      {/* 2. HERO CONTENT: Headline + CTA on Left, 404 Sculpture Right */}
+      {/* 2. HERO CONTENT: Left Heading & CTA + Right 404 Sculpture   */}
       {/* ============================================================ */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 flex items-center py-10 sm:py-16 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center w-full">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 flex items-center py-6 sm:py-10 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
           
-          {/* Left Column: Heading & Pill CTA */}
-          <div className="lg:col-span-5 space-y-8 z-10">
+          {/* Left Column: Heading & Pill CTA (1:1 with Reference Image 2) */}
+          <div className="lg:col-span-5 space-y-7 z-20">
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-sans font-normal text-[#0F172A] tracking-tight leading-[1.18]">
+              <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-sans font-light text-[#0F172A] tracking-tight leading-[1.18]">
                 404 ERROR - Network
                 <br />
                 Path Undetectable
@@ -152,7 +166,7 @@ export default function NotFound() {
             >
               <Link
                 href="/"
-                className="inline-flex items-center gap-3.5 px-6 py-2.5 rounded-full border border-slate-300 hover:border-[#0284C7] bg-white text-slate-700 hover:text-[#0284C7] font-mono text-xs tracking-wider uppercase transition-all shadow-xs hover:shadow-md group cursor-pointer"
+                className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full border border-slate-300 hover:border-[#0284C7] bg-white text-slate-700 hover:text-[#0284C7] font-mono text-xs tracking-wider uppercase transition-all shadow-xs hover:shadow-md group cursor-pointer"
               >
                 <span>RETURN TO SAFE DATASPACE</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#0284C7]" />
@@ -160,28 +174,26 @@ export default function NotFound() {
             </motion.div>
           </div>
 
-          {/* Right Column: Dynamic 3D Moving 404 Neural Particle Sculpture */}
+          {/* Right Column: 3D Fluid Water Splash 404 Sculpture with Moving Animations */}
           <div
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
             style={{ perspective: 1200 }}
-            className="lg:col-span-7 relative flex items-center justify-center min-h-[380px] sm:min-h-[460px] lg:min-h-[520px] cursor-pointer"
+            className="lg:col-span-7 relative flex items-center justify-center min-h-[360px] sm:min-h-[440px] lg:min-h-[500px]"
           >
             {/* 3D Floating Motion Container with Interactive Tilt */}
             <motion.div
               style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
               animate={{
-                y: [-8, 8, -8],
-                rotateZ: [-0.6, 0.6, -0.6],
+                y: [-6, 6, -6],
+                rotateZ: [-0.4, 0.4, -0.4],
               }}
               transition={{
-                duration: 6.5,
+                duration: 6,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative w-full max-w-[820px] aspect-[16/10] flex items-center justify-center select-none"
+              className="relative w-full max-w-[880px] lg:max-w-[940px] aspect-[16/9] flex items-center justify-center select-none"
             >
-              {/* Soft Ethereal Blue Glow behind 404 center vortex */}
+              {/* Soft Ethereal Blue Glow behind 404 Center Vortex */}
               <motion.div
                 animate={{
                   scale: [0.92, 1.1, 0.92],
@@ -192,91 +204,108 @@ export default function NotFound() {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute left-[36%] top-[45%] -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-gradient-to-tr from-sky-400/25 via-cyan-400/20 to-transparent blur-2xl pointer-events-none"
+                className="absolute left-[56%] top-[48%] -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-gradient-to-tr from-sky-400/25 via-cyan-400/20 to-transparent blur-2xl pointer-events-none"
               />
 
-              {/* Exact Transparent 404 Neural Swirl Sculpture */}
+              {/* Exact High-Resolution 404 Neural Water Splash Sculpture */}
               <img
                 src="/404-sculpture.png"
-                alt="404 Neural Fiber Network Sculpture"
-                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_36px_rgba(2,132,199,0.12)]"
+                alt="404 Neural Water Splash Sculpture"
+                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_36px_rgba(2,132,199,0.14)]"
               />
 
-              {/* Animated Floating Energy Particles around the 404 */}
-              {/* Particle 1: Near Top of First 4 */}
+              {/* Animated Floating Energy Particles & Glossy Spheres around the 404 */}
+              
+              {/* Floating Bead 1: Hovering above top curve of '0' */}
               <motion.div
                 animate={{
-                  y: [-12, 12, -12],
-                  x: [-6, 6, -6],
-                  opacity: [0.4, 0.9, 0.4],
+                  y: [-8, 8, -8],
+                  x: [-3, 3, -3],
+                  scale: [1, 1.12, 1],
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 4.2,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute left-[18%] top-[24%] w-2.5 h-2.5 rounded-full bg-sky-400 shadow-[0_0_10px_#38bdf8] pointer-events-none z-20"
+                className="absolute left-[52%] top-[19%] w-3.5 h-3.5 rounded-full pointer-events-none z-20 shadow-[0_4px_12px_rgba(2,132,199,0.6)]"
+                style={{
+                  background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 35%, #0284c7 75%, #075985 100%)',
+                }}
               />
 
-              {/* Particle 2: Orbiting Center '0' Vortex */}
+              {/* Floating Bead 2: Hovering near top ribbon of second '4' */}
+              <motion.div
+                animate={{
+                  y: [7, -7, 7],
+                  x: [3, -3, 3],
+                  scale: [1, 1.15, 1],
+                }}
+                transition={{
+                  duration: 4.8,
+                  repeat: Infinity,
+                  delay: 0.8,
+                  ease: 'easeInOut',
+                }}
+                className="absolute right-[22%] top-[31%] w-3 h-3 rounded-full pointer-events-none z-20 shadow-[0_4px_10px_rgba(2,132,199,0.5)]"
+                style={{
+                  background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #7dd3fc 35%, #0284c7 80%, #0369a1 100%)',
+                }}
+              />
+
+              {/* Floating Bead 3: Hovering inside '0' vortex near center logo */}
               <motion.div
                 animate={{
                   rotate: 360,
                 }}
                 transition={{
-                  duration: 18,
+                  duration: 16,
                   repeat: Infinity,
                   ease: 'linear',
                 }}
-                className="absolute left-[35%] top-[44%] -translate-x-1/2 -translate-y-1/2 w-40 h-40 sm:w-52 sm:h-52 rounded-full pointer-events-none z-20"
+                className="absolute left-[56.5%] top-[45%] -translate-x-1/2 -translate-y-1/2 w-44 h-44 sm:w-56 sm:h-56 rounded-full pointer-events-none z-20"
               >
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#0284C7] shadow-[0_0_8px_#0284c7]" />
-                <div className="absolute bottom-4 right-6 w-1.5 h-1.5 rounded-full bg-cyan-300 shadow-[0_0_6px_#38bdf8]" />
+                <div 
+                  className="absolute top-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full shadow-[0_0_8px_#0284c7]"
+                  style={{
+                    background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #38bdf8 40%, #0284c7 100%)',
+                  }}
+                />
+                <div 
+                  className="absolute bottom-6 right-8 w-2 h-2 rounded-full shadow-[0_0_6px_#38bdf8]"
+                  style={{
+                    background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #bae6fd 50%, #0284c7 100%)',
+                  }}
+                />
               </motion.div>
 
-              {/* Particle 3: Near Right Edge of Second 4 */}
+              {/* Floating Bead 4: Near lower droplet splash of first '4' */}
               <motion.div
                 animate={{
-                  y: [10, -10, 10],
-                  x: [4, -4, 4],
-                  opacity: [0.5, 1, 0.5],
+                  y: [-6, 6, -6],
+                  opacity: [0.6, 1, 0.6],
                 }}
                 transition={{
-                  duration: 5,
+                  duration: 3.6,
                   repeat: Infinity,
-                  delay: 1,
+                  delay: 0.4,
                   ease: 'easeInOut',
                 }}
-                className="absolute right-[12%] top-[35%] w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8] pointer-events-none z-20"
+                className="absolute left-[40%] bottom-[22%] w-2 h-2 rounded-full bg-[#0284c7] shadow-[0_0_6px_#0284c7] pointer-events-none z-20"
               />
 
-              {/* Particle 4: Lower Swirl Tendril */}
+              {/* Twinkling Diamond Star Sparkle near ribbon */}
               <motion.div
                 animate={{
-                  y: [-8, 8, -8],
-                  opacity: [0.3, 0.8, 0.3],
+                  scale: [0.75, 1.25, 0.75],
+                  opacity: [0.35, 0.95, 0.35],
                 }}
                 transition={{
-                  duration: 3.5,
-                  repeat: Infinity,
-                  delay: 0.5,
-                  ease: 'easeInOut',
-                }}
-                className="absolute left-[48%] bottom-[18%] w-2 h-2 rounded-full bg-sky-300 shadow-[0_0_6px_#7dd3fc] pointer-events-none z-20"
-              />
-
-              {/* Floating Sparkle Star */}
-              <motion.div
-                animate={{
-                  scale: [0.8, 1.2, 0.8],
-                  opacity: [0.4, 0.9, 0.4],
-                }}
-                transition={{
-                  duration: 3,
+                  duration: 2.8,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute top-[12%] right-[22%] text-[#0284C7] text-lg select-none pointer-events-none z-20"
+                className="absolute top-[8%] right-[12%] text-[#0284C7] text-xl select-none pointer-events-none z-20"
               >
                 ✦
               </motion.div>
@@ -286,7 +315,9 @@ export default function NotFound() {
         </div>
       </main>
 
-      {/* Subtle Bottom Accent Line */}
+      {/* ============================================================ */}
+      {/* 3. FOOTER TELEMETRY STRIP (1:1 with Reference)               */}
+      {/* ============================================================ */}
       <footer className="w-full py-4 text-center text-xs font-mono text-slate-400 border-t border-slate-100">
         IEEE COMPUTATIONAL INTELLIGENCE SOCIETY • MANIPAL UNIVERSITY JAIPUR
       </footer>
@@ -294,3 +325,4 @@ export default function NotFound() {
     </div>
   );
 }
+
