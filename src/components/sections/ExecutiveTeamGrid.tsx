@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CIS_TEAM_2026, TeamMember } from '@/data/team';
 import { ArrowRight, X, Linkedin, Instagram } from 'lucide-react';
 
-const CATEGORIES = ['ALL', 'CORE TEAM', 'ADVISORY', 'EXECUTIVE', 'MANAGEMENT'];
+const CATEGORIES = ['ALL', 'CORE TEAM', 'ADVISORY', 'EXECUTIVE & MANAGEMENT'];
 
 export const ExecutiveTeamGrid: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('ALL');
@@ -75,8 +75,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
     if (activeCategory === 'ALL') return true;
     if (activeCategory === 'CORE TEAM') return m.category === 'CORE TEAM';
     if (activeCategory === 'ADVISORY') return m.category === 'ADVISORY' || m.category === 'FACULTY ADVISOR';
-    if (activeCategory === 'EXECUTIVE') return m.category === 'HEADS';
-    if (activeCategory === 'MANAGEMENT') return m.category === 'COORDINATORS';
+    if (activeCategory === 'EXECUTIVE & MANAGEMENT') return m.category === 'HEADS' || m.category === 'COORDINATORS';
     return true;
   }).sort((a, b) => {
     // Prioritize Faculty & Ex-Leadership at top of Advisory, Chairperson and Vice-Chairperson at top of Core
@@ -93,6 +92,8 @@ export const ExecutiveTeamGrid: React.FC = () => {
       if (rl.includes('director')) return 6;
       if (rl.includes('head') && !rl.includes('joint')) return 7;
       if (rl.includes('joint head')) return 8;
+      if (rl.includes('senior coordinator')) return 9;
+      if (rl.includes('coordinator')) return 9.5;
       return 10;
     };
     return roleRank(a.role) - roleRank(b.role);
@@ -402,7 +403,11 @@ export const ExecutiveTeamGrid: React.FC = () => {
                   <div className="space-y-1">
                     {/* Category as JUST TEXT (no background round box) */}
                     <span className="font-mono text-[11px] font-bold text-[#0284C7] uppercase tracking-wider block">
-                      {member.category}
+                      {member.category === 'HEADS' || member.category === 'COORDINATORS'
+                        ? 'EXECUTIVE & MANAGEMENT'
+                        : member.category === 'FACULTY ADVISOR'
+                        ? 'ADVISORY'
+                        : member.category}
                     </span>
                     <h3 className="text-xl sm:text-2xl font-sans font-bold text-[#1E293B] group-hover:text-[#0284C7] transition-colors leading-snug">
                       {member.name}
@@ -487,7 +492,11 @@ export const ExecutiveTeamGrid: React.FC = () => {
                 </div>
                 <div className="space-y-1">
                   <span className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-wider block">
-                    {selectedMember.category}
+                    {selectedMember.category === 'HEADS' || selectedMember.category === 'COORDINATORS'
+                      ? 'EXECUTIVE & MANAGEMENT'
+                      : selectedMember.category === 'FACULTY ADVISOR'
+                      ? 'ADVISORY'
+                      : selectedMember.category}
                   </span>
                   <h3 className="text-xl sm:text-2xl font-sans font-bold text-[#0F172A] leading-tight">
                     {selectedMember.name}
