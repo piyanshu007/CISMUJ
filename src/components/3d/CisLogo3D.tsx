@@ -106,7 +106,7 @@ export const CisLogo3D: React.FC = () => {
     });
 
     textureLoader.load(
-      '/logo-mark.png',
+      '/hero-logo-3d.png',
       (texture) => {
         texture.colorSpace = THREE.SRGBColorSpace;
         texture.generateMipmaps = true;
@@ -117,7 +117,7 @@ export const CisLogo3D: React.FC = () => {
       },
       undefined,
       (err) => {
-        console.error('Error loading CIS logo texture:', err);
+        console.error('Error loading CIS 3D hero logo texture:', err);
       }
     );
 
