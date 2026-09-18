@@ -152,29 +152,22 @@ export const PhotoMosaicSection: React.FC = () => {
           </h2>
         </div>
 
-        {/* Interactive 3D Controls & Drag Hint */}
-        <div className="flex items-center gap-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-50 border border-slate-200 font-mono text-[11px] text-slate-600 font-semibold shadow-2xs">
-            <Move3d className="w-3.5 h-3.5 text-[#0284C7] animate-pulse" />
-            <span>DRAG 360° TO ROTATE</span>
-          </div>
-
-          <div className="flex items-center gap-1.5">
-            <button
-              onClick={rotateLeft}
-              className="p-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] transition-all shadow-xs cursor-pointer active:scale-95"
-              aria-label="Rotate Left"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={rotateRight}
-              className="p-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] transition-all shadow-xs cursor-pointer active:scale-95"
-              aria-label="Rotate Right"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+        {/* Interactive 3D Controls */}
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={rotateLeft}
+            className="p-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] transition-all shadow-xs cursor-pointer active:scale-95"
+            aria-label="Rotate Left"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            onClick={rotateRight}
+            className="p-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] transition-all shadow-xs cursor-pointer active:scale-95"
+            aria-label="Rotate Right"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
 

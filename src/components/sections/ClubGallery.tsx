@@ -94,7 +94,6 @@ export const ClubGallery: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="CAPTURING OUR CHAPTER IN ACTION."
-          subtitle="From packed auditorium masterclasses to 3am hackathon debugging sprints—here is how IEEE CIS lives and breathes technology at Manipal University Jaipur."
         />
 
         {/* Filter Pills */}
