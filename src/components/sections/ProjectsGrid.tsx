@@ -77,12 +77,12 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO SECTION (1:1 Match with User Reference)        */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-28 sm:pt-32 pb-8 sm:pb-12 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-24 sm:pt-28 pb-4 sm:pb-6 relative z-10">
         
         {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres (Passing OVER image) */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible"
-          viewBox="0 0 1400 500"
+          viewBox="0 0 1400 320"
           fill="none"
           preserveAspectRatio="none"
         >
@@ -105,23 +105,23 @@ export const ProjectsGrid: React.FC = () => {
             {/* Extended continuous wave path for motion */}
             <path
               id="mainWaveTravelPath"
-              d="M -50,380 C 260,380 400,290 620,350 C 840,410 960,220 1160,260 C 1280,290 1360,340 1480,360"
+              d="M -50,240 C 240,240 380,170 580,210 C 780,250 920,130 1120,160 C 1240,180 1340,220 1480,230"
             />
             <path
               id="secondaryWaveTravelPath"
-              d="M -50,420 C 300,440 500,330 740,390 C 980,450 1100,280 1380,340 C 1420,350 1460,360 1480,360"
+              d="M -50,270 C 280,280 480,200 700,240 C 920,280 1060,170 1340,220 C 1400,230 1440,235 1480,240"
             />
           </defs>
 
           {/* Visible Wave Paths */}
           <path
-            d="M 60,380 C 260,380 400,290 620,350 C 840,410 960,220 1160,260 C 1280,290 1360,340 1460,360"
+            d="M 40,240 C 240,240 380,170 580,210 C 780,250 920,130 1120,160 C 1240,180 1340,220 1460,230"
             stroke="#0284C7"
             strokeWidth="1.2"
             strokeOpacity="0.4"
           />
           <path
-            d="M 80,420 C 300,440 500,330 740,390 C 980,450 1100,280 1380,340"
+            d="M 60,270 C 280,280 480,200 700,240 C 920,280 1060,170 1340,220"
             stroke="#38BDF8"
             strokeWidth="0.8"
             strokeDasharray="4 4"
@@ -129,11 +129,11 @@ export const ProjectsGrid: React.FC = () => {
           />
 
           {/* Cyan Marker Dots along the wave paths */}
-          <circle cx="620" cy="350" r="3" fill="#0284C7" />
-          <circle cx="1160" cy="260" r="3" fill="#0284C7" />
-          <circle cx="380" cy="330" r="2.5" fill="#38BDF8" />
-          <circle cx="880" cy="300" r="2.5" fill="#38BDF8" />
-          <circle cx="1280" cy="290" r="2.5" fill="#0284C7" />
+          <circle cx="580" cy="210" r="3" fill="#0284C7" />
+          <circle cx="1120" cy="160" r="3" fill="#0284C7" />
+          <circle cx="360" cy="200" r="2.5" fill="#38BDF8" />
+          <circle cx="850" cy="180" r="2.5" fill="#38BDF8" />
+          <circle cx="1240" cy="180" r="2.5" fill="#0284C7" />
 
           {/* --- TRAVELLING SPHERES (BALLS) ALONG THE WAVE --- */}
           {/* Ball 1: Primary Large Glossy Blue Sphere */}
@@ -170,10 +170,10 @@ export const ProjectsGrid: React.FC = () => {
           </g>
         </svg>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center min-h-[460px] lg:min-h-[500px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Left Column: Eyebrow, Large "Projects" Title, Subtitle, CTA */}
-          <div className="lg:col-span-5 space-y-6 z-10">
+          <div className="lg:col-span-5 space-y-4 z-10">
             
             {/* Eyebrow: —— OUR WORK —— */}
             <motion.div
@@ -195,7 +195,7 @@ export const ProjectsGrid: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h1 className="text-5xl sm:text-6xl lg:text-[4.5rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.05]">
+              <h1 className="text-4xl sm:text-5xl lg:text-[4rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.05]">
                 Projects
               </h1>
             </motion.div>
@@ -218,11 +218,11 @@ export const ProjectsGrid: React.FC = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="pt-2"
+              className="pt-1"
             >
               <button
                 onClick={() => setShowAllModal(true)}
-                className="w-11 h-11 rounded-full border border-[#0284C7] text-[#0284C7] hover:bg-[#0284C7] hover:text-white flex items-center justify-center transition-all duration-300 group cursor-pointer shadow-xs hover:shadow-md"
+                className="w-10 h-10 rounded-full border border-[#0284C7] text-[#0284C7] hover:bg-[#0284C7] hover:text-white flex items-center justify-center transition-all duration-300 group cursor-pointer shadow-xs hover:shadow-md"
                 aria-label="View All Projects"
               >
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -235,14 +235,14 @@ export const ProjectsGrid: React.FC = () => {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ perspective: 1200 }}
-            className="lg:col-span-7 relative flex items-center justify-center min-h-[340px] sm:min-h-[400px] lg:min-h-[460px] cursor-pointer"
+            className="lg:col-span-7 relative flex items-center justify-center min-h-[220px] sm:min-h-[260px] lg:min-h-[300px] cursor-pointer"
           >
             {/* 3D Floating Motion Container with Interactive Tilt */}
             <motion.div
               style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
               animate={{
-                y: [-7, 7, -7],
-                rotateZ: [-0.6, 0.6, -0.6],
+                y: [-5, 5, -5],
+                rotateZ: [-0.5, 0.5, -0.5],
               }}
               transition={{
                 duration: 6.5,
@@ -364,7 +364,7 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 2: PROJECT CARDS ROW (1:1 Match with User Reference)    */}
       {/* ============================================================ */}
-      <div className="w-full border-t border-slate-100/90 bg-white py-8 sm:py-12 relative z-10">
+      <div className="w-full border-t border-slate-100/90 bg-white py-6 sm:py-8 relative z-10">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
