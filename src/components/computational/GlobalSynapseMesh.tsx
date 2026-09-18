@@ -40,20 +40,20 @@ export const GlobalSynapseMesh: React.FC = () => {
       radius: 180,
     };
 
-    const isMobile = window.innerWidth < 768;
-    const nodeCount = isMobile ? 45 : 90;
-    const maxDistance = isMobile ? 110 : 160;
+    const isMobile = window.innerWidth < 768 || (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches);
+    const nodeCount = isMobile ? 16 : 80;
+    const maxDistance = isMobile ? 85 : 155;
 
     const colors = ['#0284C7', '#0369A1', '#0F172A', '#38BDF8'];
 
     const nodes: MeshNode[] = [];
     for (let i = 0; i < nodeCount; i++) {
-      const baseRadius = Math.random() * 2.2 + 1.2;
+      const baseRadius = Math.random() * 2.0 + 1.2;
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
+        vx: (Math.random() - 0.5) * (isMobile ? 0.35 : 0.5),
+        vy: (Math.random() - 0.5) * (isMobile ? 0.35 : 0.5),
         radius: baseRadius,
         baseRadius,
         color: colors[Math.floor(Math.random() * colors.length)],
@@ -79,10 +79,29 @@ export const GlobalSynapseMesh: React.FC = () => {
     };
 
     window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
+    if (!isMobile) {
+      window.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    let isScrolling = false;
+    let scrollTimeout: NodeJS.Timeout;
+    const handleScroll = () => {
+      if (!isMobile) return;
+      isScrolling = true;
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 120);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     const animate = () => {
+      if (document.hidden || (isMobile && isScrolling)) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+
       ctx.clearRect(0, 0, width, height);
 
       for (let i = 0; i < nodes.length; i++) {
@@ -93,18 +112,20 @@ export const GlobalSynapseMesh: React.FC = () => {
         if (nA.x < 0 || nA.x > width) nA.vx *= -1;
         if (nA.y < 0 || nA.y > height) nA.vy *= -1;
 
-        // Mouse attraction/repulsion
-        const dxM = mouse.x - nA.x;
-        const dyM = mouse.y - nA.y;
-        const distM = Math.sqrt(dxM * dxM + dyM * dyM);
+        // Mouse attraction/repulsion on desktop only
+        if (!isMobile && mouse.x > 0) {
+          const dxM = mouse.x - nA.x;
+          const dyM = mouse.y - nA.y;
+          const distM = Math.sqrt(dxM * dxM + dyM * dyM);
 
-        if (distM < mouse.radius) {
-          const force = (1 - distM / mouse.radius) * 1.5;
-          nA.x -= (dxM / distM) * force;
-          nA.y -= (dyM / distM) * force;
-          nA.radius = nA.baseRadius + force * 2.5;
-        } else {
-          nA.radius = nA.baseRadius;
+          if (distM < mouse.radius) {
+            const force = (1 - distM / mouse.radius) * 1.5;
+            nA.x -= (dxM / distM) * force;
+            nA.y -= (dyM / distM) * force;
+            nA.radius = nA.baseRadius + force * 2.5;
+          } else {
+            nA.radius = nA.baseRadius;
+          }
         }
 
         // Draw connections
@@ -115,7 +136,7 @@ export const GlobalSynapseMesh: React.FC = () => {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDistance) {
-            const alpha = (1 - dist / maxDistance) * 0.22;
+            const alpha = (1 - dist / maxDistance) * (isMobile ? 0.18 : 0.22);
             ctx.beginPath();
             ctx.moveTo(nA.x, nA.y);
             ctx.lineTo(nB.x, nB.y);
@@ -123,8 +144,8 @@ export const GlobalSynapseMesh: React.FC = () => {
             ctx.lineWidth = 1.0;
             ctx.stroke();
 
-            // Occasional pulse
-            if (Math.random() < 0.0008 && pulses.length < 20) {
+            // Occasional pulse on desktop
+            if (!isMobile && Math.random() < 0.0008 && pulses.length < 20) {
               pulses.push({
                 fromX: nA.x,
                 fromY: nA.y,
@@ -146,23 +167,25 @@ export const GlobalSynapseMesh: React.FC = () => {
         ctx.globalAlpha = 1.0;
       }
 
-      // Draw signal pulses
-      for (let p = pulses.length - 1; p >= 0; p--) {
-        const pulse = pulses[p];
-        pulse.progress += pulse.speed;
+      // Draw signal pulses on desktop
+      if (!isMobile) {
+        for (let p = pulses.length - 1; p >= 0; p--) {
+          const pulse = pulses[p];
+          pulse.progress += pulse.speed;
 
-        if (pulse.progress >= 1) {
-          pulses.splice(p, 1);
-          continue;
+          if (pulse.progress >= 1) {
+            pulses.splice(p, 1);
+            continue;
+          }
+
+          const currX = pulse.fromX + (pulse.toX - pulse.fromX) * pulse.progress;
+          const currY = pulse.fromY + (pulse.toY - pulse.fromY) * pulse.progress;
+
+          ctx.beginPath();
+          ctx.arc(currX, currY, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#0284C7';
+          ctx.fill();
         }
-
-        const currX = pulse.fromX + (pulse.toX - pulse.fromX) * pulse.progress;
-        const currY = pulse.fromY + (pulse.toY - pulse.fromY) * pulse.progress;
-
-        ctx.beginPath();
-        ctx.arc(currX, currY, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#0284C7';
-        ctx.fill();
       }
 
       animationFrameId = requestAnimationFrame(animate);
@@ -173,8 +196,11 @@ export const GlobalSynapseMesh: React.FC = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('scroll', handleScroll);
+      if (!isMobile) {
+        window.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseleave', handleMouseLeave);
+      }
     };
   }, []);
 

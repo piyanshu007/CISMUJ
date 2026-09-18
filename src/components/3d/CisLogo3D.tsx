@@ -24,17 +24,18 @@ export const CisLogo3D: React.FC = () => {
 
     // 2. Camera setup - calibrated for full-height hero background
     const isDesktop = width > 1024;
+    const isMobile = width < 768;
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(0, 0, isDesktop ? 4.9 : 5.8);
+    camera.position.set(0, 0, isDesktop ? 4.9 : (isMobile ? 6.2 : 5.8));
 
     // 3. Renderer with antialiasing and alpha
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: !isMobile,
       alpha: true,
       powerPreference: 'high-performance',
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25;
     container.innerHTML = '';
@@ -121,7 +122,7 @@ export const CisLogo3D: React.FC = () => {
     mainGroup.add(orbitRing2);
 
     // Orbital Quantum Nodes / Beads
-    const beadCount = 14;
+    const beadCount = isMobile ? 8 : 14;
     const beadGeo = new THREE.SphereGeometry(0.06, 16, 16);
     const beadMat = new THREE.MeshStandardMaterial({
       color: 0x0284c7,
@@ -139,7 +140,7 @@ export const CisLogo3D: React.FC = () => {
     }
 
     // Floating Quantum Background Particles
-    const particleCount = 70;
+    const particleCount = isMobile ? 30 : 70;
     const particleGeo = new THREE.BufferGeometry();
     const particlePositions = new Float32Array(particleCount * 3);
 
@@ -152,7 +153,7 @@ export const CisLogo3D: React.FC = () => {
 
     const particleMat = new THREE.PointsMaterial({
       color: 0x0284c7,
-      size: 0.065,
+      size: isMobile ? 0.08 : 0.065,
       transparent: true,
       opacity: 0.55,
     });
@@ -196,23 +197,60 @@ export const CisLogo3D: React.FC = () => {
       setIsInteracting(false);
     };
 
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        setIsInteracting(true);
+        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isDragging && e.touches.length === 1) {
+        const deltaX = e.touches[0].clientX - previousMousePosition.x;
+        const deltaY = e.touches[0].clientY - previousMousePosition.y;
+        targetRotation.y += deltaX * 0.006;
+        targetRotation.x += deltaY * 0.006;
+        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    };
+
+    const handleTouchEnd = () => {
+      isDragging = false;
+      setIsInteracting(false);
+    };
+
     const handleResize = () => {
       if (!container) return;
       const w = getWidth();
       const h = getHeight();
       if (w === 0 || h === 0) return;
       const desktop = w > 1024;
+      const mobile = w < 768;
       camera.aspect = w / h;
-      camera.position.z = desktop ? 4.9 : 5.8;
+      camera.position.z = desktop ? 4.9 : (mobile ? 6.2 : 5.8);
       mainGroup.position.x = desktop ? 1.45 : 0;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     };
 
+    // Intersection Observer to stop rendering when scrolled out of view
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
     container.addEventListener('mousedown', handleMouseDown);
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     // Initial resize trigger to guarantee proper dimensions
     setTimeout(handleResize, 50);
@@ -221,6 +259,11 @@ export const CisLogo3D: React.FC = () => {
     const clock = new THREE.Clock();
 
     const animate = () => {
+      if (!isVisible || document.hidden) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+
       const elapsedTime = clock.getElapsedTime();
 
       // Floating wave animation
@@ -268,10 +311,14 @@ export const CisLogo3D: React.FC = () => {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
       container.removeEventListener('mousedown', handleMouseDown);
+      container.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
 
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);

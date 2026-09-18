@@ -287,7 +287,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
             </svg>
 
             {/* Exact Overlapping 7-Panel Cluster */}
-            <div className="relative w-full max-w-[700px] h-[460px] sm:h-[500px] lg:h-[520px] z-20 mx-auto">
+            <div className="relative w-full max-w-[700px] h-[380px] sm:h-[480px] lg:h-[520px] z-20 mx-auto">
               {heroCoreMembers.map((member, idx) => (
                 <motion.div
                   key={member.name}
@@ -303,7 +303,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
                     height: member.height,
                     zIndex: member.zIndex,
                   }}
-                  className="cursor-pointer group"
+                  className="cursor-pointer group touch-manipulation"
                   onClick={() => {
                     const full = CIS_TEAM_2026.find((m) => m.name === member.name);
                     if (full) setSelectedMember(full);
@@ -326,7 +326,7 @@ export const ExecutiveTeamGrid: React.FC = () => {
 
                     {/* Leader Transparent Cutout Portrait Centered in the Middle */}
                     <div
-                      className="absolute inset-0 z-10 w-full h-full flex items-center justify-center pt-2 pb-12 px-0.5"
+                      className="absolute inset-0 z-10 w-full h-full flex items-center justify-center pt-1 sm:pt-2 pb-10 sm:pb-12 px-0.5"
                       style={{
                         transform: 'skewY(9.5deg)',
                         transformOrigin: 'center center',
@@ -340,20 +340,20 @@ export const ExecutiveTeamGrid: React.FC = () => {
                     </div>
 
                     {/* Bottom Blue Gradient Layer - Conforms 100% to card corners with NO uncoloured gaps */}
-                    <div className="absolute inset-x-0 bottom-0 h-28 sm:h-32 bg-gradient-to-t from-[#0284C7] via-[#0284C7]/80 to-transparent pointer-events-none z-15" />
+                    <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#0284C7] via-[#0284C7]/80 to-transparent pointer-events-none z-15" />
 
                     {/* Text Container with Horizontal Level Orientation */}
                     <div
-                      className="absolute inset-x-0 bottom-0 pb-2.5 sm:pb-3.5 pt-6 px-1 text-white text-center pointer-events-none z-20 flex flex-col justify-end items-center"
+                      className="absolute inset-x-0 bottom-0 pb-2 sm:pb-3.5 pt-4 sm:pt-6 px-0.5 sm:px-1 text-white text-center pointer-events-none z-20 flex flex-col justify-end items-center"
                       style={{
                         transform: 'skewY(9.5deg)',
                         transformOrigin: 'center center',
                       }}
                     >
-                      <span className="font-sans font-bold text-[10px] sm:text-[11px] md:text-[12.5px] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] block max-w-full truncate">
+                      <span className="font-sans font-bold text-[8.5px] sm:text-[11px] md:text-[12.5px] leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] block max-w-full truncate px-0.5">
                         {member.name}
                       </span>
-                      <span className="font-mono text-[7px] sm:text-[8px] md:text-[9px] uppercase tracking-wider text-sky-100 mt-0.5 block font-semibold drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] leading-tight max-w-full truncate">
+                      <span className="font-mono text-[6.5px] sm:text-[8px] md:text-[9px] uppercase tracking-wider text-sky-100 mt-0.5 block font-semibold drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] leading-tight max-w-full truncate px-0.5">
                         {member.role}
                       </span>
                     </div>

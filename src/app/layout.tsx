@@ -1,8 +1,15 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 import { GlobalSynapseMesh } from '@/components/computational/GlobalSynapseMesh';
 import { WebsiteEntryAnimation } from '@/components/ui/WebsiteEntryAnimation';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#FFFFFF',
+};
 
 export const metadata: Metadata = {
   title: 'IEEE CIS MUJ | Manipal University Jaipur Student Chapter',
