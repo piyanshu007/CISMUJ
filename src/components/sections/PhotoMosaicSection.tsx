@@ -134,20 +134,53 @@ export const PhotoMosaicSection: React.FC = () => {
   const rotateRight = () => setRotationY((prev) => prev - 360 / numPhotos);
 
   return (
-    <section className="relative w-full bg-white/95 backdrop-blur-xs pt-20 sm:pt-28 pb-36 sm:pb-44 overflow-hidden border-b border-slate-200 select-none">
-      {/* Background radial highlight */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#0284C7]/6 rounded-full blur-[160px] pointer-events-none" />
+    <section className="relative w-full bg-white/95 backdrop-blur-xs pt-8 sm:pt-10 pb-12 sm:pb-16 overflow-hidden border-b border-slate-200 select-none">
+      {/* Background radial highlight & subtle coordinate lines */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#0284C7]/8 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Top Section Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 relative z-10">
-        <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-[#0F172A] tracking-tight">
-          Moments
-        </h2>
+      {/* Top Section Header with Interactive 3D Controls */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8 relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-6 h-px bg-[#0284C7]" />
+            <span className="font-mono text-[11px] font-bold text-[#0284C7] tracking-widest uppercase">
+              3D INTERACTIVE ARCHIVE
+            </span>
+          </div>
+          <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] tracking-tight">
+            Moments in Motion
+          </h2>
+        </div>
+
+        {/* Interactive 3D Controls & Drag Hint */}
+        <div className="flex items-center gap-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-50 border border-slate-200 font-mono text-[11px] text-slate-600 font-semibold shadow-2xs">
+            <Move3d className="w-3.5 h-3.5 text-[#0284C7] animate-pulse" />
+            <span>DRAG 360° TO ROTATE</span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={rotateLeft}
+              className="p-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] transition-all shadow-xs cursor-pointer active:scale-95"
+              aria-label="Rotate Left"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={rotateRight}
+              className="p-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] transition-all shadow-xs cursor-pointer active:scale-95"
+              aria-label="Rotate Right"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* 3D Perspective Cylindrical Ring Stage - Generous clearance, no clipping */}
+      {/* 3D Perspective Cylindrical Ring Stage - Compact & Balanced */}
       <div
-        className="relative w-full max-w-6xl mx-auto h-[480px] sm:h-[560px] lg:h-[600px] flex items-center justify-center cursor-grab active:cursor-grabbing my-4"
+        className="relative w-full max-w-6xl mx-auto h-[400px] sm:h-[460px] lg:h-[480px] flex items-center justify-center cursor-grab active:cursor-grabbing my-2"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -157,11 +190,11 @@ export const PhotoMosaicSection: React.FC = () => {
         style={{ perspective: '1100px' }}
       >
         {/* Soft ground depth shadow to make cards look completely free & floating */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] lg:w-[620px] h-[36px] bg-slate-800/[0.08] blur-2xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] lg:w-[620px] h-[32px] bg-slate-800/[0.08] blur-2xl rounded-full pointer-events-none" />
 
         {/* 3D Carousel Cylinder */}
         <div
-          className="relative w-[210px] sm:w-[290px] lg:w-[310px] h-[290px] sm:h-[370px] lg:h-[390px]"
+          className="relative w-[210px] sm:w-[280px] lg:w-[300px] h-[270px] sm:h-[340px] lg:h-[360px]"
           style={{
             transformStyle: 'preserve-3d',
             transform: `rotateX(-1.5deg) rotateY(${rotationY}deg)`,
@@ -178,7 +211,7 @@ export const PhotoMosaicSection: React.FC = () => {
                   e.stopPropagation();
                   setActivePhoto(photo);
                 }}
-                className="absolute inset-0 rounded-2xl bg-white p-3.5 border-2 border-slate-200/90 hover:border-[#0284C7] shadow-[0_12px_32px_rgba(15,23,42,0.1)] hover:shadow-[0_20px_44px_rgba(2,132,199,0.25)] transition-all duration-300 flex flex-col justify-between cursor-pointer group"
+                className="absolute inset-0 rounded-2xl bg-white p-3 border border-slate-200 hover:border-[#0284C7] shadow-[0_10px_28px_rgba(15,23,42,0.08)] hover:shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition-all duration-300 flex flex-col justify-between cursor-pointer group"
                 style={{
                   transformStyle: 'preserve-3d',
                   transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
@@ -186,23 +219,23 @@ export const PhotoMosaicSection: React.FC = () => {
                 }}
               >
                 {/* Photo Card Frame */}
-                <div className="relative w-full h-[70%] rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+                <div className="relative w-full h-[72%] rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
                   <img
                     src={photo.image}
                     alt={photo.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {/* Subtle top chip */}
-                  <div className="absolute top-2.5 left-2.5">
-                    <span className="px-2.5 py-0.5 rounded-full bg-black/80 backdrop-blur-md text-white font-mono text-[9px] font-bold uppercase tracking-wider border border-white/20">
+                  <div className="absolute top-2 left-2">
+                    <span className="px-2 py-0.5 rounded-md bg-slate-900/90 backdrop-blur-md text-white font-mono text-[9px] font-bold uppercase tracking-wider border border-white/20">
                       {photo.category}
                     </span>
                   </div>
                 </div>
 
                 {/* Photo Metadata Footer */}
-                <div className="pt-2 px-1 pb-1 space-y-1">
-                  <h4 className="font-display font-black text-sm sm:text-base text-[#0F172A] uppercase leading-tight group-hover:text-[#0284C7] transition-colors line-clamp-1">
+                <div className="pt-2 px-1 pb-0.5 space-y-0.5">
+                  <h4 className="font-sans font-bold text-xs sm:text-sm text-[#0F172A] uppercase leading-tight group-hover:text-[#0284C7] transition-colors line-clamp-1">
                     {photo.title}
                   </h4>
                   <p className="font-mono text-[10px] text-[#0284C7] font-bold tracking-wider flex items-center gap-1">

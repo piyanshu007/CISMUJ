@@ -137,30 +137,26 @@ export const ClubGallery: React.FC = () => {
               </div>
 
               {/* Card Body */}
-              <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+              <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-slate-500 font-mono text-[11px]">
-                    <span className="flex items-center gap-1 font-bold text-sky-700">
-                      <Calendar className="w-3.5 h-3.5 text-sky-600" />
+                    <span className="flex items-center gap-1.5 font-bold text-[#0284C7]">
+                      <Calendar className="w-3.5 h-3.5 text-[#0284C7]" />
                       {item.date}
                     </span>
-                    <span className="flex items-center gap-1">
+                    <span className="flex items-center gap-1.5 font-medium">
                       <Users className="w-3.5 h-3.5 text-slate-400" />
                       {item.attendees}
                     </span>
                   </div>
 
-                  <h3 className="font-display font-extrabold text-slate-900 text-lg leading-tight uppercase group-hover:text-sky-600 transition-colors">
+                  <h3 className="font-sans font-bold text-slate-900 text-base sm:text-lg leading-snug uppercase group-hover:text-[#0284C7] transition-colors">
                     {item.title}
                   </h3>
-
-                  <p className="text-slate-600 font-sans text-xs leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
 
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between font-mono text-[11px] text-slate-500">
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-slate-400" />
                     {item.venue}
                   </span>
@@ -168,9 +164,10 @@ export const ClubGallery: React.FC = () => {
                     href="https://www.instagram.com/ieee.cismuj/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sky-600 font-bold hover:underline flex items-center gap-1"
+                    className="text-[#0284C7] font-bold hover:underline flex items-center gap-1 cursor-pointer"
                   >
-                    VIEW POST <ArrowUpRight className="w-3 h-3" />
+                    <span>VIEW POST</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </div>
