@@ -23,14 +23,18 @@ export const Hero: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 my-auto py-3 sm:py-6">
         <div className="max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-6">
           {/* Main Huge Typography (Direct Crisp Black Font with IEEE Blue Accent) */}
-          <h1 className="text-3xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-black tracking-tight uppercase leading-[0.93] text-[#0F172A] drop-shadow-xs">
-            IEEE COMPUTATIONAL
-            <br />
-            <span className="text-[#0284C7]">INTELLIGENCE</span>
-            <br />
-            SOCIETY{' '}
-            <span className="font-mono text-2xl sm:text-5xl lg:text-6xl text-[#0284C7] font-bold">MUJ</span>
-          </h1>
+          <div className="space-y-1.5 sm:space-y-2">
+            <h1 className="text-3xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-black tracking-tight uppercase leading-[0.93] text-[#0F172A] drop-shadow-xs">
+              IEEE COMPUTATIONAL
+              <br />
+              <span className="text-[#0284C7]">INTELLIGENCE</span>
+              <br />
+              SOCIETY
+            </h1>
+            <p className="font-sans italic font-semibold text-base sm:text-2xl lg:text-3xl text-[#0284C7] tracking-tight">
+              Manipal University Jaipur
+            </p>
+          </div>
 
 
           {/* Action CTAs */}
