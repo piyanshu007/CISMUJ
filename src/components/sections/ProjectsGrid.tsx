@@ -43,7 +43,7 @@ export const ProjectsGrid: React.FC = () => {
 
   return (
     <section className="relative w-full bg-white text-[#0F172A] overflow-hidden select-none">
-      
+
       {/* Soft ethereal ambient background glow */}
       <div
         className="absolute top-0 right-0 w-[750px] h-[600px] rounded-full pointer-events-none opacity-40"
@@ -57,103 +57,12 @@ export const ProjectsGrid: React.FC = () => {
       {/* PART 1: HERO SECTION (1:1 Match with User Reference)        */}
       {/* ============================================================ */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-16 sm:pt-28 pb-3 sm:pb-6 relative z-10">
-        
-        {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres in background */}
-        <svg
-          className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible opacity-50"
-          viewBox="0 0 1400 320"
-          fill="none"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <radialGradient id="waveBallGrad" cx="35%" cy="35%" r="65%">
-              <stop offset="0%" stopColor="#FFFFFF" />
-              <stop offset="30%" stopColor="#7DD3FC" />
-              <stop offset="75%" stopColor="#0284C7" />
-              <stop offset="100%" stopColor="#0369A1" />
-            </radialGradient>
-            <radialGradient id="waveBallCyan" cx="35%" cy="35%" r="65%">
-              <stop offset="0%" stopColor="#E0F2FE" />
-              <stop offset="35%" stopColor="#38BDF8" />
-              <stop offset="80%" stopColor="#0284C7" />
-              <stop offset="100%" stopColor="#075985" />
-            </radialGradient>
-            <filter id="waveBallGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3.5" floodColor="#0284C7" floodOpacity="0.6" />
-            </filter>
-            {/* Extended continuous wave path for motion */}
-            <path
-              id="mainWaveTravelPath"
-              d="M -50,240 C 240,240 380,170 580,210 C 780,250 920,130 1120,160 C 1240,180 1340,220 1480,230"
-            />
-            <path
-              id="secondaryWaveTravelPath"
-              d="M -50,270 C 280,280 480,200 700,240 C 920,280 1060,170 1340,220 C 1400,230 1440,235 1480,240"
-            />
-          </defs>
-
-          {/* Visible Wave Paths */}
-          <path
-            d="M 40,240 C 240,240 380,170 580,210 C 780,250 920,130 1120,160 C 1240,180 1340,220 1460,230"
-            stroke="#0284C7"
-            strokeWidth="1.2"
-            strokeOpacity="0.35"
-          />
-          <path
-            d="M 60,270 C 280,280 480,200 700,240 C 920,280 1060,170 1340,220"
-            stroke="#38BDF8"
-            strokeWidth="0.8"
-            strokeDasharray="4 4"
-            strokeOpacity="0.25"
-          />
-
-          {/* Cyan Marker Dots along the wave paths */}
-          <circle cx="580" cy="210" r="3" fill="#0284C7" />
-          <circle cx="1120" cy="160" r="3" fill="#0284C7" />
-          <circle cx="360" cy="200" r="2.5" fill="#38BDF8" />
-          <circle cx="850" cy="180" r="2.5" fill="#38BDF8" />
-          <circle cx="1240" cy="180" r="2.5" fill="#0284C7" />
-
-          {/* --- TRAVELLING SPHERES (BALLS) ALONG THE WAVE --- */}
-          {/* Ball 1: Primary Large Glossy Blue Sphere */}
-          <g filter="url(#waveBallGlow)">
-            <animateMotion dur="8.5s" repeatCount="indefinite">
-              <mpath href="#mainWaveTravelPath" />
-            </animateMotion>
-            <circle r="7" fill="url(#waveBallGrad)" />
-            <circle r="11" stroke="#38BDF8" strokeWidth="0.8" strokeOpacity="0.45" />
-          </g>
-
-          {/* Ball 2: Staggered Secondary Cyan Sphere */}
-          <g filter="url(#waveBallGlow)">
-            <animateMotion dur="8.5s" begin="-4.25s" repeatCount="indefinite">
-              <mpath href="#mainWaveTravelPath" />
-            </animateMotion>
-            <circle r="5.5" fill="url(#waveBallCyan)" />
-          </g>
-
-          {/* Ball 3: Tertiary Sphere on Secondary Path */}
-          <g filter="url(#waveBallGlow)">
-            <animateMotion dur="10.5s" begin="-2.5s" repeatCount="indefinite">
-              <mpath href="#secondaryWaveTravelPath" />
-            </animateMotion>
-            <circle r="5" fill="url(#waveBallGrad)" />
-          </g>
-
-          {/* Ball 4: Small Quick Photon */}
-          <g filter="url(#waveBallGlow)">
-            <animateMotion dur="6.5s" begin="-5s" repeatCount="indefinite">
-              <mpath href="#mainWaveTravelPath" />
-            </animateMotion>
-            <circle r="4" fill="url(#waveBallCyan)" />
-          </g>
-        </svg>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 items-center">
-          
+
           {/* Left Column: Eyebrow, Large "Projects" Title, Subtitle, CTA */}
           <div className="lg:col-span-5 space-y-2.5 sm:space-y-4 z-10">
-            
+
             {/* Eyebrow: —— OUR WORK —— */}
             <motion.div
               initial={{ opacity: 0, x: -16 }}
@@ -209,7 +118,7 @@ export const ProjectsGrid: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: Exact Artwork (High-Res Swirling Ribbon with Orbital Constellation) */}
+          {/* Right Column: Exact Artwork (High-Res Swirling Ribbon with Centered CIS Logo) */}
           <div className="lg:col-span-7 relative flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[480px]">
             <motion.div
               animate={{
@@ -226,7 +135,7 @@ export const ProjectsGrid: React.FC = () => {
               {/* Soft Ambient Ethereal Aura Glow */}
               <div className="absolute w-52 h-52 sm:w-88 sm:h-88 rounded-full bg-gradient-to-tr from-sky-400/25 via-[#0284C7]/20 to-transparent blur-3xl pointer-events-none" />
 
-              {/* Exact High-Res Ribbon Artwork */}
+              {/* Exact High-Res Ribbon Artwork with Centered CIS Logo */}
               <img
                 src="/projects-hero-ribbon.png"
                 alt="IEEE CIS Swirling Ribbon & Orbital Constellation"
@@ -242,9 +151,9 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       <div className="w-full border-t border-slate-100/90 bg-white py-3 sm:py-8 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 items-stretch">
-            
+
             {/* 3 Real Club Project Cards */}
             {displayProjects.map((p, idx) => (
               <motion.div
@@ -278,7 +187,7 @@ export const ProjectsGrid: React.FC = () => {
                       alt={p.realName}
                       className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700 filter contrast-[1.02]"
                     />
-                    
+
                     {/* Subtle Futuristic Viewfinder / Reticle Frame */}
                     <div className="absolute inset-2 border border-sky-400/30 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
