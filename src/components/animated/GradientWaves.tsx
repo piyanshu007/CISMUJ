@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
+import './GradientWaves.css';
 
 export type GradientWavesDetail = 'low' | 'medium' | 'high';
 
@@ -167,7 +168,7 @@ const ctxMap = new WeakMap<HTMLDivElement, GradientWavesCtx>();
 export const GradientWaves: React.FC<GradientWavesProps> = ({
   horizonColor = '#0284C7',
   waveColor = '#38BDF8',
-  crestColor = '#E0F2FE',
+  crestColor = '#FFFFFF',
   speed = 0.4,
   amplitude = 2.5,
   waveScale = 0.6,
@@ -180,11 +181,11 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
   fogDepth = 15,
   detail = 'medium',
   brightness = 1.0,
-  opacity = 0.85,
+  opacity = 1.0,
   mouseInteraction = true,
   parallaxStrength = 0.5,
   grain = true,
-  grainIntensity = 0.04,
+  grainIntensity = 0.05,
   className = ''
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -214,11 +215,11 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
     canvas.style.width = '100%';
     canvas.style.height = '100%';
     canvas.style.display = 'block';
-    canvas.style.position = 'absolute';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.pointerEvents = 'none';
     container.appendChild(canvas);
+
+    const initHorizon = hexToRgb(horizonColor);
+    const initWave = hexToRgb(waveColor);
+    const initCrest = hexToRgb(crestColor);
 
     const geometry = new Triangle(gl);
     const program = new Program(gl, {
@@ -245,9 +246,9 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
         uMouse: { value: new Float32Array([0.5, 0.5]) },
         uParallax: { value: parallaxStrength },
         uEnableMouse: { value: mouseInteraction },
-        uHorizonColor: { value: new Float32Array(hexToRgb(horizonColor)) },
-        uWaveColor: { value: new Float32Array(hexToRgb(waveColor)) },
-        uCrestColor: { value: new Float32Array(hexToRgb(crestColor)) }
+        uHorizonColor: { value: new Float32Array(initHorizon) },
+        uWaveColor: { value: new Float32Array(initWave) },
+        uCrestColor: { value: new Float32Array(initCrest) }
       }
     });
 
@@ -255,7 +256,6 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
     ctxMap.set(container, { renderer, program, mesh });
 
     const setSize = () => {
-      if (!container) return;
       const rect = container.getBoundingClientRect();
       const w = Math.max(1, Math.floor(rect.width));
       const h = Math.max(1, Math.floor(rect.height));
@@ -273,17 +273,19 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
     const currentMouse: [number, number] = [0.5, 0.5];
     const targetMouse: [number, number] = [0.5, 0.5];
 
-    const onPointerMove = (e: MouseEvent) => {
+    const onPointerMove = (e: MouseEvent | PointerEvent) => {
       const rect = container.getBoundingClientRect();
-      targetMouse[0] = (e.clientX - rect.left) / (rect.width || 1);
-      targetMouse[1] = 1.0 - (e.clientY - rect.top) / (rect.height || 1);
+      if (rect.width > 0 && rect.height > 0) {
+        targetMouse[0] = (e.clientX - rect.left) / rect.width;
+        targetMouse[1] = 1.0 - (e.clientY - rect.top) / rect.height;
+      }
     };
     const onPointerLeave = () => {
       targetMouse[0] = 0.5;
       targetMouse[1] = 0.5;
     };
-    window.addEventListener('mousemove', onPointerMove, { passive: true });
-    window.addEventListener('mouseleave', onPointerLeave);
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerleave', onPointerLeave);
 
     let raf = 0;
     let isVisible = true;
@@ -337,8 +339,8 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
       ro.disconnect();
       io.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
-      window.removeEventListener('mousemove', onPointerMove);
-      window.removeEventListener('mouseleave', onPointerLeave);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerleave', onPointerLeave);
       ctxMap.delete(container);
       try {
         if (container.contains(canvas)) {
@@ -380,17 +382,23 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
     if (u.uHorizonColor) {
       const hc = u.uHorizonColor.value as Float32Array;
       const h = hexToRgb(horizonColor);
-      hc[0] = h[0]; hc[1] = h[1]; hc[2] = h[2];
+      hc[0] = h[0];
+      hc[1] = h[1];
+      hc[2] = h[2];
     }
     if (u.uWaveColor) {
       const wc = u.uWaveColor.value as Float32Array;
       const w = hexToRgb(waveColor);
-      wc[0] = w[0]; wc[1] = w[1]; wc[2] = w[2];
+      wc[0] = w[0];
+      wc[1] = w[1];
+      wc[2] = w[2];
     }
     if (u.uCrestColor) {
       const cc = u.uCrestColor.value as Float32Array;
       const cr = hexToRgb(crestColor);
-      cc[0] = cr[0]; cc[1] = cr[1]; cc[2] = cr[2];
+      cc[0] = cr[0];
+      cc[1] = cr[1];
+      cc[2] = cr[2];
     }
   }, [
     horizonColor,
@@ -415,12 +423,7 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
     parallaxStrength
   ]);
 
-  return (
-    <div
-      ref={containerRef}
-      className={`absolute inset-0 w-full h-full overflow-hidden pointer-events-none ${className}`.trim()}
-    />
-  );
+  return <div ref={containerRef} className={`gradient-waves-container ${className}`.trim()} />;
 };
 
 export default GradientWaves;

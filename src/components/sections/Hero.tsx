@@ -7,29 +7,30 @@ export const Hero: React.FC = () => {
   return (
     <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-white border-b border-slate-200 overflow-hidden select-none">
       {/* React Bits Gradient Waves Animated Background (Multi-Shade Blue Raymarched Sine Waves) */}
-      <GradientWaves
-        className="z-0 opacity-80"
-        horizonColor="#0284C7"
-        waveColor="#38BDF8"
-        crestColor="#E0F2FE"
-        speed={0.4}
-        amplitude={2.8}
-        waveScale={0.7}
-        waveRatio={0.9}
-        swell={30}
-        turbulence={18}
-        tilt={1.15}
-        zoom={1.05}
-        height={5.0}
-        fogDepth={16}
-        detail="medium"
-        brightness={1.05}
-        opacity={0.85}
-        mouseInteraction={true}
-        parallaxStrength={0.4}
-        grain={true}
-        grainIntensity={0.03}
-      />
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
+        <GradientWaves
+          horizonColor="#0284C7"
+          waveColor="#38BDF8"
+          crestColor="#FFFFFF"
+          speed={0.4}
+          amplitude={2.5}
+          waveScale={0.6}
+          waveRatio={0.9}
+          swell={35}
+          turbulence={20}
+          tilt={1.11}
+          zoom={1}
+          height={5.5}
+          fogDepth={15}
+          detail="medium"
+          brightness={1}
+          opacity={1}
+          mouseInteraction
+          parallaxStrength={0.5}
+          grain
+          grainIntensity={0.05}
+        />
+      </div>
 
       {/* 1. Full-Screen Interactive 3D Canvas */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden opacity-100 pointer-events-auto">
