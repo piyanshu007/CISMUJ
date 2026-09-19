@@ -81,115 +81,53 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
           </div>
 
           {/* Center Main Navigation: Glass Viewport */}
-          <div className="flex-1 min-h-0 w-full max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-center relative z-20 overflow-hidden">
-            <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-              {/* Left Column: Responsive Links with Glass Hover Highlight */}
-              <div className="lg:col-span-7 flex flex-col justify-center gap-1 sm:gap-1.5 md:gap-2">
-                {menuItems.map((item, idx) => {
-                  const isActive = pathname === item.href;
-                  return (
-                    <motion.div
-                      key={item.name}
-                      initial={{ opacity: 0, x: -25 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.03, duration: 0.25 }}
+          <div className="flex-1 min-h-0 w-full max-w-4xl mx-auto px-4 sm:px-8 flex items-center justify-center relative z-20 overflow-hidden">
+            <div className="w-full flex flex-col justify-center gap-1.5 sm:gap-2.5 md:gap-3 py-4">
+              {menuItems.map((item, idx) => {
+                const isActive = pathname === item.href;
+                return (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -25 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.03, duration: 0.25 }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={onClose}
+                      className={`group flex items-center gap-4 sm:gap-6 px-4 sm:px-6 py-2 sm:py-2.5 rounded-2xl transition-all duration-200 cursor-pointer border border-transparent ${
+                        isActive
+                          ? 'bg-white/70 backdrop-blur-md border-white/90 shadow-xs'
+                          : 'hover:bg-white/50 hover:backdrop-blur-md hover:border-white/70 hover:shadow-xs'
+                      }`}
                     >
-                      <Link
-                        href={item.href}
-                        onClick={onClose}
-                        className={`group flex items-center gap-3 sm:gap-4 px-3 py-1 sm:py-1.5 -ml-3 rounded-2xl transition-all duration-200 cursor-pointer border border-transparent ${
+                      <span
+                        className={`font-mono text-[10px] sm:text-xs font-bold w-6 transition-colors ${
                           isActive
-                            ? 'bg-white/60 backdrop-blur-md border-white/80 shadow-xs'
-                            : 'hover:bg-white/50 hover:backdrop-blur-md hover:border-white/70 hover:shadow-xs'
+                            ? 'text-[#0284C7]'
+                            : 'text-slate-400 group-hover:text-[#0284C7]'
                         }`}
                       >
-                        <span
-                          className={`font-mono text-[9px] sm:text-[11px] font-bold w-5 transition-colors ${
-                            isActive
-                              ? 'text-[#0284C7]'
-                              : 'text-slate-400 group-hover:text-[#0284C7]'
-                          }`}
-                        >
-                          0{idx + 1}
-                        </span>
+                        0{idx + 1}
+                      </span>
 
-                        <span
-                          className={`font-serif text-[clamp(1.35rem,4vh,3rem)] font-black tracking-tight uppercase leading-none transition-all duration-200 ${
-                            isActive
-                              ? 'text-[#0284C7] translate-x-1'
-                              : 'text-[#0F172A] group-hover:text-[#0284C7] group-hover:translate-x-1'
-                          }`}
-                        >
-                          {item.name}
-                        </span>
+                      <span
+                        className={`font-serif text-[clamp(1.5rem,5vh,3.25rem)] font-black tracking-tight uppercase leading-none transition-all duration-200 ${
+                          isActive
+                            ? 'text-[#0284C7] translate-x-1.5'
+                            : 'text-[#0F172A] group-hover:text-[#0284C7] group-hover:translate-x-1.5'
+                        }`}
+                      >
+                        {item.name}
+                      </span>
 
-                        {isActive && (
-                          <span className="w-2 h-2 rounded-full bg-[#0284C7] shadow-[0_0_8px_rgba(2,132,199,0.8)] animate-pulse ml-1" />
-                        )}
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              {/* Right Column: Premium Glass Spotlight Feature Boxes */}
-              <div className="hidden lg:flex lg:col-span-5 flex-col gap-3.5">
-                {/* Highlight Card 1: Newsletter */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-white/55 backdrop-blur-xl border border-white/80 shadow-[0_8px_32px_0_rgba(31,38,135,0.06)] space-y-2 hover:bg-white/70 hover:shadow-[0_12px_40px_0_rgba(2,132,199,0.12)] hover:border-[#38BDF8]/50 transition-all duration-300">
-                  <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="px-2.5 py-0.5 rounded-full bg-sky-100/70 text-[#0284C7] font-bold border border-[#0284C7]/20 text-[9px] backdrop-blur-xs">
-                      LATEST PUBLICATION
-                    </span>
-                    <span className="text-slate-400 font-semibold text-[10px]">ISSUE 08</span>
-                  </div>
-
-                  <div className="space-y-0.5">
-                    <h4 className="font-display font-extrabold text-sm sm:text-base text-[#0F172A] uppercase">
-                      THE CIS CHRONICLE • 2026
-                    </h4>
-                    <p className="font-sans text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                      Features on autonomous rovers, TinyML optimization, and foundation model fine-tuning.
-                    </p>
-                  </div>
-
-                  <Link
-                    href="/newsletter"
-                    onClick={onClose}
-                    className="inline-flex items-center gap-1 font-mono text-[11px] font-bold text-[#0284C7] hover:underline pt-1"
-                  >
-                    <span>READ BROADSHEET</span>
-                    <ArrowUpRight className="w-3 h-3" />
-                  </Link>
-                </div>
-
-                {/* Highlight Card 2: Events */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-white/55 backdrop-blur-xl border border-white/80 shadow-[0_8px_32px_0_rgba(31,38,135,0.06)] space-y-2 hover:bg-white/70 hover:shadow-[0_12px_40px_0_rgba(2,132,199,0.12)] hover:border-[#38BDF8]/50 transition-all duration-300">
-                  <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#0F172A]/90 text-white font-bold text-[9px] backdrop-blur-xs">
-                      FLAGSHIP HACKATHON
-                    </span>
-                    <span className="text-slate-400 font-semibold text-[10px]">MUJ CAMPUS</span>
-                  </div>
-
-                  <div className="space-y-0.5">
-                    <h4 className="font-display font-extrabold text-sm sm:text-base text-[#0F172A] uppercase">
-                      WEBFORGE 36H HACKATHON
-                    </h4>
-                    <p className="font-sans text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                      36-hour competitive engineering hackathon with cash prizes, keynote speakers, and mentors.
-                    </p>
-                  </div>
-
-                  <Link
-                    href="/events"
-                    onClick={onClose}
-                    className="inline-flex items-center gap-1 font-mono text-[11px] font-bold text-[#0284C7] hover:underline pt-1"
-                  >
-                    <span>EXPLORE CALENDAR</span>
-                    <ArrowUpRight className="w-3 h-3" />
-                  </Link>
-                </div>
-              </div>
+                      {isActive && (
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#0284C7] shadow-[0_0_10px_rgba(2,132,199,0.8)] animate-pulse ml-2" />
+                      )}
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
 
