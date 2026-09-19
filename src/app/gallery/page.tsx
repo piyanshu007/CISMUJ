@@ -9,7 +9,7 @@ import { JoinCTA } from '@/components/sections/JoinCTA';
 
 export default function GalleryPage() {
   return (
-    <main className="min-h-screen bg-white text-[#0F172A] selection:bg-[#0284C7] selection:text-white overflow-x-hidden relative pt-20">
+    <main className="min-h-screen bg-white text-[#0F172A] selection:bg-[#0284C7] selection:text-white overflow-x-hidden relative">
       <Navbar />
       <PhotoMosaicSection />
       <ClubGallery />
