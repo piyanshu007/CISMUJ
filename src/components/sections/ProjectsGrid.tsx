@@ -209,8 +209,8 @@ export const ProjectsGrid: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: Exact Artwork (High-Res Swirling Ribbon with Centered CIS Emblem) */}
-          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[320px] sm:min-h-[420px] lg:min-h-[500px]">
+          {/* Right Column: Exact Artwork (High-Res Swirling Ribbon with Orbital Constellation) */}
+          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[480px]">
             <motion.div
               animate={{
                 y: [-6, 6, -6],
@@ -232,28 +232,6 @@ export const ProjectsGrid: React.FC = () => {
                 alt="IEEE CIS Swirling Ribbon & Orbital Constellation"
                 className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_40px_rgba(2,132,199,0.18)]"
               />
-
-              {/* Centered IEEE CIS Fluid Emblem inside the Open Loop */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-                <motion.div
-                  initial={{ scale: 0.85, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.15 }}
-                  className="relative flex items-center justify-center -translate-x-[4%] -translate-y-[2%]"
-                >
-                  {/* Subtle emblem back aura */}
-                  <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-[#0284C7]/20 blur-xl pointer-events-none" />
-
-                  {/* Logo Emblem centered inside the open orbital loop */}
-                  <div className="relative w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 flex items-center justify-center">
-                    <img
-                      src="/logo-mark.png"
-                      alt="IEEE CIS Emblem"
-                      className="w-full h-full object-contain filter drop-shadow-[0_6px_22px_rgba(2,132,199,0.45)]"
-                    />
-                  </div>
-                </motion.div>
-              </div>
             </motion.div>
           </div>
         </div>
