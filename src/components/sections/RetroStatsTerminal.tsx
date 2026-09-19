@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, 
@@ -91,7 +91,26 @@ const STATS_DATA: StatItem[] = [
 export const RetroStatsTerminal: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [direction, setDirection] = useState<number>(0);
+  const [istTime, setIstTime] = useState<string>('12:00');
   const activeStat = STATS_DATA[activeIndex];
+
+  // Real-time live Indian Standard Time (IST) clock for the smartphone mockup
+  useEffect(() => {
+    const updateISTTime = () => {
+      const now = new Date();
+      const formatted = now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: false,
+      });
+      setIstTime(formatted);
+    };
+
+    updateISTTime();
+    const timer = setInterval(updateISTTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handlePrev = () => {
     setDirection(-1);
@@ -469,9 +488,11 @@ export const RetroStatsTerminal: React.FC = () => {
 
               {/* Smartphone Inner Screen */}
               <div className="relative w-full h-[540px] rounded-[38px] bg-[#080D1A] overflow-hidden p-4 pt-10 flex flex-col justify-between border border-slate-800 shadow-inner">
-                {/* Top Phone Status Bar */}
+                {/* Top Phone Status Bar with Live Indian Standard Time */}
                 <div className="flex items-center justify-between font-mono text-[10px] text-slate-400 px-1 pt-1 z-30">
-                  <span className="font-bold text-white">9:41</span>
+                  <span className="font-bold text-white tracking-wider">
+                    {istTime}
+                  </span>
                   <div className="flex items-center gap-2">
                     <Wifi className="w-3.5 h-3.5 text-white" />
                     <span className="font-bold text-white text-[9px]">5G</span>
