@@ -3,12 +3,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Calendar, MapPin, Clock, X, ExternalLink, Users, Sparkles, Filter } from 'lucide-react';
+import { ArrowRight, Calendar, MapPin, Clock, X, ExternalLink, Users, Sparkles, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import { EVENTS, EventItem } from '@/data/events';
+
+const EVENTS_PER_PAGE = 6;
 
 export const EventsFanDeck: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const categories = ['ALL', 'UPCOMING', 'HACKATHON', 'WORKSHOP', 'FLAGSHIP', 'COMPETITION'];
 
@@ -17,6 +20,23 @@ export const EventsFanDeck: React.FC = () => {
     if (selectedCategory === 'UPCOMING') return e.status === 'UPCOMING';
     return e.category === selectedCategory;
   });
+
+  const totalPages = Math.ceil(filteredEvents.length / EVENTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * EVENTS_PER_PAGE;
+  const currentEvents = filteredEvents.slice(startIndex, startIndex + EVENTS_PER_PAGE);
+
+  const handleCategoryChange = (cat: string) => {
+    setSelectedCategory(cat);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    const el = document.getElementById('events-grid');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section className="relative w-full bg-white text-[#0F172A] overflow-hidden select-none">
@@ -258,7 +278,7 @@ export const EventsFanDeck: React.FC = () => {
               {categories.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setSelectedCategory(cat)}
+                  onClick={() => handleCategoryChange(cat)}
                   className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full font-mono text-[11px] sm:text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
                     selectedCategory === cat
                       ? 'bg-[#0284C7] text-white shadow-xs'
@@ -271,13 +291,13 @@ export const EventsFanDeck: React.FC = () => {
             </div>
 
             <div className="font-mono text-[11px] sm:text-xs text-slate-400">
-              Showing <span className="text-[#0284C7] font-bold">{filteredEvents.length}</span> items
+              Showing <span className="text-[#0284C7] font-bold">{filteredEvents.length === 0 ? 0 : `${startIndex + 1} - ${Math.min(startIndex + EVENTS_PER_PAGE, filteredEvents.length)}`}</span> of <span className="text-[#0284C7] font-bold">{filteredEvents.length}</span> items
             </div>
           </div>
 
           {/* Event Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 items-stretch">
-            {filteredEvents.map((evt, idx) => (
+            {currentEvents.map((evt, idx) => (
               <motion.div
                 key={evt.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -340,6 +360,54 @@ export const EventsFanDeck: React.FC = () => {
               </motion.div>
             ))}
           </div>
+
+          {/* Pagination Controls (shown whenever totalPages > 1) */}
+          {totalPages > 1 && (
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 sm:pt-6 border-t border-slate-100">
+              <div className="font-mono text-xs text-slate-500">
+                Showing page <span className="font-bold text-[#0284C7]">{currentPage}</span> of{' '}
+                <span className="font-bold text-[#0F172A]">{totalPages}</span>
+              </div>
+
+              <div className="flex items-center gap-2 font-mono text-xs">
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-[#0284C7] hover:text-[#0284C7] disabled:opacity-40 disabled:hover:border-slate-200 disabled:hover:text-slate-700 disabled:cursor-not-allowed transition-all shadow-2xs flex items-center gap-1.5 font-bold cursor-pointer active:scale-95"
+                  aria-label="Previous Page"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span>PREV</span>
+                </button>
+
+                <div className="flex items-center gap-1.5">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={`w-9 h-9 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
+                        currentPage === page
+                          ? 'bg-[#0284C7] text-white shadow-xs shadow-sky-500/20 scale-105'
+                          : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-[#0284C7]'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-[#0284C7] hover:text-[#0284C7] disabled:opacity-40 disabled:hover:border-slate-200 disabled:hover:text-slate-700 disabled:cursor-not-allowed transition-all shadow-2xs flex items-center gap-1.5 font-bold cursor-pointer active:scale-95"
+                  aria-label="Next Page"
+                >
+                  <span>NEXT</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Stay Updated Bottom Banner */}
           <motion.div
