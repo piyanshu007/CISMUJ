@@ -77,7 +77,7 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO SECTION (1:1 Match with User Reference)        */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-20 sm:pt-28 pb-3 sm:pb-6 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-16 sm:pt-28 pb-3 sm:pb-6 relative z-10">
         
         {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres (Passing OVER image) */}
         <svg
@@ -170,10 +170,10 @@ export const ProjectsGrid: React.FC = () => {
           </g>
         </svg>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 items-center">
           
           {/* Left Column: Eyebrow, Large "Projects" Title, Subtitle, CTA */}
-          <div className="lg:col-span-5 space-y-4 z-10">
+          <div className="lg:col-span-5 space-y-2.5 sm:space-y-4 z-10">
             
             {/* Eyebrow: —— OUR WORK —— */}
             <motion.div
@@ -195,7 +195,7 @@ export const ProjectsGrid: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h1 className="text-4xl sm:text-5xl lg:text-[4rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.05]">
+              <h1 className="text-3xl sm:text-5xl lg:text-[4rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.05]">
                 Projects
               </h1>
             </motion.div>
@@ -205,7 +205,7 @@ export const ProjectsGrid: React.FC = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-1 text-slate-500 font-sans text-sm sm:text-[15px] leading-relaxed max-w-md"
+              className="space-y-1 text-slate-500 font-sans text-xs sm:text-[15px] leading-relaxed max-w-md"
             >
               <p className="font-medium text-slate-700">Ideas into intelligent systems.</p>
               <p>
@@ -222,10 +222,10 @@ export const ProjectsGrid: React.FC = () => {
             >
               <button
                 onClick={() => setShowAllModal(true)}
-                className="w-10 h-10 rounded-full border border-[#0284C7] text-[#0284C7] hover:bg-[#0284C7] hover:text-white flex items-center justify-center transition-all duration-300 group cursor-pointer shadow-xs hover:shadow-md"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-[#0284C7] text-[#0284C7] hover:bg-[#0284C7] hover:text-white flex items-center justify-center transition-all duration-300 group cursor-pointer shadow-xs hover:shadow-md"
                 aria-label="View All Projects"
               >
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
             </motion.div>
           </div>
@@ -235,7 +235,7 @@ export const ProjectsGrid: React.FC = () => {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ perspective: 1200 }}
-            className="lg:col-span-7 relative flex items-center justify-center min-h-[220px] sm:min-h-[260px] lg:min-h-[300px] cursor-pointer"
+            className="lg:col-span-7 relative flex items-center justify-center min-h-0 sm:min-h-[220px] lg:min-h-[300px] cursor-pointer my-1 sm:my-0"
           >
             {/* 3D Floating Motion Container with Interactive Tilt */}
             <motion.div
@@ -249,7 +249,7 @@ export const ProjectsGrid: React.FC = () => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative w-full max-w-[740px] flex items-center justify-center select-none"
+              className="relative w-full max-w-[240px] sm:max-w-[480px] lg:max-w-[740px] flex items-center justify-center select-none"
             >
               {/* Breathing Ambient Holographic Aura Behind Artwork */}
               <motion.div
@@ -262,14 +262,14 @@ export const ProjectsGrid: React.FC = () => {
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-88 sm:h-88 bg-gradient-to-tr from-[#0284C7]/25 via-sky-400/20 to-transparent rounded-full blur-3xl pointer-events-none"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 sm:w-88 sm:h-88 bg-gradient-to-tr from-[#0284C7]/25 via-sky-400/20 to-transparent rounded-full blur-2xl sm:blur-3xl pointer-events-none"
               />
 
               {/* Exact 3D Glass Artwork */}
               <img
                 src="/projects-hero-cube.png"
                 alt="3D Translucent Glass Panes with Neural Hypercube"
-                className="w-full h-auto object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_14px_34px_rgba(2,132,199,0.12)]"
+                className="w-full h-auto object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_14px_34px_rgba(2,132,199,0.12)] max-h-[140px] sm:max-h-none"
               />
 
               {/* Glowing Neural Vertex Sparkle Beacons */}
@@ -364,10 +364,10 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 2: PROJECT CARDS ROW (1:1 Match with User Reference)    */}
       {/* ============================================================ */}
-      <div className="w-full border-t border-slate-100/90 bg-white py-5 sm:py-8 relative z-10">
+      <div className="w-full border-t border-slate-100/90 bg-white py-3 sm:py-8 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 items-stretch">
             
             {/* 3 Real Club Project Cards */}
             {displayProjects.map((p, idx) => (

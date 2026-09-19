@@ -53,11 +53,11 @@ export const EventsFanDeck: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO SECTION (Balanced & Well-Proportioned)          */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-20 sm:pt-32 pb-4 sm:pb-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-16 sm:pt-32 pb-3 sm:pb-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-12 items-center">
           
           {/* Left Column: Eyebrow, Heading, Subtitle, CTA */}
-          <div className="lg:col-span-6 space-y-3.5 sm:space-y-5 z-10">
+          <div className="lg:col-span-6 space-y-3 sm:space-y-5 z-10">
             {/* Eyebrow: —— OUR EVENTS —— */}
             <motion.div
               initial={{ opacity: 0, x: -16 }}
@@ -90,7 +90,7 @@ export const EventsFanDeck: React.FC = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="font-sans text-slate-500 text-sm sm:text-[15px] max-w-md leading-relaxed"
+              className="font-sans text-slate-500 text-xs sm:text-[15px] max-w-md leading-relaxed"
             >
               From workshops to competitions, our events bring together curious minds and real-world opportunities across AI, Robotics, and Computational Intelligence.
             </motion.p>
@@ -104,21 +104,21 @@ export const EventsFanDeck: React.FC = () => {
             >
               <a
                 href="#events-grid"
-                className="w-11 h-11 rounded-full border border-[#0284C7] text-[#0284C7] hover:bg-[#0284C7] hover:text-white flex items-center justify-center transition-all duration-300 group cursor-pointer shadow-xs hover:shadow-md"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-[#0284C7] text-[#0284C7] hover:bg-[#0284C7] hover:text-white flex items-center justify-center transition-all duration-300 group cursor-pointer shadow-xs hover:shadow-md"
                 aria-label="Explore Events"
               >
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </a>
-              <div className="w-16 h-px bg-[#0284C7]/40" />
+              <div className="w-12 sm:w-16 h-px bg-[#0284C7]/40" />
               <span className="font-mono text-xs text-slate-400">Explore {EVENTS.length} Events</span>
             </motion.div>
           </div>
 
           {/* Right Column: 3D Floating Planetary Sphere & Animated Orbiting Spheres (Bright & Luminous) */}
-          <div className="lg:col-span-6 relative flex items-center justify-center min-h-[320px] sm:min-h-[380px] lg:min-h-[420px] overflow-visible">
+          <div className="lg:col-span-6 relative flex items-center justify-center min-h-0 sm:min-h-[380px] lg:min-h-[420px] overflow-visible my-1 sm:my-0">
             
             {/* Luminous Glowing Backlight Aura behind Sphere */}
-            <div className="absolute w-[360px] h-[360px] sm:w-[440px] sm:h-[440px] rounded-full bg-radial from-sky-400/40 via-[#0284C7]/20 to-transparent blur-3xl pointer-events-none" />
+            <div className="absolute w-44 h-44 sm:w-[440px] sm:h-[440px] rounded-full bg-radial from-sky-400/40 via-[#0284C7]/20 to-transparent blur-2xl sm:blur-3xl pointer-events-none" />
 
             <motion.div
               animate={{
@@ -129,7 +129,7 @@ export const EventsFanDeck: React.FC = () => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative w-full max-w-[500px] lg:max-w-[560px] aspect-[1376/768] flex items-center justify-center select-none mx-auto"
+              className="relative w-full max-w-[280px] sm:max-w-[500px] lg:max-w-[560px] aspect-[1376/768] flex items-center justify-center select-none mx-auto"
             >
               {/* Enhanced Planetary Artwork (Vibrant contrast, glowing sapphire depth) */}
               <img
