@@ -456,35 +456,6 @@ export const RetroStatsTerminal: React.FC = () => {
         {/* MOBILE VIEW (< lg): Smartphone Mockup as Centerpiece         */}
         {/* ------------------------------------------------------------ */}
         <div className="block lg:hidden space-y-5">
-          {/* Top Segmented Quick Switcher */}
-          <div className="flex items-center justify-between p-1.5 rounded-2xl bg-slate-100/90 border border-slate-200/80 gap-1 shadow-2xs max-w-[340px] mx-auto">
-            {STATS_DATA.map((item, idx) => {
-              const IconComponent = item.icon;
-              const isActive = activeIndex === idx;
-
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setDirection(idx > activeIndex ? 1 : -1);
-                    setActiveIndex(idx);
-                  }}
-                  className={`flex-1 flex items-center justify-center gap-1 py-2 px-1.5 rounded-xl font-mono font-bold transition-all cursor-pointer ${
-                    isActive
-                      ? 'bg-[#0284C7] text-white shadow-sm'
-                      : 'text-slate-600 hover:text-[#0284C7] hover:bg-white/70'
-                  }`}
-                  aria-label={item.title}
-                >
-                  <IconComponent className="w-3.5 h-3.5 shrink-0" />
-                  <span className="text-[9px] tracking-wider uppercase truncate">
-                    {item.badge}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
           {/* Interactive Smartphone Mockup */}
           {renderPhoneMockup()}
 
