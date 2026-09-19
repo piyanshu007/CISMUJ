@@ -44,11 +44,19 @@ export const EventModal: React.FC<EventModalProps> = ({ event, onClose }) => {
               </h2>
             </div>
 
-            <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-slate-100 border border-slate-200">
+            <div className="relative h-64 sm:h-80 w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 flex items-center justify-center">
+              {/* Blurred backdrop fill */}
+              <img
+                src={event.image}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover blur-md opacity-35 scale-110"
+              />
+              {/* Crisp full poster */}
               <img
                 src={event.image}
                 alt={event.title}
-                className="w-full h-full object-cover"
+                className="relative z-10 max-h-full max-w-full object-contain drop-shadow-md"
               />
             </div>
 

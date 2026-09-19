@@ -32,7 +32,7 @@ export const EventCard: React.FC<EventCardProps> = ({
           <img
             src={event.image}
             alt={event.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter contrast-[1.02]"
+            className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 filter contrast-[1.02]"
           />
           <div className="absolute top-3 left-3 flex items-center gap-2">
             <span className="px-2.5 py-1 rounded bg-slate-900/90 backdrop-blur-xs text-white font-mono text-[10px] font-bold uppercase tracking-wider">
