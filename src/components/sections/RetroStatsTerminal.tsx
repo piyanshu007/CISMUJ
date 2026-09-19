@@ -10,12 +10,12 @@ import {
   Wifi, 
   Battery, 
   Sparkles, 
+  ChevronLeft,
   ChevronRight, 
   Activity, 
   Bell,
   Cpu,
   Compass,
-  TrendingUp,
   MoreVertical
 } from 'lucide-react';
 
@@ -90,16 +90,202 @@ const STATS_DATA: StatItem[] = [
 
 export const RetroStatsTerminal: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [direction, setDirection] = useState<number>(0);
   const activeStat = STATS_DATA[activeIndex];
 
+  const handlePrev = () => {
+    setDirection(-1);
+    setActiveIndex((prev) => (prev > 0 ? prev - 1 : STATS_DATA.length - 1));
+  };
+
+  const handleNext = () => {
+    setDirection(1);
+    setActiveIndex((prev) => (prev + 1) % STATS_DATA.length);
+  };
+
+  const slideVariants = {
+    enter: (dir: number) => ({
+      x: dir >= 0 ? 40 : -40,
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      transition: {
+        x: { type: 'spring', stiffness: 350, damping: 32 },
+        opacity: { duration: 0.22 },
+      },
+    },
+    exit: (dir: number) => ({
+      zIndex: 0,
+      x: dir < 0 ? 40 : -40,
+      opacity: 0,
+      transition: {
+        duration: 0.18,
+      },
+    }),
+  };
+
+  const renderStatGraph = (item: StatItem, prefix: string = '') => {
+    if (item.type === 'matrix') {
+      return (
+        <div className="mt-3 pt-2">
+          {/* Area Trend Graph */}
+          <div className="w-full h-16 sm:h-20 relative">
+            <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id={`memberAreaGrad-${prefix}-${item.id}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#0284C7" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="#0284C7" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="15" x2="200" y2="15" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
+              <line x1="0" y1="35" x2="200" y2="35" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
+              <path
+                d="M 0,55 C 30,50 50,38 80,32 C 110,26 135,34 160,18 C 180,8 190,10 200,4 L 200,60 L 0,60 Z"
+                fill={`url(#memberAreaGrad-${prefix}-${item.id})`}
+              />
+              <path
+                d="M 0,55 C 30,50 50,38 80,32 C 110,26 135,34 160,18 C 180,8 190,10 200,4"
+                stroke="#0284C7"
+                strokeWidth="2.2"
+                fill="none"
+                strokeLinecap="round"
+              />
+              <circle cx="80" cy="32" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+              <circle cx="160" cy="18" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+              <circle cx="200" cy="4" r="3.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2" />
+            </svg>
+          </div>
+          <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 mt-1">
+            <span>Q1</span>
+            <span>Q2</span>
+            <span>Q3</span>
+            <span>Q4</span>
+            <span className="text-[#0284C7] font-bold">2026</span>
+          </div>
+        </div>
+      );
+    }
+
+    if (item.type === 'avatars') {
+      return (
+        <div className="mt-3 pt-2">
+          {/* Multi-Bar Domain Distribution Graph */}
+          <div className="h-16 sm:h-20 flex items-end justify-between gap-2 px-1">
+            {[
+              { label: 'AI', height: '65%' },
+              { label: 'ML', height: '90%' },
+              { label: 'ROV', height: '75%' },
+              { label: 'GNN', height: '85%' },
+              { label: 'LLM', height: '100%' },
+              { label: 'BIO', height: '70%' },
+            ].map((bar, bIdx) => (
+              <div key={bIdx} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+                <div className="w-full bg-slate-100 rounded-t-md h-full relative flex items-end overflow-hidden">
+                  <motion.div
+                    initial={{ height: 0 }}
+                    whileInView={{ height: bar.height }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: bIdx * 0.08 }}
+                    className={`w-full rounded-t-md ${
+                      bIdx === 4
+                        ? 'bg-gradient-to-t from-[#0284C7] to-sky-400'
+                        : 'bg-gradient-to-t from-sky-400/80 to-sky-300'
+                    }`}
+                  />
+                </div>
+                <span className="text-[8px] font-mono text-slate-500 font-bold">{bar.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    if (item.type === 'sparkline') {
+      return (
+        <div className="mt-3 pt-2">
+          {/* Dual Velocity Wave Graph */}
+          <div className="w-full h-16 sm:h-20 relative">
+            <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id={`sprintAreaGrad-${prefix}-${item.id}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.35" />
+                  <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="20" x2="200" y2="20" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
+              <path
+                d="M 0,48 Q 40,46 70,26 T 130,22 T 200,6 L 200,60 L 0,60 Z"
+                fill={`url(#sprintAreaGrad-${prefix}-${item.id})`}
+              />
+              <path
+                d="M 0,48 Q 40,46 70,26 T 130,22 T 200,6"
+                stroke="#0284C7"
+                strokeWidth="2.2"
+                fill="none"
+                strokeLinecap="round"
+              />
+              <circle cx="70" cy="26" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+              <circle cx="130" cy="22" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+              <circle cx="200" cy="6" r="3.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2" />
+            </svg>
+          </div>
+          <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 mt-1">
+            <span>36H Spr.</span>
+            <span>Hacks</span>
+            <span>CTF Runs</span>
+            <span className="text-[#0284C7] font-bold">100% Rate</span>
+          </div>
+        </div>
+      );
+    }
+
+    if (item.type === 'progress') {
+      return (
+        <div className="mt-3 pt-2 space-y-2">
+          {/* Domain Progress Bars with Percentages */}
+          <div>
+            <div className="flex items-center justify-between text-[10px] font-mono mb-1">
+              <span className="text-slate-600 font-semibold">Vision &amp; LLMs</span>
+              <span className="text-[#0284C7] font-bold">88%</span>
+            </div>
+            <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-sky-400 to-[#0284C7] rounded-full w-[88%]" />
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between text-[10px] font-mono mb-1">
+              <span className="text-slate-600 font-semibold">Swarm &amp; Robotics</span>
+              <span className="text-[#0284C7] font-bold">74%</span>
+            </div>
+            <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-sky-400 to-[#0284C7] rounded-full w-[74%]" />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 pt-0.5">
+            <span>Active Repos</span>
+            <span className="text-emerald-600 font-bold">● Production Ready</span>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
-    <section className="relative w-full bg-white/90 backdrop-blur-xs py-10 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-slate-200 select-none">
+    <section className="relative w-full bg-white/90 backdrop-blur-xs py-8 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-slate-200 select-none">
       {/* Background glow */}
       <div className="absolute top-1/3 right-1/4 w-[650px] h-[450px] bg-[#0284C7]/8 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="space-y-2 sm:space-y-3 mb-8 sm:mb-16">
+        <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-16">
           <div className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-[#0284C7] font-bold tracking-widest uppercase">
             <span>TELEMETRY &amp; IMPACT METRICS</span>
           </div>
@@ -109,11 +295,130 @@ export const RetroStatsTerminal: React.FC = () => {
           <div className="w-12 sm:w-16 h-1 bg-[#0284C7] rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.3)]" />
         </div>
 
-        {/* Main Grid: Interactive Telemetry Cards (Left) vs Interactive Smartphone Mockup (Right) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+        {/* ------------------------------------------------------------ */}
+        {/* MOBILE VIEW (< lg): Icon Navbar + Single Card Swiper + Arrows*/}
+        {/* ------------------------------------------------------------ */}
+        <div className="block lg:hidden">
+          {/* Segmented Icon Navbar Dock */}
+          <div className="flex items-center justify-between p-1.5 rounded-2xl bg-slate-100/90 border border-slate-200/80 mb-4 gap-1 shadow-2xs">
+            {STATS_DATA.map((item, idx) => {
+              const IconComponent = item.icon;
+              const isActive = activeIndex === idx;
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setDirection(idx > activeIndex ? 1 : -1);
+                    setActiveIndex(idx);
+                  }}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-[#0284C7] text-white shadow-sm'
+                      : 'text-slate-600 hover:text-[#0284C7] hover:bg-white/70'
+                  }`}
+                  aria-label={item.title}
+                >
+                  <IconComponent className="w-4 h-4 shrink-0" />
+                  <span className="text-[10px] tracking-wider uppercase truncate">
+                    {item.badge}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Single Card Swiper with Gestures & Spring Physics */}
+          <div className="relative min-h-[220px]">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeStat.id}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(_, { offset, velocity }) => {
+                  const swipe = offset.x + velocity.x;
+                  if (swipe < -50) {
+                    handleNext();
+                  } else if (swipe > 50) {
+                    handlePrev();
+                  }
+                }}
+                className="p-5 rounded-2xl bg-white border border-[#0284C7]/40 ring-2 ring-[#0284C7]/15 shadow-[0_8px_24px_rgba(2,132,199,0.12)] flex flex-col justify-between touch-pan-y"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-wider">
+                      {activeStat.title}
+                    </span>
+                    <span className="font-mono text-[10px] font-bold text-slate-400">
+                      0{activeIndex + 1} / 0{STATS_DATA.length}
+                    </span>
+                  </div>
+
+                  <div className="text-3xl sm:text-4xl font-display font-black text-[#0F172A] tracking-tight">
+                    {activeStat.metric}
+                  </div>
+                </div>
+
+                {renderStatGraph(activeStat, 'mobile')}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Left / Right Arrow Controls & Step Counter for Mobile */}
+          <div className="flex items-center justify-between mt-4 px-1">
+            <button
+              onClick={handlePrev}
+              aria-label="Previous Stat"
+              className="p-2.5 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] bg-white shadow-2xs transition-all cursor-pointer active:scale-95"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            <div className="flex flex-col items-center gap-1.5">
+              <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                {activeStat.badge} // {activeIndex + 1} OF {STATS_DATA.length}
+              </span>
+              <div className="flex items-center gap-1.5">
+                {STATS_DATA.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setDirection(idx > activeIndex ? 1 : -1);
+                      setActiveIndex(idx);
+                    }}
+                    aria-label={`Go to metric ${idx + 1}`}
+                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                      activeIndex === idx ? 'w-6 bg-[#0284C7]' : 'w-1.5 bg-slate-300'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={handleNext}
+              aria-label="Next Stat"
+              className="p-2.5 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] bg-white shadow-2xs transition-all cursor-pointer active:scale-95"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------ */}
+        {/* DESKTOP VIEW (>= lg): Full 4-Card Matrix + Smartphone Mockup */}
+        {/* ------------------------------------------------------------ */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           {/* LEFT: Giant Stat Cards Matrix */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+            <div className="grid grid-cols-2 gap-4">
               {STATS_DATA.map((item, idx) => {
                 const isActive = activeIndex === idx;
 
@@ -122,169 +427,28 @@ export const RetroStatsTerminal: React.FC = () => {
                     key={item.id}
                     onClick={() => setActiveIndex(idx)}
                     whileHover={{ y: -3 }}
-                    className={`group p-4 sm:p-5 rounded-2xl sm:rounded-3xl transition-all duration-300 cursor-pointer border flex flex-col justify-between relative overflow-hidden ${
+                    className={`group p-5 rounded-3xl transition-all duration-300 cursor-pointer border flex flex-col justify-between relative overflow-hidden ${
                       isActive
                         ? 'bg-sky-50/60 border-[#0284C7] ring-2 ring-[#0284C7]/20 shadow-[0_10px_28px_rgba(2,132,199,0.16)]'
                         : 'bg-white border-slate-200/90 hover:border-slate-300 shadow-xs hover:shadow-[0_8px_20px_rgba(2,132,199,0.08)]'
                     }`}
                   >
                     <div>
-                      {/* Top Metric Header (Clean, No pill badges) */}
+                      {/* Top Metric Header */}
                       <div className="mb-1">
-                        <span className="font-mono text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-[#0284C7] transition-colors">
+                        <span className="font-mono text-[11px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-[#0284C7] transition-colors">
                           {item.title}
                         </span>
                       </div>
 
                       {/* Large Bold Metric Number */}
-                      <div className="text-3xl sm:text-4xl font-display font-black text-[#0F172A] tracking-tight">
+                      <div className="text-4xl font-display font-black text-[#0F172A] tracking-tight">
                         {item.metric}
                       </div>
                     </div>
 
                     {/* Prominent High-Impact Data Graphs */}
-                    {item.type === 'matrix' && (
-                      <div className="mt-3 pt-2">
-                        {/* Area Trend Graph */}
-                        <div className="w-full h-16 relative">
-                          <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" preserveAspectRatio="none">
-                            <defs>
-                              <linearGradient id="memberAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#0284C7" stopOpacity="0.4" />
-                                <stop offset="100%" stopColor="#0284C7" stopOpacity="0.0" />
-                              </linearGradient>
-                            </defs>
-                            {/* Gridlines */}
-                            <line x1="0" y1="15" x2="200" y2="15" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
-                            <line x1="0" y1="35" x2="200" y2="35" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
-                            {/* Area Fill */}
-                            <path
-                              d="M 0,55 C 30,50 50,38 80,32 C 110,26 135,34 160,18 C 180,8 190,10 200,4 L 200,60 L 0,60 Z"
-                              fill="url(#memberAreaGrad)"
-                            />
-                            {/* Main Stroke */}
-                            <path
-                              d="M 0,55 C 30,50 50,38 80,32 C 110,26 135,34 160,18 C 180,8 190,10 200,4"
-                              stroke="#0284C7"
-                              strokeWidth="2.2"
-                              fill="none"
-                              strokeLinecap="round"
-                            />
-                            {/* Data points */}
-                            <circle cx="80" cy="32" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-                            <circle cx="160" cy="18" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-                            <circle cx="200" cy="4" r="3.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2" />
-                          </svg>
-                        </div>
-                        <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 mt-1">
-                          <span>Q1</span>
-                          <span>Q2</span>
-                          <span>Q3</span>
-                          <span>Q4</span>
-                          <span className="text-[#0284C7] font-bold">2026</span>
-                        </div>
-                      </div>
-                    )}
-
-                    {item.type === 'avatars' && (
-                      <div className="mt-3 pt-2">
-                        {/* Multi-Bar Domain Distribution Graph */}
-                        <div className="h-16 flex items-end justify-between gap-2 px-1">
-                          {[
-                            { label: 'AI', height: '65%', val: '65' },
-                            { label: 'ML', height: '90%', val: '90' },
-                            { label: 'ROV', height: '75%', val: '75' },
-                            { label: 'GNN', height: '85%', val: '85' },
-                            { label: 'LLM', height: '100%', val: '100' },
-                            { label: 'BIO', height: '70%', val: '70' },
-                          ].map((bar, bIdx) => (
-                            <div key={bIdx} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
-                              <div className="w-full bg-slate-100 rounded-t-md h-full relative flex items-end overflow-hidden">
-                                <motion.div
-                                  initial={{ height: 0 }}
-                                  whileInView={{ height: bar.height }}
-                                  viewport={{ once: true }}
-                                  transition={{ duration: 0.6, delay: bIdx * 0.08 }}
-                                  className={`w-full rounded-t-md ${
-                                    bIdx === 4
-                                      ? 'bg-gradient-to-t from-[#0284C7] to-sky-400'
-                                      : 'bg-gradient-to-t from-sky-400/80 to-sky-300'
-                                  }`}
-                                />
-                              </div>
-                              <span className="text-[8px] font-mono text-slate-500 font-bold">{bar.label}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {item.type === 'sparkline' && (
-                      <div className="mt-3 pt-2">
-                        {/* Dual Velocity Wave Graph */}
-                        <div className="w-full h-16 relative">
-                          <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" preserveAspectRatio="none">
-                            <defs>
-                              <linearGradient id="sprintAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.35" />
-                                <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
-                              </linearGradient>
-                            </defs>
-                            <line x1="0" y1="20" x2="200" y2="20" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
-                            <path
-                              d="M 0,48 Q 40,46 70,26 T 130,22 T 200,6 L 200,60 L 0,60 Z"
-                              fill="url(#sprintAreaGrad)"
-                            />
-                            <path
-                              d="M 0,48 Q 40,46 70,26 T 130,22 T 200,6"
-                              stroke="#0284C7"
-                              strokeWidth="2.2"
-                              fill="none"
-                              strokeLinecap="round"
-                            />
-                            <circle cx="70" cy="26" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-                            <circle cx="130" cy="22" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-                            <circle cx="200" cy="6" r="3.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2" />
-                          </svg>
-                        </div>
-                        <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 mt-1">
-                          <span>36H Spr.</span>
-                          <span>Hacks</span>
-                          <span>CTF Runs</span>
-                          <span className="text-[#0284C7] font-bold">100% Rate</span>
-                        </div>
-                      </div>
-                    )}
-
-                    {item.type === 'progress' && (
-                      <div className="mt-3 pt-2 space-y-2">
-                        {/* Domain Progress Bars with Percentages */}
-                        <div>
-                          <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-                            <span className="text-slate-600 font-semibold">Vision &amp; LLMs</span>
-                            <span className="text-[#0284C7] font-bold">88%</span>
-                          </div>
-                          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-gradient-to-r from-sky-400 to-[#0284C7] rounded-full w-[88%]" />
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-                            <span className="text-slate-600 font-semibold">Swarm &amp; Robotics</span>
-                            <span className="text-[#0284C7] font-bold">74%</span>
-                          </div>
-                          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div className="h-full bg-gradient-to-r from-sky-400 to-[#0284C7] rounded-full w-[74%]" />
-                          </div>
-                        </div>
-
-                        <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 pt-0.5">
-                          <span>Active Repos</span>
-                          <span className="text-emerald-600 font-bold">● Production Ready</span>
-                        </div>
-                      </div>
-                    )}
+                    {renderStatGraph(item, 'desktop')}
                   </motion.div>
                 );
               })}
@@ -293,18 +457,18 @@ export const RetroStatsTerminal: React.FC = () => {
 
           {/* RIGHT: High-Precision Interactive Smartphone Mockup */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center w-full">
-            <div className="relative w-full max-w-[270px] sm:max-w-[330px] rounded-[40px] sm:rounded-[48px] bg-[#0F172A] p-3 sm:p-3.5 border-[3px] sm:border-[4px] border-slate-700/80 shadow-[0_20px_60px_rgba(15,23,42,0.35)]">
+            <div className="relative w-full max-w-[320px] rounded-[48px] bg-[#0F172A] p-3.5 border-[4px] border-slate-700/80 shadow-[0_20px_60px_rgba(15,23,42,0.35)]">
               {/* Phone Speaker & Dynamic Island */}
-              <div className="absolute top-4 sm:top-6 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-5 sm:h-6 bg-black rounded-full z-40 flex items-center justify-between px-2.5 sm:px-3">
-                <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-slate-900 border border-slate-800" />
+              <div className="absolute top-6 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-full z-40 flex items-center justify-between px-3">
+                <div className="w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-800" />
                 <div className="flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse" />
-                  <span className="text-[8px] sm:text-[9px] font-mono font-bold text-sky-400">CIS</span>
+                  <span className="text-[9px] font-mono font-bold text-sky-400">CIS</span>
                 </div>
               </div>
 
               {/* Smartphone Inner Screen */}
-              <div className="relative w-full h-[470px] sm:h-[570px] rounded-[30px] sm:rounded-[38px] bg-[#080D1A] overflow-hidden p-3.5 sm:p-4 pt-8 sm:pt-10 flex flex-col justify-between border border-slate-800 shadow-inner">
+              <div className="relative w-full h-[540px] rounded-[38px] bg-[#080D1A] overflow-hidden p-4 pt-10 flex flex-col justify-between border border-slate-800 shadow-inner">
                 {/* Top Phone Status Bar */}
                 <div className="flex items-center justify-between font-mono text-[10px] text-slate-400 px-1 pt-1 z-30">
                   <span className="font-bold text-white">9:41</span>
@@ -422,9 +586,9 @@ export const RetroStatsTerminal: React.FC = () => {
                       aria-label={item.label}
                     >
                       {i === 0 && <Users className="w-4 h-4" />}
-                      {i === 1 && <Calendar className="w-4 h-4" />}
-                      {i === 2 && <Compass className="w-4 h-4" />}
-                      {i === 3 && <Cpu className="w-4 h-4" />}
+                      {i === 1 && <Award className="w-4 h-4" />}
+                      {i === 2 && <Calendar className="w-4 h-4" />}
+                      {i === 3 && <Layers className="w-4 h-4" />}
                     </button>
                   ))}
                 </div>
@@ -444,4 +608,5 @@ export const RetroStatsTerminal: React.FC = () => {
     </section>
   );
 };
+
 
