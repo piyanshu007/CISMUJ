@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, MapPin, ArrowRight, X, Sparkles } from 'lucide-react';
+import { Calendar, MapPin, ArrowRight, ChevronLeft, ChevronRight, X, Sparkles } from 'lucide-react';
 
 interface EventItem {
   id: string;
@@ -84,6 +84,23 @@ const EVENTS: EventItem[] = [
 
 export const ScatteredMemories: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
+  const [mobileIndex, setMobileIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  const nextMobile = () => {
+    setDirection(1);
+    setMobileIndex((prev) => (prev + 1) % EVENTS.length);
+  };
+
+  const prevMobile = () => {
+    setDirection(-1);
+    setMobileIndex((prev) => (prev - 1 + EVENTS.length) % EVENTS.length);
+  };
+
+  const jumpMobile = (idx: number) => {
+    setDirection(idx > mobileIndex ? 1 : -1);
+    setMobileIndex(idx);
+  };
 
   return (
     <section className="relative w-full bg-white text-[#0F172A] py-8 sm:py-16 lg:py-24 overflow-hidden select-none border-b border-slate-100">
@@ -253,107 +270,183 @@ export const ScatteredMemories: React.FC = () => {
 
       {/* ============================================================ */}
       {/* MOBILE / TABLET RESPONSIVE FLOW (< 1024px)                   */}
+      {/* Interactive Constellation Deck with Swipe & Waypoint Rail    */}
       {/* ============================================================ */}
-      <div className="lg:hidden px-4 sm:px-6 space-y-8 max-w-2xl mx-auto">
-        {/* Header Block */}
-        <div className="space-y-2 text-center sm:text-left">
-          <div className="flex items-center justify-center sm:justify-start gap-2">
-            <div className="w-6 h-px bg-[#0284C7]" />
-            <span className="font-mono text-[10px] sm:text-[11px] font-bold text-[#0284C7] tracking-widest uppercase">
-              OUR EVENTS
-            </span>
-            <div className="w-6 h-px bg-[#0284C7]" />
+      <div className="lg:hidden px-4 sm:px-6 space-y-5 max-w-xl mx-auto">
+        {/* Header Block with Floating 3D Cluster Visual */}
+        <div className="relative flex items-start justify-between gap-3">
+          <div className="space-y-1.5 flex-1">
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-px bg-[#0284C7]" />
+              <span className="font-mono text-[10px] font-bold text-[#0284C7] tracking-widest uppercase">
+                OUR EVENTS
+              </span>
+              <div className="w-5 h-px bg-[#0284C7]" />
+            </div>
+
+            <h2 className="font-sans font-light text-2xl sm:text-4xl tracking-tight text-slate-900 leading-tight">
+              Ideas become <br />
+              <span className="text-[#0284C7] font-normal">experiences.</span>
+            </h2>
+
+            <p className="font-sans text-xs text-slate-500 leading-relaxed max-w-xs">
+              Workshops, hackathons, and community experiences driving computational intelligence.
+            </p>
           </div>
 
-          <h2 className="font-sans font-light text-3xl sm:text-5xl tracking-tight text-slate-900 leading-tight">
-            Ideas become <br />
-            <span className="text-[#0284C7] font-normal">experiences.</span>
-          </h2>
-
-          <p className="font-sans text-xs sm:text-sm text-slate-500 leading-relaxed">
-            IEEE CIS brings together workshops, competitions, talks, projects and community experiences to build a stronger, smarter tomorrow.
-          </p>
+          {/* 3D Cluster Preview for Mobile */}
+          <motion.div
+            animate={{ y: [-3, 3, -3], rotate: [-1, 1, -1] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-20 sm:w-28 shrink-0 pointer-events-none mt-1"
+          >
+            <img
+              src="/orbital-cluster-trans.png"
+              alt="3D Cluster"
+              className="w-full h-auto object-contain filter drop-shadow-[0_4px_16px_rgba(2,132,199,0.15)]"
+            />
+          </motion.div>
         </div>
 
-        {/* Vertical Connected Events */}
-        <div className="space-y-6 relative">
-          <div className="absolute left-4 sm:left-6 top-6 bottom-6 w-0.5 bg-gradient-to-b from-sky-400 via-sky-300 to-sky-100 -z-0" />
+        {/* Interactive Constellation Rail (Waypoint Nodes & Category Selector) */}
+        <div className="relative py-1">
+          {/* Cyan Connecting Track Line */}
+          <div className="absolute top-4 left-4 right-4 h-0.5 bg-gradient-to-r from-sky-400 via-[#0284C7] to-sky-300 rounded-full opacity-35 z-0" />
 
-          {EVENTS.map((event, idx) => (
-            <motion.div
-              key={event.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: idx * 0.06 }}
-              className="relative z-10 pl-10 sm:pl-14 space-y-2.5"
-            >
-              {/* Waypoint Circle */}
-              <div className="absolute left-4 sm:left-6 top-1.5 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-[#0284C7] bg-white flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
-              </div>
+          <div className="relative z-10 flex items-center justify-between px-1">
+            {EVENTS.map((event, idx) => {
+              const isActive = mobileIndex === idx;
+              return (
+                <button
+                  key={event.id}
+                  onClick={() => jumpMobile(idx)}
+                  className="flex flex-col items-center gap-1 focus:outline-hidden group cursor-pointer"
+                  aria-label={`Jump to ${event.title}`}
+                >
+                  <div
+                    className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-mono text-[10px] sm:text-xs font-bold transition-all duration-300 ${
+                      isActive
+                        ? 'bg-[#0284C7] text-white ring-4 ring-sky-100 shadow-[0_2px_10px_rgba(2,132,199,0.4)] scale-110'
+                        : 'bg-white text-slate-500 border border-slate-200 hover:border-[#0284C7] hover:text-[#0284C7]'
+                    }`}
+                  >
+                    0{idx + 1}
+                  </div>
+                  <span
+                    className={`font-mono text-[9px] transition-colors truncate max-w-[56px] text-center ${
+                      isActive ? 'text-[#0284C7] font-bold' : 'text-slate-400 font-medium'
+                    }`}
+                  >
+                    {event.category.split(' ')[0]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
 
-              {/* Compact Card with photo and details */}
-              <div
-                onClick={() => setSelectedEvent(event)}
-                className="p-3 sm:p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-[#0284C7] transition-all cursor-pointer flex flex-col sm:flex-row gap-3 sm:gap-4 items-start"
+        {/* Single Focused Active Event Card with Gesture & Carousel Navigation */}
+        <div className="relative overflow-hidden">
+          <AnimatePresence mode="wait" custom={direction}>
+            {EVENTS[mobileIndex] && (
+              <motion.div
+                key={EVENTS[mobileIndex].id}
+                custom={direction}
+                initial={{ opacity: 0, x: direction > 0 ? 50 : -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: direction > 0 ? -50 : 50 }}
+                transition={{ duration: 0.28, ease: 'easeOut' }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(e, info) => {
+                  if (info.offset.x < -40) nextMobile();
+                  else if (info.offset.x > 40) prevMobile();
+                }}
+                className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-[0_8px_30px_rgba(2,132,199,0.08)] space-y-3.5 touch-pan-y"
               >
-                <div className="relative aspect-[16/10] sm:aspect-square w-full sm:w-36 rounded-xl overflow-hidden bg-slate-100 shrink-0">
+                {/* Photo with Overlay Badge */}
+                <div
+                  onClick={() => setSelectedEvent(EVENTS[mobileIndex])}
+                  className="relative aspect-[16/10] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-slate-100 cursor-pointer group"
+                >
                   <img
-                    src={event.image}
-                    alt={event.title}
-                    className="w-full h-full object-cover"
+                    src={EVENTS[mobileIndex].image}
+                    alt={EVENTS[mobileIndex].title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-2 left-2 sm:hidden">
-                    <span className="px-2 py-0.5 rounded bg-slate-900/90 text-white font-mono text-[9px] font-bold uppercase tracking-wider">
-                      {event.category}
+                  <div className="absolute top-2.5 left-2.5">
+                    <span className="px-2.5 py-1 rounded-md bg-slate-900/85 backdrop-blur-xs text-white font-mono text-[10px] font-bold uppercase tracking-wider shadow-xs">
+                      {EVENTS[mobileIndex].category}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-2.5 right-2.5">
+                    <span className="px-2 py-0.5 rounded bg-white/90 backdrop-blur-xs text-[#0284C7] font-mono text-[10px] font-bold shadow-xs">
+                      {EVENTS[mobileIndex].year}
                     </span>
                   </div>
                 </div>
 
-                <div className="space-y-1.5 flex-1 min-w-0">
-                  <div className="hidden sm:flex items-center justify-between">
-                    <span className="font-mono text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">
-                      {event.category}
+                {/* Event Details */}
+                <div className="space-y-1.5">
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="font-sans font-bold text-slate-900 text-lg sm:text-xl leading-snug">
+                      {EVENTS[mobileIndex].title}
+                    </h3>
+                  </div>
+
+                  {/* Date & Location */}
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11px] text-slate-500 font-semibold uppercase">
+                    <span className="flex items-center gap-1.5 text-[#0284C7]">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {EVENTS[mobileIndex].date}
                     </span>
-                    <span className="font-sans text-xs text-slate-400 font-normal">
-                      {event.year}
+                    <span className="flex items-center gap-1.5 truncate text-slate-600">
+                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                      {EVENTS[mobileIndex].location}
                     </span>
                   </div>
 
-                  <h3 className="font-sans font-bold text-slate-900 text-base sm:text-lg leading-snug truncate">
-                    {event.title}
-                  </h3>
-
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 font-mono text-[10px] text-slate-500 font-semibold uppercase">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3 text-[#0284C7]" />
-                      {event.date}
-                    </span>
-                    <span className="flex items-center gap-1 truncate">
-                      <MapPin className="w-3 h-3 text-[#0284C7]" />
-                      {event.location}
-                    </span>
-                  </div>
-
-                  <p className="font-sans text-xs text-slate-600 leading-relaxed line-clamp-2">
-                    {event.description}
+                  {/* Description */}
+                  <p className="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    {EVENTS[mobileIndex].description}
                   </p>
+                </div>
 
+                {/* Bottom Card Action & Controls */}
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedEvent(event);
-                    }}
-                    className="font-mono text-[11px] font-bold text-[#0284C7] uppercase tracking-wider flex items-center gap-1 pt-0.5"
+                    onClick={() => setSelectedEvent(EVENTS[mobileIndex])}
+                    className="font-mono text-xs font-bold text-[#0284C7] hover:text-[#0369A1] uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer py-1"
                   >
                     <span>VIEW EVENT</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
+
+                  {/* Prev / Next Circular Navigation Arrows */}
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-[11px] font-bold text-slate-400 mr-1">
+                      0{mobileIndex + 1} / 0{EVENTS.length}
+                    </span>
+                    <button
+                      onClick={prevMobile}
+                      className="p-1.5 rounded-full bg-slate-100 hover:bg-sky-50 text-slate-700 hover:text-[#0284C7] border border-slate-200 transition-colors cursor-pointer"
+                      aria-label="Previous event"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={nextMobile}
+                      className="p-1.5 rounded-full bg-slate-100 hover:bg-sky-50 text-slate-700 hover:text-[#0284C7] border border-slate-200 transition-colors cursor-pointer"
+                      aria-label="Next event"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
