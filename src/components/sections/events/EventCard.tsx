@@ -44,6 +44,11 @@ export const EventCard: React.FC<EventCardProps> = ({
               </span>
             )}
           </div>
+          <div className="absolute top-3 right-3">
+            <span className="px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-xs text-slate-700 font-mono text-[9px] font-bold border border-slate-200/60 shadow-2xs">
+              {event.registrationUrl.includes('cismuj') ? '@ieee.cismuj' : '@ieeemuj'}
+            </span>
+          </div>
         </div>
 
         {/* Title */}

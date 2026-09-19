@@ -3,29 +3,41 @@
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Search, Sparkles } from 'lucide-react';
 import { EVENTS, EventItem } from '@/data/events';
 import { EventsHeroSphere } from './events/EventsHeroSphere';
 import { EventCard } from './events/EventCard';
 import { EventModal } from './events/EventModal';
 
-const EVENTS_PER_PAGE = 6;
+const EVENTS_PER_PAGE = 9;
 const EVENT_CATEGORIES = ['ALL', 'UPCOMING', 'HACKATHON', 'WORKSHOP', 'FLAGSHIP', 'COMPETITION'] as const;
 
 export const EventsFanDeck: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeModalEvent, setActiveModalEvent] = useState<EventItem | null>(null);
   const [currentPageNumber, setCurrentPageNumber] = useState<number>(1);
 
   const filteredEventsList = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
     return EVENTS.filter((eventItem) => {
-      if (selectedCategory === 'ALL') return true;
-      if (selectedCategory === 'UPCOMING') return eventItem.status === 'UPCOMING';
-      return eventItem.category === selectedCategory;
-    });
-  }, [selectedCategory]);
+      // Category check
+      if (selectedCategory === 'UPCOMING' && eventItem.status !== 'UPCOMING') return false;
+      if (selectedCategory !== 'ALL' && selectedCategory !== 'UPCOMING' && eventItem.category !== selectedCategory) return false;
 
-  const totalPages = Math.ceil(filteredEventsList.length / EVENTS_PER_PAGE);
+      // Search query check
+      if (q) {
+        const matchTitle = eventItem.title.toLowerCase().includes(q);
+        const matchDesc = eventItem.description.toLowerCase().includes(q);
+        const matchCat = eventItem.category.toLowerCase().includes(q);
+        const matchLoc = eventItem.location.toLowerCase().includes(q);
+        return matchTitle || matchDesc || matchCat || matchLoc;
+      }
+      return true;
+    });
+  }, [selectedCategory, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredEventsList.length / EVENTS_PER_PAGE));
   const startIndex = (currentPageNumber - 1) * EVENTS_PER_PAGE;
   const paginatedEvents = filteredEventsList.slice(startIndex, startIndex + EVENTS_PER_PAGE);
 
@@ -34,13 +46,42 @@ export const EventsFanDeck: React.FC = () => {
     setCurrentPageNumber(1);
   };
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setCurrentPageNumber(1);
+  };
+
   const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages) return;
     setCurrentPageNumber(newPage);
     const targetElement = document.getElementById('events-grid');
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Generate pagination items with ellipses
+  const paginationRange = useMemo(() => {
+    const delta = 1;
+    const range: (number | string)[] = [];
+    for (let i = Math.max(2, currentPageNumber - delta); i <= Math.min(totalPages - 1, currentPageNumber + delta); i++) {
+      range.push(i);
+    }
+
+    if (currentPageNumber - delta > 2) {
+      range.unshift('...');
+    }
+    if (currentPageNumber + delta < totalPages - 1) {
+      range.push('...');
+    }
+
+    range.unshift(1);
+    if (totalPages > 1) {
+      range.push(totalPages);
+    }
+
+    return range;
+  }, [currentPageNumber, totalPages]);
 
   return (
     <section className="relative w-full bg-white text-[#0F172A] overflow-hidden select-none">
@@ -124,8 +165,8 @@ export const EventsFanDeck: React.FC = () => {
       <div id="events-grid" className="w-full border-t border-slate-100/90 bg-white py-6 sm:py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 space-y-6 sm:space-y-8">
           
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3 sm:pb-5">
+          {/* Category Filter Pills & Search */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4 sm:pb-5">
             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
               {EVENT_CATEGORIES.map((categoryKey) => (
                 <button
@@ -142,22 +183,50 @@ export const EventsFanDeck: React.FC = () => {
               ))}
             </div>
 
-            <div className="font-mono text-[11px] sm:text-xs text-slate-400">
-              Showing <span className="text-[#0284C7] font-bold">{filteredEventsList.length === 0 ? 0 : `${startIndex + 1} - ${Math.min(startIndex + EVENTS_PER_PAGE, filteredEventsList.length)}`}</span> of <span className="text-[#0284C7] font-bold">{filteredEventsList.length}</span> items
+            <div className="flex items-center gap-3 w-full md:w-auto">
+              <div className="relative flex-1 md:w-64">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search 135+ events..."
+                  className="w-full pl-9 pr-4 py-2 rounded-full bg-slate-50 border border-slate-200 focus:border-[#0284C7] focus:bg-white text-xs font-sans text-[#0F172A] outline-hidden transition-all placeholder:text-slate-400"
+                />
+              </div>
+              <div className="font-mono text-[11px] sm:text-xs text-slate-400 whitespace-nowrap">
+                <span className="text-[#0284C7] font-bold">{filteredEventsList.length}</span> items
+              </div>
             </div>
           </div>
 
           {/* Event Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 items-stretch">
-            {paginatedEvents.map((singleEvent, eventIndex) => (
-              <EventCard
-                key={singleEvent.id}
-                event={singleEvent}
-                cardIndex={eventIndex}
-                onSelectEvent={setActiveModalEvent}
-              />
-            ))}
-          </div>
+          {paginatedEvents.length === 0 ? (
+            <div className="py-16 text-center space-y-3 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+              <Sparkles className="w-8 h-8 text-[#0284C7] mx-auto opacity-60" />
+              <h3 className="text-base font-sans font-semibold text-slate-700">No events found</h3>
+              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+                No events matched your search or category filter. Try clearing the search query or selecting ALL EVENTS.
+              </p>
+              <button
+                onClick={() => { setSelectedCategory('ALL'); setSearchQuery(''); }}
+                className="mt-2 px-4 py-1.5 rounded-full bg-[#0284C7] text-white text-xs font-mono font-medium hover:bg-[#0369A1] transition-colors"
+              >
+                Reset Filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 items-stretch">
+              {paginatedEvents.map((singleEvent, eventIndex) => (
+                <EventCard
+                  key={singleEvent.id}
+                  event={singleEvent}
+                  cardIndex={eventIndex}
+                  onSelectEvent={setActiveModalEvent}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Pagination Controls */}
           {totalPages > 1 && (
@@ -167,41 +236,51 @@ export const EventsFanDeck: React.FC = () => {
                 <span className="font-bold text-[#0F172A]">{totalPages}</span>
               </div>
 
-              <div className="flex items-center gap-2 font-mono text-xs">
+              <div className="flex items-center gap-1.5 font-mono text-xs">
                 <button
                   onClick={() => handlePageChange(currentPageNumber - 1)}
                   disabled={currentPageNumber === 1}
-                  className="px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-[#0284C7] hover:text-[#0284C7] disabled:opacity-40 disabled:hover:border-slate-200 disabled:hover:text-slate-700 disabled:cursor-not-allowed transition-all shadow-2xs flex items-center gap-1.5 font-bold cursor-pointer active:scale-95"
+                  className="px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-[#0284C7] hover:text-[#0284C7] disabled:opacity-40 disabled:hover:border-slate-200 disabled:hover:text-slate-700 disabled:cursor-not-allowed transition-all shadow-2xs flex items-center gap-1 font-bold cursor-pointer active:scale-95"
                   aria-label="Previous Page"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-3.5 h-3.5" />
                   <span>PREV</span>
                 </button>
 
-                <div className="flex items-center gap-1.5">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageIdx) => (
-                    <button
-                      key={pageIdx}
-                      onClick={() => handlePageChange(pageIdx)}
-                      className={`w-9 h-9 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
-                        currentPageNumber === pageIdx
-                          ? 'bg-[#0284C7] text-white shadow-xs shadow-sky-500/20 scale-105'
-                          : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-[#0284C7]'
-                      }`}
-                    >
-                      {pageIdx}
-                    </button>
-                  ))}
+                <div className="flex items-center gap-1">
+                  {paginationRange.map((pageItem, idx) => {
+                    if (pageItem === '...') {
+                      return (
+                        <span key={`dots-${idx}`} className="w-7 h-7 flex items-center justify-center text-slate-400 font-bold">
+                          ...
+                        </span>
+                      );
+                    }
+                    const pageNum = Number(pageItem);
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => handlePageChange(pageNum)}
+                        className={`w-8 h-8 rounded-xl font-mono text-xs font-bold transition-all cursor-pointer ${
+                          currentPageNumber === pageNum
+                            ? 'bg-[#0284C7] text-white shadow-xs shadow-sky-500/20 scale-105'
+                            : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-[#0284C7]'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    );
+                  })}
                 </div>
 
                 <button
                   onClick={() => handlePageChange(currentPageNumber + 1)}
                   disabled={currentPageNumber === totalPages}
-                  className="px-3.5 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-[#0284C7] hover:text-[#0284C7] disabled:opacity-40 disabled:hover:border-slate-200 disabled:hover:text-slate-700 disabled:cursor-not-allowed transition-all shadow-2xs flex items-center gap-1.5 font-bold cursor-pointer active:scale-95"
+                  className="px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:border-[#0284C7] hover:text-[#0284C7] disabled:opacity-40 disabled:hover:border-slate-200 disabled:hover:text-slate-700 disabled:cursor-not-allowed transition-all shadow-2xs flex items-center gap-1 font-bold cursor-pointer active:scale-95"
                   aria-label="Next Page"
                 >
                   <span>NEXT</span>
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
