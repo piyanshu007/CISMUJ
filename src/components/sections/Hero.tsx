@@ -32,7 +32,7 @@ export const Hero: React.FC = () => {
             <span className="text-[#0284C7]">INTELLIGENCE</span>
             <br />
             SOCIETY{' '}
-            <span className="font-mono text-2xl sm:text-5xl lg:text-6xl text-slate-400 font-bold">MUJ</span>
+            <span className="font-mono text-2xl sm:text-5xl lg:text-6xl text-[#0284C7] font-bold">MUJ</span>
           </h1>
 
 
