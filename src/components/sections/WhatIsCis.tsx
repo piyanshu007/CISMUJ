@@ -47,7 +47,7 @@ export const WhatIsCis: React.FC = () => {
               className="space-y-1"
             >
               <h1 className="text-3xl sm:text-5xl lg:text-[3.5rem] font-sans font-light text-[#1E293B] tracking-tight leading-[1.12]">
-                Exploring the Future of
+                Pioneering Practical
                 <br />
                 <span className="text-[#0284C7] font-normal">
                   Computational Intelligence

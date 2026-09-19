@@ -82,7 +82,7 @@ export const Hero: React.FC = () => {
           <div className="pt-2 flex flex-wrap items-center gap-3 font-mono text-xs">
             <a
               href="/events"
-              className="px-6 py-3.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold tracking-wider shadow-[0_4px_14px_rgba(2,132,199,0.35)] hover:shadow-[0_6px_20px_rgba(2,132,199,0.45)] transition-all cursor-pointer inline-block hover:-translate-y-0.5"
+              className="px-6 py-3.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold tracking-wider shadow-blue-sm hover:shadow-blue-md transition-all cursor-pointer inline-block hover:-translate-y-0.5"
             >
               EXPLORE EVENTS &amp; HACKS
             </a>

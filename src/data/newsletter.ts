@@ -154,7 +154,7 @@ export const BROADSHEET_EDITIONS: BroadsheetEdition[] = [
         page: 'PAGE B4',
       },
     ],
-    secondStoryTitle: 'FACULTY COMMENDATION: FOSTERING CAMPUS-WIDE BUILDER CULTURE',
+    secondStoryTitle: 'FACULTY COMMENDATION: CULTIVATING CAMPUS-WIDE BUILDER CULTURE',
     secondStoryBody: 'Dr. Mahesh Jangid, Branch Counselor, commended the organizing committee for orchestrating a flawless hackathon environment. "WebForge demonstrates that when students are provided rigorous mentorship, low-latency compute resources, and challenging problem statements, world-class engineering naturally follows."',
     quoteTitle: 'THE BUILDER CREED',
     quoteBody: 'From zero to deployed cloud container in thirty-six hours—practical student engineering creates lasting industrial value.',

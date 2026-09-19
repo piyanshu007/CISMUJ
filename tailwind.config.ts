@@ -39,6 +39,12 @@ const config: Config = {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         mono: ['IBM Plex Mono', 'monospace'],
       },
+      dropShadow: {
+        'emblem-sm': '0 2px 8px rgba(2, 132, 199, 0.3)',
+        'emblem-md': '0 6px 14px rgba(2, 132, 199, 0.15)',
+        'emblem-lg': '0 10px 24px rgba(2, 132, 199, 0.12)',
+        'emblem-glow': '0 8px 26px rgba(2, 132, 199, 0.55)',
+      },
       boxShadow: {
         'clean-sm': '0 1px 3px 0 rgba(0, 0, 0, 0.05)',
         'clean-md': '0 4px 14px -2px rgba(15, 23, 42, 0.08)',
@@ -46,6 +52,8 @@ const config: Config = {
         'blue-sm': '0 2px 8px -1px rgba(2, 132, 199, 0.2)',
         'blue-md': '0 8px 20px -2px rgba(2, 132, 199, 0.25)',
         'blue-glow': '0 0 25px -3px rgba(2, 132, 199, 0.4)',
+        'blue-card': '0 8px 26px rgba(2, 132, 199, 0.12)',
+        'blue-hover': '0 12px 28px rgba(2, 132, 199, 0.16)',
         'gold-glow': '0 0 25px -3px rgba(245, 158, 11, 0.4)',
         'cyan-glow': '0 0 25px -3px rgba(6, 182, 212, 0.4)',
       },

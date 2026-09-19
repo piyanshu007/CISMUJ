@@ -47,7 +47,7 @@ export const Navbar: React.FC = () => {
                 <img
                   src="/logo-mark.png"
                   alt="IEEE CIS Logo"
-                  className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(2,132,199,0.3)]"
+                  className="w-full h-full object-contain filter drop-shadow-emblem-sm"
                 />
               </div>
             </Link>

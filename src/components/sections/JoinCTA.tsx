@@ -35,7 +35,7 @@ export const JoinCTA: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram @ieee.cismuj"
-              className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#0284C7] hover:bg-[#0369A1] text-white flex items-center justify-center shadow-[0_4px_16px_rgba(2,132,199,0.3)] hover:shadow-[0_8px_24px_rgba(2,132,199,0.4)] transition-all duration-300 cursor-pointer hover:-translate-y-1"
+              className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#0284C7] hover:bg-[#0369A1] text-white flex items-center justify-center shadow-blue-sm hover:shadow-blue-md transition-all duration-300 cursor-pointer hover:-translate-y-1"
             >
               <Instagram className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </a>

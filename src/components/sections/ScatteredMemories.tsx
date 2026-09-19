@@ -109,7 +109,7 @@ export const ScatteredMemories: React.FC = () => {
           <img
             src="/orbital-cluster-trans.png"
             alt="3D Orbital Cyan Spheres"
-            className="w-full h-auto object-contain select-none filter drop-shadow-[0_10px_24px_rgba(2,132,199,0.12)]"
+            className="w-full h-auto object-contain select-none filter drop-shadow-emblem-lg"
           />
         </motion.div>
 
@@ -120,7 +120,7 @@ export const ScatteredMemories: React.FC = () => {
               whileHover={{ scale: 1.03, y: -4 }}
               transition={{ duration: 0.3 }}
               onClick={() => setSelectedMemoryEvent(memoryItem)}
-              className={`absolute ${memoryItem.photoClass} aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_8px_26px_rgba(2,132,199,0.12)] border border-slate-100 hover:border-sky-300 transition-all cursor-pointer z-10 bg-slate-100 group`}
+              className={`absolute ${memoryItem.photoClass} aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-blue-card border border-slate-100 hover:border-sky-300 transition-all cursor-pointer z-10 bg-slate-100 group`}
             >
               <img
                 src={memoryItem.image}
@@ -211,7 +211,7 @@ export const ScatteredMemories: React.FC = () => {
                   <div
                     className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-mono text-[10px] sm:text-xs font-bold transition-all duration-300 ${
                       isActive
-                        ? 'bg-[#0284C7] text-white ring-4 ring-sky-100 shadow-[0_2px_10px_rgba(2,132,199,0.4)] scale-110'
+                        ? 'bg-[#0284C7] text-white ring-4 ring-sky-100 shadow-blue-sm scale-110'
                         : 'bg-white text-slate-500 border border-slate-200 hover:border-[#0284C7] hover:text-[#0284C7]'
                     }`}
                   >
@@ -248,7 +248,7 @@ export const ScatteredMemories: React.FC = () => {
                   if (info.offset.x < -40) handleNextMobile();
                   else if (info.offset.x > 40) handlePrevMobile();
                 }}
-                className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-[0_8px_30px_rgba(2,132,199,0.08)] space-y-3.5 touch-pan-y"
+                className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-blue-card space-y-3.5 touch-pan-y"
               >
                 <div
                   onClick={() => setSelectedMemoryEvent(MEMORY_EVENTS_DATA[activeMobileIndex])}

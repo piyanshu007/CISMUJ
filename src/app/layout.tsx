@@ -11,6 +11,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ieeecis-muj.vercel.app'),
   title: 'IEEE CIS MUJ | Manipal University Jaipur Student Chapter',
   description:
     'IEEE Computational Intelligence Society at Manipal University Jaipur — Artificial Intelligence, Machine Learning, Robotics, Hackathons, and Student Projects.',
@@ -25,13 +26,34 @@ export const metadata: Metadata = {
     'WebForge',
   ],
   authors: [{ name: 'IEEE CIS MUJ' }],
+  alternates: {
+    canonical: 'https://ieeecis-muj.vercel.app',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: 'IEEE CIS MUJ | Computational Intelligence Society',
     description:
       'Manipal University Jaipur student chapter for AI, Machine Learning, Robotics, and Hackathons.',
-    url: 'https://cis.ieeemuj.com',
+    url: 'https://ieeecis-muj.vercel.app',
     siteName: 'IEEE CIS MUJ',
     type: 'website',
+    images: [
+      {
+        url: '/logo-mark.png',
+        width: 800,
+        height: 600,
+        alt: 'IEEE CIS MUJ Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'IEEE CIS MUJ | Computational Intelligence Society',
+    description: 'Manipal University Jaipur student chapter for AI, Machine Learning, Robotics, and Hackathons.',
+    images: ['/logo-mark.png'],
   },
   icons: {
     icon: '/logo-mark.png',

@@ -67,7 +67,7 @@ export const MEMORY_EVENTS_DATA: MemoryEventRecord[] = [
     year: '2025',
     date: 'APRIL 2025',
     location: 'MAIN AUDITORIUM',
-    description: 'Exploring innovations, ideas and the future of intelligent systems.',
+    description: 'Annual research symposium showcasing embedded neural hardware, robotics testbeds, and decentralized agent workflows.',
     image: '/events/oneiros.jpg',
     photoClass: 'lg:left-[64%] lg:top-[66%] lg:w-[16%]',
     textClass: 'lg:left-[81%] lg:top-[68%] lg:max-w-[18%]',

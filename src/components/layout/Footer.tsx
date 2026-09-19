@@ -46,7 +46,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-slate-600 max-w-md leading-relaxed text-[11px] sm:text-xs">
-              Manipal University Jaipur&apos;s active student chapter fostering hands-on proficiency in artificial intelligence, neural architectures, robotics, competitive hackathons, and computational intelligence research.
+              Manipal University Jaipur&apos;s active student chapter driving hands-on proficiency in artificial intelligence, neural architectures, robotics, competitive hackathons, and computational intelligence research.
             </p>
 
             {/* Social Icons Bar */}
