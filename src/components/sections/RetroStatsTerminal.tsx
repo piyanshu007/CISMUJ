@@ -9,14 +9,9 @@ import {
   Award, 
   Wifi, 
   Battery, 
-  Sparkles, 
   ChevronLeft,
   ChevronRight, 
-  Activity, 
   Bell,
-  Cpu,
-  Compass,
-  MoreVertical
 } from 'lucide-react';
 
 interface StatItem {
@@ -124,7 +119,7 @@ export const RetroStatsTerminal: React.FC = () => {
 
   const slideVariants = {
     enter: (dir: number) => ({
-      x: dir >= 0 ? 40 : -40,
+      x: dir >= 0 ? 30 : -30,
       opacity: 0,
     }),
     center: {
@@ -133,56 +128,58 @@ export const RetroStatsTerminal: React.FC = () => {
       opacity: 1,
       transition: {
         x: { type: 'spring', stiffness: 350, damping: 32 },
-        opacity: { duration: 0.22 },
+        opacity: { duration: 0.2 },
       },
     },
     exit: (dir: number) => ({
       zIndex: 0,
-      x: dir < 0 ? 40 : -40,
+      x: dir < 0 ? 30 : -30,
       opacity: 0,
       transition: {
-        duration: 0.18,
+        duration: 0.15,
       },
     }),
   };
 
   const renderStatGraph = (item: StatItem, prefix: string = '') => {
+    const isDark = prefix === 'phone';
+
     if (item.type === 'matrix') {
       return (
-        <div className="mt-3 pt-2">
+        <div className="mt-2 pt-1">
           {/* Area Trend Graph */}
-          <div className="w-full h-16 sm:h-20 relative">
+          <div className="w-full h-14 sm:h-18 relative">
             <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" preserveAspectRatio="none">
               <defs>
                 <linearGradient id={`memberAreaGrad-${prefix}-${item.id}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#0284C7" stopOpacity="0.4" />
+                  <stop offset="0%" stopColor="#0284C7" stopOpacity={isDark ? 0.6 : 0.35} />
                   <stop offset="100%" stopColor="#0284C7" stopOpacity="0.0" />
                 </linearGradient>
               </defs>
-              <line x1="0" y1="15" x2="200" y2="15" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
-              <line x1="0" y1="35" x2="200" y2="35" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
+              <line x1="0" y1="15" x2="200" y2="15" stroke={isDark ? '#334155' : '#E2E8F0'} strokeWidth="0.75" strokeDasharray="3 3" />
+              <line x1="0" y1="35" x2="200" y2="35" stroke={isDark ? '#334155' : '#E2E8F0'} strokeWidth="0.75" strokeDasharray="3 3" />
               <path
                 d="M 0,55 C 30,50 50,38 80,32 C 110,26 135,34 160,18 C 180,8 190,10 200,4 L 200,60 L 0,60 Z"
                 fill={`url(#memberAreaGrad-${prefix}-${item.id})`}
               />
               <path
                 d="M 0,55 C 30,50 50,38 80,32 C 110,26 135,34 160,18 C 180,8 190,10 200,4"
-                stroke="#0284C7"
+                stroke="#38BDF8"
                 strokeWidth="2.2"
                 fill="none"
                 strokeLinecap="round"
               />
-              <circle cx="80" cy="32" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-              <circle cx="160" cy="18" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-              <circle cx="200" cy="4" r="3.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2" />
+              <circle cx="80" cy="32" r="2.5" fill="#38BDF8" stroke="#FFFFFF" strokeWidth="1.5" />
+              <circle cx="160" cy="18" r="2.5" fill="#38BDF8" stroke="#FFFFFF" strokeWidth="1.5" />
+              <circle cx="200" cy="4" r="3.5" fill="#38BDF8" stroke="#FFFFFF" strokeWidth="2" />
             </svg>
           </div>
-          <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 mt-1">
+          <div className={`flex items-center justify-between text-[9px] font-mono mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
             <span>Q1</span>
             <span>Q2</span>
             <span>Q3</span>
             <span>Q4</span>
-            <span className="text-[#0284C7] font-bold">2026</span>
+            <span className="text-[#38BDF8] font-bold">2026</span>
           </div>
         </div>
       );
@@ -190,9 +187,9 @@ export const RetroStatsTerminal: React.FC = () => {
 
     if (item.type === 'avatars') {
       return (
-        <div className="mt-3 pt-2">
+        <div className="mt-2 pt-1">
           {/* Multi-Bar Domain Distribution Graph */}
-          <div className="h-16 sm:h-20 flex items-end justify-between gap-2 px-1">
+          <div className="h-14 sm:h-18 flex items-end justify-between gap-2 px-1">
             {[
               { label: 'AI', height: '65%' },
               { label: 'ML', height: '90%' },
@@ -202,20 +199,20 @@ export const RetroStatsTerminal: React.FC = () => {
               { label: 'BIO', height: '70%' },
             ].map((bar, bIdx) => (
               <div key={bIdx} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
-                <div className="w-full bg-slate-100 rounded-t-md h-full relative flex items-end overflow-hidden">
+                <div className={`w-full rounded-t-md h-full relative flex items-end overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-100'}`}>
                   <motion.div
                     initial={{ height: 0 }}
                     whileInView={{ height: bar.height }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: bIdx * 0.08 }}
+                    transition={{ duration: 0.5, delay: bIdx * 0.06 }}
                     className={`w-full rounded-t-md ${
                       bIdx === 4
                         ? 'bg-gradient-to-t from-[#0284C7] to-sky-400'
-                        : 'bg-gradient-to-t from-sky-400/80 to-sky-300'
+                        : 'bg-gradient-to-t from-sky-400 to-sky-300'
                     }`}
                   />
                 </div>
-                <span className="text-[8px] font-mono text-slate-500 font-bold">{bar.label}</span>
+                <span className={`text-[8px] font-mono font-bold ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{bar.label}</span>
               </div>
             ))}
           </div>
@@ -225,38 +222,38 @@ export const RetroStatsTerminal: React.FC = () => {
 
     if (item.type === 'sparkline') {
       return (
-        <div className="mt-3 pt-2">
+        <div className="mt-2 pt-1">
           {/* Dual Velocity Wave Graph */}
-          <div className="w-full h-16 sm:h-20 relative">
+          <div className="w-full h-14 sm:h-18 relative">
             <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" preserveAspectRatio="none">
               <defs>
                 <linearGradient id={`sprintAreaGrad-${prefix}-${item.id}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.35" />
+                  <stop offset="0%" stopColor="#38BDF8" stopOpacity={isDark ? 0.55 : 0.35} />
                   <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
                 </linearGradient>
               </defs>
-              <line x1="0" y1="20" x2="200" y2="20" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
+              <line x1="0" y1="20" x2="200" y2="20" stroke={isDark ? '#334155' : '#E2E8F0'} strokeWidth="0.75" strokeDasharray="3 3" />
               <path
                 d="M 0,48 Q 40,46 70,26 T 130,22 T 200,6 L 200,60 L 0,60 Z"
                 fill={`url(#sprintAreaGrad-${prefix}-${item.id})`}
               />
               <path
                 d="M 0,48 Q 40,46 70,26 T 130,22 T 200,6"
-                stroke="#0284C7"
+                stroke="#38BDF8"
                 strokeWidth="2.2"
                 fill="none"
                 strokeLinecap="round"
               />
-              <circle cx="70" cy="26" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-              <circle cx="130" cy="22" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-              <circle cx="200" cy="6" r="3.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2" />
+              <circle cx="70" cy="26" r="2.5" fill="#38BDF8" stroke="#FFFFFF" strokeWidth="1.5" />
+              <circle cx="130" cy="22" r="2.5" fill="#38BDF8" stroke="#FFFFFF" strokeWidth="1.5" />
+              <circle cx="200" cy="6" r="3.5" fill="#38BDF8" stroke="#FFFFFF" strokeWidth="2" />
             </svg>
           </div>
-          <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 mt-1">
+          <div className={`flex items-center justify-between text-[9px] font-mono mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
             <span>36H Spr.</span>
             <span>Hacks</span>
             <span>CTF Runs</span>
-            <span className="text-[#0284C7] font-bold">100% Rate</span>
+            <span className="text-[#38BDF8] font-bold">100% Rate</span>
           </div>
         </div>
       );
@@ -264,31 +261,31 @@ export const RetroStatsTerminal: React.FC = () => {
 
     if (item.type === 'progress') {
       return (
-        <div className="mt-3 pt-2 space-y-2">
+        <div className="mt-2 pt-1 space-y-2">
           {/* Domain Progress Bars with Percentages */}
           <div>
-            <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-              <span className="text-slate-600 font-semibold">Vision &amp; LLMs</span>
-              <span className="text-[#0284C7] font-bold">88%</span>
+            <div className={`flex items-center justify-between text-[10px] font-mono mb-1 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              <span className="font-semibold">Vision &amp; LLMs</span>
+              <span className="text-[#38BDF8] font-bold">88%</span>
             </div>
-            <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+            <div className={`w-full h-2 rounded-full overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-100'}`}>
               <div className="h-full bg-gradient-to-r from-sky-400 to-[#0284C7] rounded-full w-[88%]" />
             </div>
           </div>
 
           <div>
-            <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-              <span className="text-slate-600 font-semibold">Swarm &amp; Robotics</span>
-              <span className="text-[#0284C7] font-bold">74%</span>
+            <div className={`flex items-center justify-between text-[10px] font-mono mb-1 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+              <span className="font-semibold">Swarm &amp; Robotics</span>
+              <span className="text-[#38BDF8] font-bold">74%</span>
             </div>
-            <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+            <div className={`w-full h-2 rounded-full overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-100'}`}>
               <div className="h-full bg-gradient-to-r from-sky-400 to-[#0284C7] rounded-full w-[74%]" />
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 pt-0.5">
+          <div className={`flex items-center justify-between text-[9px] font-mono pt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
             <span>Active Repos</span>
-            <span className="text-emerald-600 font-bold">● Production Ready</span>
+            <span className="text-emerald-400 font-bold">● Production Ready</span>
           </div>
         </div>
       );
@@ -297,6 +294,147 @@ export const RetroStatsTerminal: React.FC = () => {
     return null;
   };
 
+  // Smartphone Mockup Component (renders on both mobile & desktop)
+  const renderPhoneMockup = () => (
+    <div className="relative w-full max-w-[310px] sm:max-w-[340px] rounded-[44px] sm:rounded-[48px] bg-[#0F172A] p-3 sm:p-3.5 border-[4px] border-slate-700/80 shadow-[0_20px_60px_rgba(15,23,42,0.35)] mx-auto">
+      {/* Phone Speaker & Dynamic Island */}
+      <div className="absolute top-5 sm:top-6 left-1/2 -translate-x-1/2 w-24 sm:w-28 h-5 sm:h-6 bg-black rounded-full z-40 flex items-center justify-between px-2.5 sm:px-3">
+        <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-slate-900 border border-slate-800" />
+        <div className="flex items-center gap-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse" />
+          <span className="text-[8px] sm:text-[9px] font-mono font-bold text-sky-400">CIS</span>
+        </div>
+      </div>
+
+      {/* Smartphone Inner Screen */}
+      <div className="relative w-full min-h-[490px] sm:min-h-[530px] rounded-[34px] sm:rounded-[38px] bg-[#080D1A] overflow-hidden p-3.5 sm:p-4 pt-8 sm:pt-10 flex flex-col justify-between border border-slate-800 shadow-inner">
+        {/* Top Phone Status Bar with Live Indian Standard Time */}
+        <div className="flex items-center justify-between font-mono text-[10px] text-slate-400 px-1 pt-0.5 z-30">
+          <span className="font-bold text-white tracking-wider">
+            {istTime}
+          </span>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Wifi className="w-3.5 h-3.5 text-white" />
+            <span className="font-bold text-white text-[9px]">5G</span>
+            <Battery className="w-3.5 h-3.5 text-[#0284C7]" />
+          </div>
+        </div>
+
+        {/* App Brand Header */}
+        <div className="pt-3 sm:pt-4 flex items-center justify-between border-b border-slate-800/80 pb-2.5 sm:pb-3">
+          <div className="flex items-center gap-2">
+            <img
+              src="/logo-mark.png"
+              alt="IEEE CIS Logo"
+              className="w-6 h-6 sm:w-7 sm:h-7 object-contain filter drop-shadow-[0_0_8px_rgba(2,132,199,0.8)]"
+            />
+            <div>
+              <h4 className="font-display font-black text-[11px] sm:text-xs text-white leading-none">
+                IEEE CIS MUJ
+              </h4>
+              <span className="font-mono text-[8px] sm:text-[9px] text-[#0284C7] font-bold">
+                COMPANION // LIVE
+              </span>
+            </div>
+          </div>
+          <div className="p-1 sm:p-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300">
+            <Bell className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#0284C7]" />
+          </div>
+        </div>
+
+        {/* Main Dynamic Screen Content with Swipe Gesture Support */}
+        <div className="my-auto py-2 space-y-3">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={activeStat.id}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={(_, { offset, velocity }) => {
+                const swipe = offset.x + velocity.x;
+                if (swipe < -40) {
+                  handleNext();
+                } else if (swipe > 40) {
+                  handlePrev();
+                }
+              }}
+              className="p-4 sm:p-5 rounded-2xl bg-slate-900/90 border border-[#0284C7]/40 shadow-[0_0_25px_rgba(2,132,199,0.15)] space-y-2.5 sm:space-y-3 touch-pan-y"
+            >
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="px-2 sm:px-2.5 py-0.5 rounded-full bg-[#0284C7]/20 text-[#0284C7] font-bold border border-[#0284C7]/30 text-[9px] sm:text-[10px]">
+                  {activeStat.badge}
+                </span>
+                <span className="text-slate-400 text-[9px] sm:text-[10px]">
+                  0{activeIndex + 1} / 0{STATS_DATA.length}
+                </span>
+              </div>
+
+              <div className="text-center py-1 sm:py-2 space-y-0.5">
+                <div className="font-mono text-3xl sm:text-4xl lg:text-5xl font-black text-white drop-shadow-[0_0_15px_rgba(2,132,199,0.6)]">
+                  {activeStat.metric}
+                </div>
+                <div className="font-mono text-[11px] sm:text-xs font-bold text-[#0284C7] uppercase tracking-wider">
+                  {activeStat.label}
+                </div>
+              </div>
+
+              {/* Dynamic in-phone Graph Widget */}
+              <div className="p-2.5 sm:p-3 rounded-xl bg-black/60 border border-slate-800 space-y-1.5">
+                <div className="flex items-center justify-between text-[8px] sm:text-[9px] font-mono text-slate-400">
+                  <span>LIVE TRAJECTORY</span>
+                  <span className="text-emerald-400 font-bold">{activeStat.growth}</span>
+                </div>
+                {renderStatGraph(activeStat, 'phone')}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Micro Live Activity Widget */}
+          <div className="p-2.5 sm:p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between text-[9px] sm:text-[10px] font-mono text-slate-400">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="text-slate-300">NODE STATUS: ACTIVE</span>
+            </span>
+            <span className="text-[#0284C7] font-bold">CHAPTER #6248</span>
+          </div>
+        </div>
+
+        {/* Bottom App Navigation Dock */}
+        <div className="pt-2 border-t border-slate-800/80 flex items-center justify-around text-slate-500">
+          {STATS_DATA.map((item, i) => {
+            const IconComp = item.icon;
+            const isTabActive = activeIndex === i;
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setDirection(i > activeIndex ? 1 : -1);
+                  setActiveIndex(i);
+                }}
+                className={`p-2 rounded-xl transition-all cursor-pointer flex flex-col items-center gap-0.5 ${
+                  isTabActive
+                    ? 'bg-[#0284C7] text-white shadow-[0_0_10px_#0284C7]'
+                    : 'hover:text-slate-300 hover:bg-slate-900 text-slate-500'
+                }`}
+                aria-label={item.label}
+              >
+                <IconComp className="w-4 h-4" />
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Home Indicator Bar */}
+        <div className="w-24 sm:w-28 h-1 bg-slate-600 rounded-full mx-auto mt-2" />
+      </div>
+    </div>
+  );
+
   return (
     <section className="relative w-full bg-white/90 backdrop-blur-xs py-8 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-slate-200 select-none">
       {/* Background glow */}
@@ -304,7 +442,7 @@ export const RetroStatsTerminal: React.FC = () => {
 
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-16">
+        <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-14">
           <div className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-[#0284C7] font-bold tracking-widest uppercase">
             <span>TELEMETRY &amp; IMPACT METRICS</span>
           </div>
@@ -315,11 +453,11 @@ export const RetroStatsTerminal: React.FC = () => {
         </div>
 
         {/* ------------------------------------------------------------ */}
-        {/* MOBILE VIEW (< lg): Icon Navbar + Single Card Swiper + Arrows*/}
+        {/* MOBILE VIEW (< lg): Smartphone Mockup as Centerpiece         */}
         {/* ------------------------------------------------------------ */}
-        <div className="block lg:hidden">
-          {/* Segmented Icon Navbar Dock */}
-          <div className="flex items-center justify-between p-1.5 rounded-2xl bg-slate-100/90 border border-slate-200/80 mb-4 gap-1 shadow-2xs">
+        <div className="block lg:hidden space-y-5">
+          {/* Top Segmented Quick Switcher */}
+          <div className="flex items-center justify-between p-1.5 rounded-2xl bg-slate-100/90 border border-slate-200/80 gap-1 shadow-2xs max-w-[340px] mx-auto">
             {STATS_DATA.map((item, idx) => {
               const IconComponent = item.icon;
               const isActive = activeIndex === idx;
@@ -331,15 +469,15 @@ export const RetroStatsTerminal: React.FC = () => {
                     setDirection(idx > activeIndex ? 1 : -1);
                     setActiveIndex(idx);
                   }}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+                  className={`flex-1 flex items-center justify-center gap-1 py-2 px-1.5 rounded-xl font-mono font-bold transition-all cursor-pointer ${
                     isActive
                       ? 'bg-[#0284C7] text-white shadow-sm'
                       : 'text-slate-600 hover:text-[#0284C7] hover:bg-white/70'
                   }`}
                   aria-label={item.title}
                 >
-                  <IconComponent className="w-4 h-4 shrink-0" />
-                  <span className="text-[10px] tracking-wider uppercase truncate">
+                  <IconComponent className="w-3.5 h-3.5 shrink-0" />
+                  <span className="text-[9px] tracking-wider uppercase truncate">
                     {item.badge}
                   </span>
                 </button>
@@ -347,51 +485,11 @@ export const RetroStatsTerminal: React.FC = () => {
             })}
           </div>
 
-          {/* Single Card Swiper with Gestures & Spring Physics */}
-          <div className="relative min-h-[220px]">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={activeStat.id}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={(_, { offset, velocity }) => {
-                  const swipe = offset.x + velocity.x;
-                  if (swipe < -50) {
-                    handleNext();
-                  } else if (swipe > 50) {
-                    handlePrev();
-                  }
-                }}
-                className="p-5 rounded-2xl bg-white border border-[#0284C7]/40 ring-2 ring-[#0284C7]/15 shadow-[0_8px_24px_rgba(2,132,199,0.12)] flex flex-col justify-between touch-pan-y"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-wider">
-                      {activeStat.title}
-                    </span>
-                    <span className="font-mono text-[10px] font-bold text-slate-400">
-                      0{activeIndex + 1} / 0{STATS_DATA.length}
-                    </span>
-                  </div>
+          {/* Interactive Smartphone Mockup */}
+          {renderPhoneMockup()}
 
-                  <div className="text-3xl sm:text-4xl font-display font-black text-[#0F172A] tracking-tight">
-                    {activeStat.metric}
-                  </div>
-                </div>
-
-                {renderStatGraph(activeStat, 'mobile')}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Left / Right Arrow Controls & Step Counter for Mobile */}
-          <div className="flex items-center justify-between mt-4 px-1">
+          {/* Bottom Left / Right Navigation Controls */}
+          <div className="flex items-center justify-between max-w-[340px] mx-auto px-2">
             <button
               onClick={handlePrev}
               aria-label="Previous Stat"
@@ -400,7 +498,7 @@ export const RetroStatsTerminal: React.FC = () => {
               <ChevronLeft className="w-4 h-4" />
             </button>
 
-            <div className="flex flex-col items-center gap-1.5">
+            <div className="flex flex-col items-center gap-1">
               <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                 {activeStat.badge} // {activeIndex + 1} OF {STATS_DATA.length}
               </span>
@@ -444,7 +542,10 @@ export const RetroStatsTerminal: React.FC = () => {
                 return (
                   <motion.div
                     key={item.id}
-                    onClick={() => setActiveIndex(idx)}
+                    onClick={() => {
+                      setDirection(idx > activeIndex ? 1 : -1);
+                      setActiveIndex(idx);
+                    }}
                     whileHover={{ y: -3 }}
                     className={`group p-5 rounded-3xl transition-all duration-300 cursor-pointer border flex flex-col justify-between relative overflow-hidden ${
                       isActive
@@ -476,148 +577,7 @@ export const RetroStatsTerminal: React.FC = () => {
 
           {/* RIGHT: High-Precision Interactive Smartphone Mockup */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center w-full">
-            <div className="relative w-full max-w-[320px] rounded-[48px] bg-[#0F172A] p-3.5 border-[4px] border-slate-700/80 shadow-[0_20px_60px_rgba(15,23,42,0.35)]">
-              {/* Phone Speaker & Dynamic Island */}
-              <div className="absolute top-6 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-full z-40 flex items-center justify-between px-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-slate-900 border border-slate-800" />
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-pulse" />
-                  <span className="text-[9px] font-mono font-bold text-sky-400">CIS</span>
-                </div>
-              </div>
-
-              {/* Smartphone Inner Screen */}
-              <div className="relative w-full h-[540px] rounded-[38px] bg-[#080D1A] overflow-hidden p-4 pt-10 flex flex-col justify-between border border-slate-800 shadow-inner">
-                {/* Top Phone Status Bar with Live Indian Standard Time */}
-                <div className="flex items-center justify-between font-mono text-[10px] text-slate-400 px-1 pt-1 z-30">
-                  <span className="font-bold text-white tracking-wider">
-                    {istTime}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <Wifi className="w-3.5 h-3.5 text-white" />
-                    <span className="font-bold text-white text-[9px]">5G</span>
-                    <Battery className="w-3.5 h-3.5 text-[#0284C7]" />
-                  </div>
-                </div>
-
-                {/* App Brand Header */}
-                <div className="pt-4 flex items-center justify-between border-b border-slate-800/80 pb-3">
-                  <div className="flex items-center gap-2">
-                    <img
-                      src="/logo-mark.png"
-                      alt="IEEE CIS Logo"
-                      className="w-7 h-7 object-contain filter drop-shadow-[0_0_8px_rgba(2,132,199,0.8)]"
-                    />
-                    <div>
-                      <h4 className="font-display font-black text-xs text-white leading-none">
-                        IEEE CIS MUJ
-                      </h4>
-                      <span className="font-mono text-[9px] text-[#0284C7] font-bold">
-                        COMPANION // LIVE
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-slate-300">
-                    <Bell className="w-3.5 h-3.5 text-[#0284C7]" />
-                  </div>
-                </div>
-
-                {/* Main Dynamic Screen Content */}
-                <div className="my-auto py-2 space-y-4">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeStat.id}
-                      initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -15, scale: 0.95 }}
-                      transition={{ duration: 0.25, ease: 'easeOut' }}
-                      className="p-5 rounded-2xl bg-slate-900/90 border border-[#0284C7]/40 shadow-[0_0_25px_rgba(2,132,199,0.15)] space-y-3"
-                    >
-                      <div className="flex items-center justify-between text-xs font-mono">
-                        <span className="px-2.5 py-0.5 rounded-full bg-[#0284C7]/20 text-[#0284C7] font-bold border border-[#0284C7]/30 text-[10px]">
-                          {activeStat.badge}
-                        </span>
-                        <span className="text-slate-400 text-[10px]">
-                          TELEMETRY FEED
-                        </span>
-                      </div>
-
-                      <div className="text-center py-2 space-y-1">
-                        <div className="font-mono text-4xl sm:text-5xl font-black text-white drop-shadow-[0_0_15px_rgba(2,132,199,0.6)]">
-                          {activeStat.metric}
-                        </div>
-                        <div className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-wider">
-                          {activeStat.label}
-                        </div>
-                      </div>
-
-                      <div className="p-3 rounded-xl bg-black/60 border border-slate-800 space-y-2">
-                        <div className="flex items-center justify-between text-[9px] font-mono text-slate-400">
-                          <span>LIVE TRAJECTORY</span>
-                          <span className="text-emerald-400 font-bold">{activeStat.growth}</span>
-                        </div>
-                        <div className="w-full h-10 relative">
-                          <svg className="w-full h-full overflow-visible" viewBox="0 0 160 40" preserveAspectRatio="none">
-                            <defs>
-                              <linearGradient id="phoneGrad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#0284C7" stopOpacity="0.5" />
-                                <stop offset="100%" stopColor="#0284C7" stopOpacity="0.0" />
-                              </linearGradient>
-                            </defs>
-                            <path
-                              d="M 0,35 Q 30,30 60,18 T 110,14 T 160,4 L 160,40 L 0,40 Z"
-                              fill="url(#phoneGrad)"
-                            />
-                            <path
-                              d="M 0,35 Q 30,30 60,18 T 110,14 T 160,4"
-                              stroke="#38BDF8"
-                              strokeWidth="2"
-                              fill="none"
-                              strokeLinecap="round"
-                            />
-                            <circle cx="160" cy="4" r="3" fill="#38BDF8" className="animate-ping" />
-                            <circle cx="160" cy="4" r="2.5" fill="#FFFFFF" />
-                          </svg>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Micro Live Activity Widget */}
-                  <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between text-[10px] font-mono text-slate-400">
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                      <span className="text-slate-300">NODE STATUS: ACTIVE</span>
-                    </span>
-                    <span className="text-[#0284C7] font-bold">CHAPTER #6248</span>
-                  </div>
-                </div>
-
-                {/* Bottom App Navigation Dock */}
-                <div className="pt-2 border-t border-slate-800/80 flex items-center justify-around text-slate-500">
-                  {STATS_DATA.map((item, i) => (
-                    <button
-                      key={item.id}
-                      onClick={() => setActiveIndex(i)}
-                      className={`p-2 rounded-xl transition-all cursor-pointer ${
-                        activeIndex === i
-                          ? 'bg-[#0284C7] text-white shadow-[0_0_10px_#0284C7]'
-                          : 'hover:text-slate-300 hover:bg-slate-900'
-                      }`}
-                      aria-label={item.label}
-                    >
-                      {i === 0 && <Users className="w-4 h-4" />}
-                      {i === 1 && <Award className="w-4 h-4" />}
-                      {i === 2 && <Calendar className="w-4 h-4" />}
-                      {i === 3 && <Layers className="w-4 h-4" />}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Home Indicator Bar */}
-                <div className="w-28 h-1 bg-slate-600 rounded-full mx-auto mt-2" />
-              </div>
-            </div>
+            {renderPhoneMockup()}
 
             {/* Bottom Interaction Hint */}
             <p className="mt-4 font-mono text-xs text-[#0F172A] font-bold uppercase tracking-wider">
@@ -629,5 +589,6 @@ export const RetroStatsTerminal: React.FC = () => {
     </section>
   );
 };
+
 
 
