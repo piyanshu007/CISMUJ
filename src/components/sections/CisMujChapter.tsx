@@ -1,83 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { SectionHeader } from '../ui/SectionHeader';
-import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const CisMujChapter: React.FC = () => {
-  const [activeMobileIdx, setActiveMobileIdx] = useState<number>(0);
-  const [direction, setDirection] = useState<number>(0);
-
-  const chapterWings = [
-    {
-      title: 'INTELLIGENCE RESEARCH COHORTS',
-      subtitle: 'PEER-REVIEWED TRACK',
-      description: 'Undergraduate and postgraduate research teams working on graph neural networks, Type-2 fuzzy controllers, and neuromorphic vision.',
-      badge: 'PEER-REVIEWED TRACK',
-      metric: '4 PREPRINTS',
-    },
-    {
-      title: 'BIO-COMPUTE HACKATHONS',
-      subtitle: 'COMPETITIVE ARENA',
-      description: '36-hour competitive coding arenas where student teams build genetic schedulers, swarm bots, and reinforcement learning game agents.',
-      badge: 'COMPETITIVE ARENA',
-      metric: '36H NATIONAL RUNS',
-    },
-    {
-      title: 'IEEE DISTINGUISHED COLLOQUIA',
-      subtitle: 'GLOBAL DIALOGUE',
-      description: 'Masterclasses and technical research sessions hosted with global IEEE CIS Fellows, pioneering professors, and AI researchers.',
-      badge: 'GLOBAL DIALOGUE',
-      metric: 'GLOBAL MENTORS',
-    },
-    {
-      title: 'OPEN SOURCE CODEBASES',
-      subtitle: 'OPEN SOURCE',
-      description: 'Developing reproducible PyTorch, Julia, and C++ computational intelligence libraries freely accessible to the global student community.',
-      badge: 'OPEN SOURCE',
-      metric: '100% REPRODUCIBLE',
-    },
-  ];
-
-  const handlePrev = () => {
-    setDirection(-1);
-    setActiveMobileIdx((prev) => (prev > 0 ? prev - 1 : chapterWings.length - 1));
-  };
-
-  const handleNext = () => {
-    setDirection(1);
-    setActiveMobileIdx((prev) => (prev + 1) % chapterWings.length);
-  };
-
-  const currentWing = chapterWings[activeMobileIdx];
-
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir >= 0 ? 40 : -40,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-      transition: {
-        x: { type: 'spring', stiffness: 350, damping: 32 },
-        opacity: { duration: 0.22 },
-      },
-    },
-    exit: (dir: number) => ({
-      zIndex: 0,
-      x: dir < 0 ? 40 : -40,
-      opacity: 0,
-      transition: {
-        duration: 0.18,
-      },
-    }),
-  };
-
   return (
-    <section id="chapter" className="py-10 sm:py-20 lg:py-32 bg-slate-50/70 relative border-b border-slate-200 overflow-hidden">
+    <section id="chapter" className="py-10 sm:py-20 lg:py-28 bg-slate-50/70 relative border-b border-slate-200 overflow-hidden">
       {/* Subtle blueprint grid */}
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -99,7 +28,7 @@ export const CisMujChapter: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="my-6 sm:my-12 p-5 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 relative overflow-hidden group"
+          className="mt-6 sm:mt-12 p-5 sm:p-12 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 relative overflow-hidden group"
         >
           {/* Subtle blue accent edge */}
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#0284C7]" />
@@ -198,152 +127,6 @@ export const CisMujChapter: React.FC = () => {
             </div>
           </div>
         </motion.div>
-
-        {/* ------------------------------------------------------------ */}
-        {/* MOBILE VIEW (< md): Single-Card Slider with Arrows & Dots    */}
-        {/* ------------------------------------------------------------ */}
-        <div className="block md:hidden mt-6">
-          <div className="relative min-h-[260px] flex flex-col justify-between">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={activeMobileIdx}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={(_, { offset, velocity }) => {
-                  const swipe = offset.x + velocity.x;
-                  if (swipe < -50) {
-                    handleNext();
-                  } else if (swipe > 50) {
-                    handlePrev();
-                  }
-                }}
-                className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4 font-mono text-xs flex flex-col justify-between min-h-[250px] touch-pan-y"
-              >
-                <div className="space-y-3.5">
-                  <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <span className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-widest">
-                      0{activeMobileIdx + 1} // CHAPTER WING
-                    </span>
-                    <span className="text-[10px] font-mono font-semibold text-slate-500 uppercase tracking-wider bg-slate-100 px-2 py-0.5 rounded-md">
-                      {currentWing.badge}
-                    </span>
-                  </div>
-
-                  <h4 className="font-display font-extrabold text-[#0F172A] text-lg uppercase tracking-tight leading-snug">
-                    {currentWing.title}
-                  </h4>
-
-                  <p className="font-sans text-slate-600 text-xs leading-relaxed">
-                    {currentWing.description}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold">
-                  <span className="text-[#0284C7]">{currentWing.metric}</span>
-                  <div className="flex items-center gap-1 text-[#0284C7]">
-                    <span className="text-[10px] uppercase font-mono">EXPLORE</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Compact Left/Right Navigation & Step Indicators */}
-          <div className="flex items-center justify-between mt-4 px-1">
-            <button
-              onClick={handlePrev}
-              aria-label="Previous Chapter Wing"
-              className="p-2.5 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] bg-white shadow-2xs transition-all cursor-pointer active:scale-95"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-
-            {/* Step Counter & Dot Indicators */}
-            <div className="flex flex-col items-center gap-1.5">
-              <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                WING 0{activeMobileIdx + 1} / 0{chapterWings.length}
-              </span>
-              <div className="flex items-center gap-1.5">
-                {chapterWings.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => {
-                      setDirection(idx > activeMobileIdx ? 1 : -1);
-                      setActiveMobileIdx(idx);
-                    }}
-                    aria-label={`Go to wing ${idx + 1}`}
-                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                      activeMobileIdx === idx
-                        ? 'w-6 bg-[#0284C7]'
-                        : 'w-1.5 bg-slate-300 hover:bg-slate-400'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <button
-              onClick={handleNext}
-              aria-label="Next Chapter Wing"
-              className="p-2.5 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] bg-white shadow-2xs transition-all cursor-pointer active:scale-95"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-
-        {/* ------------------------------------------------------------ */}
-        {/* DESKTOP VIEW (>= md): Full 2x2 Grid Layout                   */}
-        {/* ------------------------------------------------------------ */}
-        <div className="hidden md:grid md:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
-          {chapterWings.map((wing, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              whileHover={{ y: -4 }}
-              className="p-5 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-[#0284C7] shadow-sm hover:shadow-[0_12px_30px_rgba(2,132,199,0.1)] transition-all duration-300 space-y-3 sm:space-y-4 group font-mono text-xs flex flex-col justify-between"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-widest">
-                      0{idx + 1} // CHAPTER WING
-                    </span>
-                  </div>
-                  <span className="text-[11px] font-mono font-semibold text-slate-500 uppercase tracking-wider group-hover:text-[#0284C7] transition-colors">
-                    {wing.badge}
-                  </span>
-                </div>
-
-                <h4 className="font-display font-extrabold text-[#0F172A] text-lg uppercase tracking-tight group-hover:text-[#0284C7] transition-colors">
-                  {wing.title}
-                </h4>
-
-                <p className="font-sans text-slate-600 text-xs sm:text-sm leading-relaxed">
-                  {wing.description}
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold">
-                <span className="text-[#0284C7]">{wing.metric}</span>
-                <div className="flex items-center gap-1 text-slate-400 group-hover:text-[#0284C7] transition-colors">
-                  <span className="text-[10px] uppercase font-mono">EXPLORE</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );
