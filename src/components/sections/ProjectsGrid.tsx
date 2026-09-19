@@ -209,29 +209,51 @@ export const ProjectsGrid: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: Exact Artwork (Swirling Crystalline Blue Ribbon with CIS Emblem & Orbital Spheres) */}
-          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[480px]">
+          {/* Right Column: Exact Artwork (High-Res Swirling Ribbon with Centered CIS Emblem) */}
+          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[320px] sm:min-h-[420px] lg:min-h-[500px]">
             <motion.div
               animate={{
                 y: [-6, 6, -6],
-                rotateZ: [-0.6, 0.6, -0.6],
+                rotateZ: [-0.5, 0.5, -0.5],
               }}
               transition={{
                 duration: 6.5,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="relative w-full max-w-[540px] sm:max-w-[680px] lg:max-w-[780px] aspect-[16/9] flex items-center justify-center select-none"
+              className="relative w-full max-w-[560px] sm:max-w-[700px] lg:max-w-[820px] aspect-[16/10] flex items-center justify-center select-none"
             >
               {/* Soft Ambient Ethereal Aura Glow */}
-              <div className="absolute w-48 h-48 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-sky-400/25 via-[#0284C7]/20 to-transparent blur-3xl pointer-events-none" />
+              <div className="absolute w-52 h-52 sm:w-88 sm:h-88 rounded-full bg-gradient-to-tr from-sky-400/25 via-[#0284C7]/20 to-transparent blur-3xl pointer-events-none" />
 
-              {/* Exact User Artwork */}
+              {/* Exact High-Res Ribbon Artwork */}
               <img
                 src="/projects-hero-ribbon.png"
                 alt="IEEE CIS Swirling Ribbon & Orbital Constellation"
                 className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_40px_rgba(2,132,199,0.18)]"
               />
+
+              {/* Centered IEEE CIS Fluid Emblem inside the Open Loop */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+                <motion.div
+                  initial={{ scale: 0.85, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.15 }}
+                  className="relative flex items-center justify-center -translate-x-[4%] -translate-y-[2%]"
+                >
+                  {/* Subtle emblem back aura */}
+                  <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-[#0284C7]/20 blur-xl pointer-events-none" />
+
+                  {/* Logo Emblem centered inside the open orbital loop */}
+                  <div className="relative w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 flex items-center justify-center">
+                    <img
+                      src="/logo-mark.png"
+                      alt="IEEE CIS Emblem"
+                      className="w-full h-full object-contain filter drop-shadow-[0_6px_22px_rgba(2,132,199,0.45)]"
+                    />
+                  </div>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
