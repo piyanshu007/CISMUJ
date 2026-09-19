@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS, ProjectCaseStudy } from '@/data/projects';
 import { ArrowRight, X, Layers, Cpu, Activity, Zap, CheckCircle2 } from 'lucide-react';
-import { ProjectsHypercube3D } from '@/components/3d/ProjectsHypercube3D';
+import { ProjectsConstellation3D } from '@/components/3d/ProjectsConstellation3D';
 
 export const ProjectsGrid: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
@@ -210,9 +210,12 @@ export const ProjectsGrid: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: 3D Interactive Glowing Glassmorphic Hypercube Visual */}
-          <div className="lg:col-span-7 relative flex items-center justify-center w-full min-h-[340px] sm:min-h-[440px] lg:min-h-[500px]">
-            <ProjectsHypercube3D className="w-full h-full" />
+          {/* Right Column: 3D Neural Constellation & Synapse Network with Real Project Names */}
+          <div className="lg:col-span-7 relative flex items-center justify-center w-full min-h-[380px] sm:min-h-[460px] lg:min-h-[520px]">
+            <ProjectsConstellation3D
+              className="w-full h-full"
+              onSelectProject={(project) => setSelectedProject(project)}
+            />
           </div>
         </div>
       </div>
