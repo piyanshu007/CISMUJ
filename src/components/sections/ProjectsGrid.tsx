@@ -242,14 +242,14 @@ export const ProjectsGrid: React.FC = () => {
                   className="relative flex items-center justify-center -translate-x-[4%] -translate-y-[2%]"
                 >
                   {/* Soft emblem back aura */}
-                  <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-[#0284C7]/20 blur-xl pointer-events-none" />
+                  <div className="absolute w-36 h-36 sm:w-48 sm:h-48 md:w-60 md:h-60 rounded-full bg-[#0284C7]/25 blur-2xl pointer-events-none" />
 
                   {/* Logo Emblem centered inside the open orbital loop */}
-                  <div className="relative w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 flex items-center justify-center">
+                  <div className="relative w-24 h-24 sm:w-36 sm:h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 flex items-center justify-center">
                     <img
                       src="/logo-mark.png"
                       alt="IEEE CIS Emblem"
-                      className="w-full h-full object-contain filter drop-shadow-[0_6px_22px_rgba(2,132,199,0.45)]"
+                      className="w-full h-full object-contain filter drop-shadow-[0_8px_28px_rgba(2,132,199,0.55)]"
                     />
                   </div>
                 </motion.div>
