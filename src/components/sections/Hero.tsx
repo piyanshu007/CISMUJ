@@ -6,12 +6,12 @@ import { ArrowDown } from 'lucide-react';
 export const Hero: React.FC = () => {
   return (
     <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-white overflow-hidden select-none">
-      {/* React Bits Gradient Waves Animated Background (Smoothly Blended with Vertical Fade Mask) */}
+      {/* React Bits Gradient Waves Animated Background (Seamlessly Integrated with Top Bar) */}
       <div
         className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none"
         style={{
-          maskImage: 'linear-gradient(to bottom, transparent 0%, black 4%, black 88%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 4%, black 88%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 86%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 86%, transparent 100%)',
         }}
       >
         <GradientWaves
@@ -38,8 +38,7 @@ export const Hero: React.FC = () => {
         />
       </div>
 
-      {/* Seamless Soft Top & Bottom Gradient Bleed Overlays */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent pointer-events-none z-10" />
+      {/* Seamless Soft Bottom Gradient Bleed Overlay */}
       <div className="absolute bottom-0 left-0 right-0 h-28 sm:h-36 bg-gradient-to-t from-white via-white/50 to-transparent pointer-events-none z-10" />
 
       {/* 1. Full-Screen Interactive 3D Canvas */}
