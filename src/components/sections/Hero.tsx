@@ -5,9 +5,15 @@ import { ArrowDown } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-white border-b border-slate-200 overflow-hidden select-none">
-      {/* React Bits Gradient Waves Animated Background (White Horizon, Sky Blue Dunes & IEEE Blue Crests) */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
+    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-white overflow-hidden select-none">
+      {/* React Bits Gradient Waves Animated Background (Smoothly Blended with Vertical Fade Mask) */}
+      <div
+        className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none"
+        style={{
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 75%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 75%, transparent 100%)',
+        }}
+      >
         <GradientWaves
           horizonColor="#FFFFFF"
           waveColor="#E0F2FE"
@@ -31,6 +37,10 @@ export const Hero: React.FC = () => {
           grainIntensity={0.05}
         />
       </div>
+
+      {/* Seamless Soft Top & Bottom Gradient Bleed Overlays */}
+      <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-white via-white/60 to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-44 sm:h-56 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none z-10" />
 
       {/* 1. Full-Screen Interactive 3D Canvas */}
       <div className="absolute inset-0 w-full h-full z-10 overflow-hidden opacity-100 pointer-events-auto">

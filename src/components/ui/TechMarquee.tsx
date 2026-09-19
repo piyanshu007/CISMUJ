@@ -43,7 +43,7 @@ const brandLogos: PureLogoItem[] = [
 
 export const TechMarquee: React.FC = () => {
   return (
-    <section className="w-full py-4 sm:py-6 bg-white border-y border-slate-100 overflow-hidden relative select-none">
+    <section className="w-full py-4 sm:py-6 bg-white border-b border-slate-100 overflow-hidden relative select-none">
       {/* Subtle edge fades for infinite depth */}
       <div className="absolute left-0 inset-y-0 w-16 sm:w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 inset-y-0 w-16 sm:w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
