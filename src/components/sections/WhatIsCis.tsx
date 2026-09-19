@@ -225,8 +225,8 @@ export const WhatIsCis: React.FC = () => {
             </div>
 
             {/* Middle Column: Eyebrow + Headline */}
-            <div className="lg:col-span-4 space-y-3">
-              <div className="flex items-center gap-2">
+            <div className="lg:col-span-4 space-y-2 sm:space-y-3 text-center lg:text-left">
+              <div className="flex items-center justify-center lg:justify-start gap-2">
                 <div className="w-8 h-px bg-[#0284C7]" />
                 <span className="font-mono text-[11px] font-bold text-[#0284C7] tracking-widest uppercase">
                   OUR FOCUS
@@ -234,22 +234,22 @@ export const WhatIsCis: React.FC = () => {
                 <div className="w-8 h-px bg-[#0284C7]" />
               </div>
 
-              <h2 className="text-2xl sm:text-[1.75rem] font-sans font-normal text-[#0F172A] tracking-tight leading-snug">
+              <h2 className="text-xl sm:text-2xl lg:text-[1.75rem] font-sans font-normal text-[#0F172A] tracking-tight leading-snug">
                 Building intelligent systems
-                <br />
+                <br className="hidden sm:inline" />{' '}
                 for a smarter tomorrow.
               </h2>
             </div>
 
             {/* Right Column: 3 Clean Focus Areas with Thin Vertical Dividers */}
-            <div className="lg:col-span-4 grid grid-cols-3 gap-2 sm:gap-3 items-center">
+            <div className="lg:col-span-4 grid grid-cols-3 gap-1 sm:gap-3 items-center pt-2 lg:pt-0">
               
               {/* Focus 1: Machine Learning */}
-              <div className="text-center px-2 py-3 space-y-2.5">
-                <div className="w-9 h-9 mx-auto flex items-center justify-center text-[#0284C7]">
+              <div className="text-center px-1 sm:px-2 py-2 sm:py-3 space-y-1.5 sm:space-y-2.5">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 mx-auto flex items-center justify-center text-[#0284C7]">
                   {/* Precise Brain Dual Hemisphere Outline SVG */}
                   <svg
-                    className="w-7 h-7 stroke-[#0284C7] fill-none"
+                    className="w-6 h-6 sm:w-7 sm:h-7 stroke-[#0284C7] fill-none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     strokeLinecap="round"
@@ -263,17 +263,17 @@ export const WhatIsCis: React.FC = () => {
                     <path d="M14 15h.5A1.5 1.5 0 0 1 16 16.5v.5" />
                   </svg>
                 </div>
-                <h3 className="text-xs sm:text-[13px] font-sans font-medium text-slate-700 leading-snug">
+                <h3 className="text-[11px] sm:text-xs lg:text-[13px] font-sans font-medium text-slate-700 leading-tight">
                   Machine Learning
                 </h3>
               </div>
 
               {/* Focus 2: Pattern Recognition */}
-              <div className="text-center px-2 py-3 space-y-2.5 border-l border-slate-200">
-                <div className="w-9 h-9 mx-auto flex items-center justify-center text-[#0284C7]">
+              <div className="text-center px-1 sm:px-2 py-2 sm:py-3 space-y-1.5 sm:space-y-2.5 border-l border-slate-200">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 mx-auto flex items-center justify-center text-[#0284C7]">
                   {/* Pattern Recognition Constellation Mesh SVG */}
                   <svg
-                    className="w-7 h-7 stroke-[#0284C7] fill-none"
+                    className="w-6 h-6 sm:w-7 sm:h-7 stroke-[#0284C7] fill-none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     strokeLinecap="round"
@@ -289,17 +289,17 @@ export const WhatIsCis: React.FC = () => {
                     <line x1="14.3" y1="18" x2="15" y2="17" />
                   </svg>
                 </div>
-                <h3 className="text-xs sm:text-[13px] font-sans font-medium text-slate-700 leading-snug">
+                <h3 className="text-[11px] sm:text-xs lg:text-[13px] font-sans font-medium text-slate-700 leading-tight">
                   Pattern Recognition
                 </h3>
               </div>
 
               {/* Focus 3: Adaptive Systems */}
-              <div className="text-center px-2 py-3 space-y-2.5 border-l border-slate-200">
-                <div className="w-9 h-9 mx-auto flex items-center justify-center text-[#0284C7]">
+              <div className="text-center px-1 sm:px-2 py-2 sm:py-3 space-y-1.5 sm:space-y-2.5 border-l border-slate-200">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 mx-auto flex items-center justify-center text-[#0284C7]">
                   {/* Adaptive Connected Cluster SVG */}
                   <svg
-                    className="w-7 h-7 stroke-[#0284C7] fill-none"
+                    className="w-6 h-6 sm:w-7 sm:h-7 stroke-[#0284C7] fill-none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     strokeLinecap="round"
@@ -313,7 +313,7 @@ export const WhatIsCis: React.FC = () => {
                     <line x1="8.5" y1="17" x2="15.5" y2="17" />
                   </svg>
                 </div>
-                <h3 className="text-xs sm:text-[13px] font-sans font-medium text-slate-700 leading-snug">
+                <h3 className="text-[11px] sm:text-xs lg:text-[13px] font-sans font-medium text-slate-700 leading-tight">
                   Adaptive Systems
                 </h3>
               </div>

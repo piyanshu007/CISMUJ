@@ -51,15 +51,15 @@ export const CyberBrainVisual: React.FC<{ className?: string }> = ({ className =
           src="/cyber-brain-transparent.png"
           alt="Cybernetic Neural Network Brain"
           animate={{
-            y: [-5, 5, -5],
-            rotateZ: [-0.6, 0.6, -0.6],
+            y: [-4, 4, -4],
+            rotateZ: [-0.5, 0.5, -0.5],
           }}
           transition={{
             duration: 5.0,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="relative w-full h-full object-contain pointer-events-none select-none z-20 scale-115 sm:scale-125 drop-shadow-[0_10px_32px_rgba(2,132,199,0.4)] group-hover:drop-shadow-[0_16px_48px_rgba(56,189,248,0.7)] transition-all duration-500"
+          className="relative w-full h-full object-contain pointer-events-none select-none z-20 scale-100 sm:scale-110 drop-shadow-[0_10px_28px_rgba(2,132,199,0.35)] group-hover:drop-shadow-[0_16px_48px_rgba(56,189,248,0.65)] transition-all duration-500"
         />
       </motion.div>
     </div>
