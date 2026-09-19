@@ -121,6 +121,10 @@ export interface DarkVeilProps {
   style?: React.CSSProperties;
 }
 
+// ARCHITECTURE NOTE: Neural Compositional Pattern Producing Network (CPPN) Shader
+// We evaluate a 6-layer dense perceptron network per-fragment to yield generative fluid contours.
+// GLSL matrix multiplication replaces iterative raymarching, keeping GPU draw call count to 1 fullscreen quad.
+// TODO: Evaluate WebGPU WGSL compute shader pass if WebGL2 context loss frequency increases on low-end mobile Mali GPUs.
 export default function DarkVeil({
   hueShift = 215,
   noiseIntensity = 0.02,
@@ -133,30 +137,31 @@ export default function DarkVeil({
   className = '',
   style,
 }: DarkVeilProps) {
-  const ref = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
+    const glCanvas = canvasRef.current;
+    if (!glCanvas) return;
 
-    const parent = canvas.parentElement;
-    if (!parent) return;
+    const parentContainer = glCanvas.parentElement;
+    if (!parentContainer) return;
 
-    let renderer: Renderer | null = null;
-    let animationFrameId = 0;
+    let oglRenderer: Renderer | null = null;
+    let animFrameRequest = 0;
 
     try {
-      renderer = new Renderer({
+      // NOTE: Clamp devicePixelRatio to max 2.0 to prevent thermal throttling on 4K retina displays
+      oglRenderer = new Renderer({
         dpr: Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 2),
-        canvas,
+        canvas: glCanvas,
         alpha: true,
         antialias: true,
       });
 
-      const gl = renderer.gl;
-      const geometry = new Triangle(gl);
+      const glContext = oglRenderer.gl;
+      const quadGeometry = new Triangle(glContext);
 
-      const program = new Program(gl, {
+      const shaderProgram = new Program(glContext, {
         vertex,
         fragment,
         uniforms: {
@@ -171,45 +176,47 @@ export default function DarkVeil({
         },
       });
 
-      const mesh = new Mesh(gl, { geometry, program });
+      const sceneMesh = new Mesh(glContext, { geometry: quadGeometry, program: shaderProgram });
 
-      const resize = () => {
-        if (!parent || !renderer) return;
-        const w = parent.clientWidth || window.innerWidth;
-        const h = parent.clientHeight || window.innerHeight;
-        renderer.setSize(w * resolutionScale, h * resolutionScale);
-        program.uniforms.uResolution.value.set(w, h);
+      const handleResize = () => {
+        if (!parentContainer || !oglRenderer) return;
+        const width = parentContainer.clientWidth || window.innerWidth;
+        const height = parentContainer.clientHeight || window.innerHeight;
+        oglRenderer.setSize(width * resolutionScale, height * resolutionScale);
+        shaderProgram.uniforms.uResolution.value.set(width, height);
       };
 
-      window.addEventListener('resize', resize);
-      resize();
+      window.addEventListener('resize', handleResize);
+      handleResize();
 
-      const start = performance.now();
+      const startTimeTimestamp = performance.now();
 
-      const loop = () => {
-        program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed;
-        program.uniforms.uHueShift.value = hueShift;
-        program.uniforms.uNoise.value = noiseIntensity;
-        program.uniforms.uScan.value = scanlineIntensity;
-        program.uniforms.uScanFreq.value = scanlineFrequency;
-        program.uniforms.uWarp.value = warpAmount;
-        program.uniforms.uLightMode.value = lightMode ? 1 : 0;
-        if (renderer) {
-          renderer.render({ scene: mesh });
+      const renderLoop = () => {
+        shaderProgram.uniforms.uTime.value = ((performance.now() - startTimeTimestamp) / 1000) * speed;
+        shaderProgram.uniforms.uHueShift.value = hueShift;
+        shaderProgram.uniforms.uNoise.value = noiseIntensity;
+        shaderProgram.uniforms.uScan.value = scanlineIntensity;
+        shaderProgram.uniforms.uScanFreq.value = scanlineFrequency;
+        shaderProgram.uniforms.uWarp.value = warpAmount;
+        shaderProgram.uniforms.uLightMode.value = lightMode ? 1 : 0;
+        if (oglRenderer) {
+          oglRenderer.render({ scene: sceneMesh });
         }
-        animationFrameId = requestAnimationFrame(loop);
+        animFrameRequest = requestAnimationFrame(renderLoop);
       };
 
-      loop();
+      renderLoop();
 
       return () => {
-        cancelAnimationFrame(animationFrameId);
-        window.removeEventListener('resize', resize);
+        cancelAnimationFrame(animFrameRequest);
+        window.removeEventListener('resize', handleResize);
       };
-    } catch (err) {
-      console.warn('DarkVeil WebGL initialization failed or context lost:', err);
+    } catch (contextError) {
+      // NOTE: Graceful WebGL context loss fallback ensures page remains fully readable even on unsupported devices
+      console.warn('DarkVeil WebGL initialization failed or context lost:', contextError);
     }
   }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale, lightMode]);
 
-  return <canvas ref={ref} className={`darkveil-canvas ${className}`} style={style} />;
+  return <canvas ref={canvasRef} className={`darkveil-canvas ${className}`} style={style} />;
 }
+

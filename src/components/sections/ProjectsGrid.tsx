@@ -1,16 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { PROJECTS, ProjectCaseStudy } from '@/data/projects';
-import { ArrowRight, X } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { ProjectWaveHero } from './projects/ProjectWaveHero';
+import { ProjectCard, DisplayProjectItem } from './projects/ProjectCard';
+import { ProjectDetailModal } from './projects/ProjectDetailModal';
 
 export const ProjectsGrid: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
   const [showAllModal, setShowAllModal] = useState<boolean>(false);
 
   // Map the 3 primary showcase projects from our real club portfolio
-  const displayProjects = [
+  const showcaseProjects: DisplayProjectItem[] = [
     {
       caseStudy: PROJECTS[0], // Neuro-Swarm
       number: '01',
@@ -42,7 +45,6 @@ export const ProjectsGrid: React.FC = () => {
 
   return (
     <section className="relative w-full bg-white text-[#0F172A] overflow-hidden select-none">
-
       {/* Soft ethereal ambient background glow */}
       <div
         className="absolute top-0 right-0 w-[750px] h-[600px] rounded-full pointer-events-none opacity-40"
@@ -53,80 +55,13 @@ export const ProjectsGrid: React.FC = () => {
       />
 
       {/* ============================================================ */}
-      {/* PART 1: HERO SECTION (1:1 Match with User Reference)        */}
+      {/* PART 1: HERO SECTION                                         */}
       {/* ============================================================ */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-16 sm:pt-28 pb-3 sm:pb-6 relative z-10">
-
-        {/* Sweeping Blue Wave Line with Travelling Glossy Spheres (Desktop Only - Hidden on Mobile / Android / iOS) */}
-        <svg
-          className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
-          viewBox="0 0 1440 460"
-          fill="none"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <radialGradient id="waveBallGrad" cx="35%" cy="35%" r="65%">
-              <stop offset="0%" stopColor="#FFFFFF" />
-              <stop offset="30%" stopColor="#7DD3FC" />
-              <stop offset="75%" stopColor="#0284C7" />
-              <stop offset="100%" stopColor="#0369A1" />
-            </radialGradient>
-            <radialGradient id="waveBallCyan" cx="35%" cy="35%" r="65%">
-              <stop offset="0%" stopColor="#E0F2FE" />
-              <stop offset="35%" stopColor="#38BDF8" />
-              <stop offset="80%" stopColor="#0284C7" />
-              <stop offset="100%" stopColor="#075985" />
-            </radialGradient>
-            <filter id="waveBallGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#0284C7" floodOpacity="0.75" />
-            </filter>
-            {/* Natural wave path sweeping across hero behind the artwork */}
-            <path
-              id="mainWaveTravelPath"
-              d="M -40,300 C 220,310 380,260 600,280 C 820,300 960,200 1160,220 C 1280,240 1380,260 1480,270"
-            />
-          </defs>
-
-          {/* Visible Single Solid Wave Path (Background Layer) */}
-          <path
-            d="M 40,300 C 220,310 380,260 600,280 C 820,300 960,200 1160,220 C 1280,240 1380,260 1460,270"
-            stroke="#0284C7"
-            strokeWidth="1.4"
-            strokeOpacity="0.45"
-          />
-
-          {/* --- TRAVELLING SPHERES (BALLS) ALONG THE WAVE --- */}
-          {/* Ball 1: Primary Large Glossy Blue Sphere */}
-          <g filter="url(#waveBallGlow)">
-            <animateMotion dur="9s" repeatCount="indefinite">
-              <mpath href="#mainWaveTravelPath" />
-            </animateMotion>
-            <circle r="7" fill="url(#waveBallGrad)" />
-          </g>
-
-          {/* Ball 2: Staggered Cyan Sphere */}
-          <g filter="url(#waveBallGlow)">
-            <animateMotion dur="9s" begin="-3s" repeatCount="indefinite">
-              <mpath href="#mainWaveTravelPath" />
-            </animateMotion>
-            <circle r="5.5" fill="url(#waveBallCyan)" />
-          </g>
-
-          {/* Ball 3: Staggered Third Sphere */}
-          <g filter="url(#waveBallGlow)">
-            <animateMotion dur="9s" begin="-6s" repeatCount="indefinite">
-              <mpath href="#mainWaveTravelPath" />
-            </animateMotion>
-            <circle r="5" fill="url(#waveBallGrad)" />
-          </g>
-        </svg>
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 items-center relative z-20">
-
-          {/* Left Column: Eyebrow, Large "Projects" Title, Subtitle, CTA */}
+          
+          {/* Left Column: Eyebrow, Heading, Subtitle, CTA */}
           <div className="lg:col-span-5 space-y-2.5 sm:space-y-4 relative z-20">
-
-            {/* Eyebrow: —— OUR WORK —— */}
             <motion.div
               initial={{ opacity: 0, x: -16 }}
               animate={{ opacity: 1, x: 0 }}
@@ -140,7 +75,6 @@ export const ProjectsGrid: React.FC = () => {
               <div className="w-8 h-px bg-[#0284C7]" />
             </motion.div>
 
-            {/* Massive Heading */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -151,7 +85,6 @@ export const ProjectsGrid: React.FC = () => {
               </h1>
             </motion.div>
 
-            {/* Subtitle Lines */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -164,7 +97,6 @@ export const ProjectsGrid: React.FC = () => {
               </p>
             </motion.div>
 
-            {/* Circular Arrow Button: ( → ) */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -181,142 +113,28 @@ export const ProjectsGrid: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: Exact Untouched Image with Centered CIS Logo in Code */}
-          <div className="lg:col-span-7 relative z-20 flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[480px]">
-            <motion.div
-              animate={{
-                y: [-6, 6, -6],
-                rotateZ: [-0.4, 0.4, -0.4],
-              }}
-              transition={{
-                duration: 6.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="relative w-full max-w-[560px] sm:max-w-[700px] lg:max-w-[820px] aspect-[16/10] flex items-center justify-center select-none"
-            >
-              {/* Soft White Depth Shield to push background wave visually behind ribbon artwork */}
-              <div
-                className="absolute w-[82%] h-[78%] rounded-full pointer-events-none blur-xl"
-                style={{
-                  background:
-                    'radial-gradient(circle at center, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.7) 45%, rgba(255,255,255,0) 75%)',
-                }}
-              />
-
-              {/* Soft Ambient Ethereal Aura Glow */}
-              <div className="absolute w-52 h-52 sm:w-88 sm:h-88 rounded-full bg-gradient-to-tr from-sky-400/25 via-[#0284C7]/20 to-transparent blur-3xl pointer-events-none" />
-
-              {/* Exact Untouched Ribbon Artwork */}
-              <img
-                src="/projects-hero-ribbon-orig.png"
-                alt="IEEE CIS Swirling Ribbon & Orbital Constellation"
-                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_40px_rgba(2,132,199,0.18)]"
-              />
-
-              {/* Centered IEEE CIS Fluid Logo Emblem directly inside the open loop in code */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-                <motion.div
-                  initial={{ scale: 0.85, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.15 }}
-                  className="relative flex items-center justify-center -translate-x-[4%] -translate-y-[2%]"
-                >
-                  {/* Soft emblem back aura & solidifying layer */}
-                  <div className="absolute w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-white/85 blur-md pointer-events-none" />
-                  <div className="absolute w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-[#0284C7]/25 blur-xl pointer-events-none" />
-
-                  {/* Logo Emblem centered inside the open orbital loop */}
-                  <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 flex items-center justify-center">
-                    <img
-                      src="/logo-mark.png"
-                      alt="IEEE CIS Emblem"
-                      className="w-full h-full object-contain filter drop-shadow-[0_8px_26px_rgba(2,132,199,0.55)]"
-                    />
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
+          {/* Right Column: Wave Line + 3D Ribbon Artwork */}
+          <ProjectWaveHero />
         </div>
       </div>
 
       {/* ============================================================ */}
-      {/* PART 2: PROJECT CARDS ROW (1:1 Match with User Reference)    */}
+      {/* PART 2: PROJECT CARDS ROW                                    */}
       {/* ============================================================ */}
       <div className="w-full border-t border-slate-100/90 bg-white py-3 sm:py-8 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 items-stretch">
-
             {/* 3 Real Club Project Cards */}
-            {displayProjects.map((p, idx) => (
-              <motion.div
-                key={p.number}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] transition-all duration-300 flex flex-col justify-between group cursor-pointer"
-                onClick={() => setSelectedProject(p.caseStudy)}
-              >
-                <div>
-                  {/* Top Bar: 01 ——  and Category Pill */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-xs font-bold text-slate-800">
-                        {p.number}
-                      </span>
-                      <div className="w-5 h-px bg-slate-200" />
-                    </div>
-                    <span className="text-[11px] font-sans font-medium text-slate-500 group-hover:text-[#0284C7] transition-colors">
-                      {p.tag}
-                    </span>
-                  </div>
-
-                  {/* Real Project Photo Container */}
-                  <div className="relative aspect-[16/9] rounded-xl overflow-hidden mb-5 bg-slate-100 border border-slate-100 group/img">
-                    <img
-                      src={p.image}
-                      alt={p.realName}
-                      className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-700 filter contrast-[1.02]"
-                    />
-
-                    {/* Subtle Futuristic Viewfinder / Reticle Frame */}
-                    <div className="absolute inset-2 border border-sky-400/30 rounded-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-
-                  {/* Title & Real Project Subhead */}
-                  <div className="space-y-1 mb-2">
-                    <h3 className="text-lg sm:text-xl font-sans font-medium text-[#1E293B] group-hover:text-[#0284C7] transition-colors leading-snug">
-                      {p.customTitle}
-                    </h3>
-                    <p className="font-mono text-[11px] font-bold text-[#0284C7] uppercase tracking-wider">
-                      {p.realName}
-                    </p>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-xs sm:text-[13px] font-sans text-slate-500 leading-relaxed line-clamp-2 mb-4">
-                    {p.description}
-                  </p>
-                </div>
-
-                {/* View Details Link */}
-                <div className="pt-3 border-t border-slate-100/90 flex items-center justify-between text-xs font-medium text-[#0284C7] group-hover:underline">
-                  <span className="inline-flex items-center gap-1">
-                    View Details
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                  <span className="font-mono text-[10px] text-slate-400 group-hover:text-[#0284C7]">
-                    {p.caseStudy.status}
-                  </span>
-                </div>
-              </motion.div>
+            {showcaseProjects.map((projectItem, index) => (
+              <ProjectCard
+                key={projectItem.number}
+                projectItem={projectItem}
+                cardIndex={index}
+                onSelect={setSelectedProject}
+              />
             ))}
 
-            {/* 4th Card: "MORE PROJECTS" Teaser Card (1:1 with Reference) */}
+            {/* 4th Card: "MORE PROJECTS" Teaser Card */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -326,7 +144,6 @@ export const ProjectsGrid: React.FC = () => {
               onClick={() => setShowAllModal(true)}
               className="p-6 rounded-2xl bg-gradient-to-b from-slate-50/70 to-sky-50/20 border border-slate-200/80 hover:border-[#0284C7] shadow-xs hover:shadow-[0_12px_28px_rgba(2,132,199,0.12)] transition-all duration-300 flex flex-col justify-between relative overflow-hidden group cursor-pointer"
             >
-              {/* Top Eyebrow: —— MORE PROJECTS */}
               <div className="flex items-center gap-2">
                 <div className="w-6 h-px bg-[#0284C7]" />
                 <span className="font-mono text-[10px] font-bold text-slate-500 tracking-wider uppercase group-hover:text-[#0284C7] transition-colors">
@@ -334,7 +151,6 @@ export const ProjectsGrid: React.FC = () => {
                 </span>
               </div>
 
-              {/* Bold Editorial Message */}
               <div className="my-auto py-6">
                 <h3 className="text-2xl sm:text-[1.65rem] font-sans font-normal text-[#1E293B] leading-snug tracking-tight">
                   Turning
@@ -347,7 +163,6 @@ export const ProjectsGrid: React.FC = () => {
                 </h3>
               </div>
 
-              {/* Bottom Action: ( → ) Circular Button */}
               <div className="pt-4 flex items-center justify-between relative z-10">
                 <div className="w-10 h-10 rounded-full border border-[#0284C7] text-[#0284C7] group-hover:bg-[#0284C7] group-hover:text-white flex items-center justify-center transition-all duration-300">
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -357,11 +172,11 @@ export const ProjectsGrid: React.FC = () => {
                 </span>
               </div>
 
-              {/* Bottom-Right Corner Decorative Arc Curve */}
               <svg
                 className="absolute -bottom-4 -right-4 w-36 h-36 pointer-events-none opacity-40 group-hover:opacity-75 transition-opacity"
                 viewBox="0 0 120 120"
                 fill="none"
+                aria-hidden="true"
               >
                 <path
                   d="M 120,20 C 80,40 40,80 10,120"
@@ -372,187 +187,18 @@ export const ProjectsGrid: React.FC = () => {
                 <circle cx="100" cy="35" r="1.5" fill="#38BDF8" />
               </svg>
             </motion.div>
-
           </div>
         </div>
       </div>
 
-      {/* ============================================================ */}
-      {/* INTERACTIVE CASE STUDY MODAL (Full Technical Specs)          */}
-      {/* ============================================================ */}
-      <AnimatePresence>
-        {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-xs">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-white border border-slate-200 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl space-y-6 relative text-[#0F172A]"
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-6 right-6 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"
-                aria-label="Close Case Study"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Modal Header */}
-              <div className="space-y-2 pr-10">
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-wider">
-                    {selectedProject.code} // {selectedProject.category}
-                  </span>
-                  <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono font-bold">
-                    {selectedProject.status}
-                  </span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-sans font-bold text-[#0F172A] tracking-tight">
-                  {selectedProject.title}
-                </h2>
-                <p className="text-sm font-sans text-slate-600">{selectedProject.tagline}</p>
-              </div>
-
-              {/* Hero Image */}
-              <div className="relative aspect-[21/9] rounded-2xl overflow-hidden bg-slate-100 border border-slate-200">
-                <img
-                  src={selectedProject.heroImage}
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Key Metric Banner */}
-              <div className="p-4 rounded-2xl bg-sky-50/80 border border-sky-200 flex items-center justify-between">
-                <div>
-                  <span className="text-[11px] font-mono font-bold text-slate-500 uppercase block">
-                    BENCHMARK METRIC
-                  </span>
-                  <span className="text-xl sm:text-2xl font-sans font-extrabold text-[#0284C7]">
-                    {selectedProject.keyMetric}
-                  </span>
-                </div>
-                <span className="text-xs font-sans text-slate-600 text-right">
-                  {selectedProject.metricLabel}
-                </span>
-              </div>
-
-              {/* Problem vs Approach */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans">
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                  <span className="font-mono font-bold text-slate-800 uppercase block">
-                    THE PROBLEM
-                  </span>
-                  <p className="text-slate-600 leading-relaxed">{selectedProject.problem}</p>
-                </div>
-                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-                  <span className="font-mono font-bold text-[#0284C7] uppercase block">
-                    RESEARCH APPROACH
-                  </span>
-                  <p className="text-slate-600 leading-relaxed">{selectedProject.approach}</p>
-                </div>
-              </div>
-
-              {/* Engineering Pipeline */}
-              <div className="space-y-2">
-                <span className="font-mono text-xs font-bold text-slate-800 uppercase block">
-                  DATA PIPELINE FLOW
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs text-center">
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-[10px] text-slate-400 block uppercase">INPUT</span>
-                    <span className="font-semibold text-slate-700">{selectedProject.pipeline.input}</span>
-                  </div>
-                  <div className="p-3 rounded-lg bg-sky-50 border border-sky-200">
-                    <span className="text-[10px] text-[#0284C7] block uppercase">ENGINE</span>
-                    <span className="font-semibold text-[#0284C7]">{selectedProject.pipeline.engine}</span>
-                  </div>
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-[10px] text-slate-400 block uppercase">OUTPUT</span>
-                    <span className="font-semibold text-slate-700">{selectedProject.pipeline.output}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Technologies */}
-              <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
-                {selectedProject.technologies.map((t) => (
-                  <span
-                    key={t}
-                    className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-mono font-medium"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      {/* ============================================================ */}
-      {/* ALL PROJECTS CATALOG MODAL                                   */}
-      {/* ============================================================ */}
-      <AnimatePresence>
-        {showAllModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-xs">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-white border border-slate-200 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl space-y-6 relative text-[#0F172A]"
-            >
-              <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-                <div>
-                  <h2 className="text-2xl font-sans font-bold text-[#0F172A]">
-                    All Club Projects & Repositories
-                  </h2>
-                  <p className="text-xs font-sans text-slate-500">
-                    Computational intelligence models developed by IEEE CIS MUJ student researchers
-                  </p>
-                </div>
-                <button
-                  onClick={() => setShowAllModal(false)}
-                  className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"
-                  aria-label="Close All Projects"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {PROJECTS.map((proj) => (
-                  <div
-                    key={proj.id}
-                    onClick={() => {
-                      setShowAllModal(false);
-                      setSelectedProject(proj);
-                    }}
-                    className="p-4 rounded-2xl bg-slate-50 hover:bg-sky-50/40 border border-slate-200 hover:border-[#0284C7] transition-all cursor-pointer flex gap-4 items-center group"
-                  >
-                    <img
-                      src={proj.heroImage}
-                      alt={proj.title}
-                      className="w-20 h-20 rounded-xl object-cover shrink-0"
-                    />
-                    <div className="space-y-1">
-                      <span className="text-[10px] font-mono font-bold text-[#0284C7] uppercase">
-                        {proj.category} // {proj.code}
-                      </span>
-                      <h4 className="text-sm font-sans font-bold text-slate-900 group-hover:text-[#0284C7] transition-colors leading-snug">
-                        {proj.title}
-                      </h4>
-                      <p className="text-xs text-slate-500 line-clamp-1">{proj.tagline}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
+      {/* Case Study Technical Specs and Catalog Modals */}
+      <ProjectDetailModal
+        selectedProject={selectedProject}
+        showAllModal={showAllModal}
+        onCloseSelected={() => setSelectedProject(null)}
+        onCloseAll={() => setShowAllModal(false)}
+        onSelectProject={setSelectedProject}
+      />
     </section>
   );
 };
