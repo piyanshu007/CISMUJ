@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { CustomCursor } from '@/components/ui/CustomCursor';
 import { GlobalSynapseMesh } from '@/components/computational/GlobalSynapseMesh';
 import { WebsiteEntryAnimation } from '@/components/ui/WebsiteEntryAnimation';
 
@@ -49,7 +48,6 @@ export default function RootLayout({
       <body className="bg-white text-slate-900 antialiased selection:bg-[#0284C7] selection:text-white relative">
         <WebsiteEntryAnimation />
         <GlobalSynapseMesh />
-        <CustomCursor />
         {children}
       </body>
     </html>
