@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeader } from '../ui/SectionHeader';
-import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight, Users, Sparkles, TrendingUp } from 'lucide-react';
 
 export const CisMujChapter: React.FC = () => {
   const [activeMobileIdx, setActiveMobileIdx] = useState<number>(0);
@@ -113,22 +113,89 @@ export const CisMujChapter: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 font-mono text-xs w-full md:w-auto shrink-0">
-            <div className="p-4 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center shadow-2xs group-hover:border-sky-200 transition-colors">
-              <span className="text-2xl sm:text-4xl font-display font-black text-[#0F172A] block">
-                500+
-              </span>
-              <span className="text-[#0284C7] font-bold text-[9px] sm:text-[10px] uppercase tracking-wider mt-1 block">
-                Students Engaged
-              </span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full md:w-auto shrink-0">
+            {/* Bento Card 1: Students Engaged */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/90 border border-slate-200/80 shadow-2xs flex flex-col justify-between space-y-3 min-w-[190px]">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg bg-sky-100 text-[#0284C7] flex items-center justify-center">
+                    <Users className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                    COMMUNITY
+                  </span>
+                </div>
+                <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-50 text-emerald-600 border border-emerald-200/60">
+                  <TrendingUp className="w-2.5 h-2.5" />
+                  +40%
+                </span>
+              </div>
+
+              <div>
+                <div className="text-2xl sm:text-3xl font-display font-black text-[#0F172A] tracking-tight">
+                  500+
+                </div>
+                <div className="text-[11px] font-sans font-medium text-slate-600">
+                  Students Engaged
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between">
+                <div className="flex items-center -space-x-1.5">
+                  <span className="w-5 h-5 rounded-full bg-sky-500 text-white font-mono text-[8px] font-bold flex items-center justify-center ring-1 ring-white">
+                    AI
+                  </span>
+                  <span className="w-5 h-5 rounded-full bg-indigo-500 text-white font-mono text-[8px] font-bold flex items-center justify-center ring-1 ring-white">
+                    ML
+                  </span>
+                  <span className="w-5 h-5 rounded-full bg-[#0284C7] text-white font-mono text-[8px] font-bold flex items-center justify-center ring-1 ring-white">
+                    +15
+                  </span>
+                </div>
+                <span className="font-mono text-[9px] text-[#0284C7] font-semibold">Active Cohort</span>
+              </div>
             </div>
-            <div className="p-4 sm:p-6 rounded-2xl bg-sky-50/60 border border-sky-200 text-center shadow-2xs">
-              <span className="text-2xl sm:text-4xl font-display font-black text-[#0284C7] block">
-                100%
-              </span>
-              <span className="text-[#0284C7] font-bold text-[9px] sm:text-[10px] uppercase tracking-wider mt-1 block">
-                Research Driven
-              </span>
+
+            {/* Bento Card 2: Research Driven */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-sky-50/70 border border-sky-200/80 shadow-2xs flex flex-col justify-between space-y-3 min-w-[190px]">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg bg-[#0284C7] text-white flex items-center justify-center shadow-2xs">
+                    <Sparkles className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="font-mono text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">
+                    PEER-REVIEWED
+                  </span>
+                </div>
+                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-white text-[#0284C7] border border-sky-200 shadow-2xs">
+                  4 Preprints
+                </span>
+              </div>
+
+              <div>
+                <div className="text-2xl sm:text-3xl font-display font-black text-[#0284C7] tracking-tight">
+                  100%
+                </div>
+                <div className="text-[11px] font-sans font-medium text-slate-700">
+                  Research Driven
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-sky-200/60 flex items-center justify-between">
+                <div className="w-20 h-4 relative">
+                  <svg className="w-full h-full overflow-visible" viewBox="0 0 80 20" fill="none">
+                    <path
+                      d="M 0,16 Q 20,15 35,8 T 60,7 T 80,2"
+                      stroke="#0284C7"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="35" cy="8" r="2" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1" />
+                    <circle cx="80" cy="2" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1" />
+                  </svg>
+                </div>
+                <span className="font-mono text-[9px] text-[#0284C7] font-semibold">GNN &amp; Fuzzy</span>
+              </div>
             </div>
           </div>
         </motion.div>
