@@ -57,7 +57,7 @@ export const CisLogo3D: React.FC = () => {
 
     // 5. Create 3D Logo Object Group
     const mainGroup = new THREE.Group();
-    const initialScale = isDesktop ? 0.88 : isTablet ? 0.68 : 0.38;
+    const initialScale = isDesktop ? 1.22 : isTablet ? 0.95 : 0.54;
     mainGroup.scale.set(initialScale, initialScale, initialScale);
     const defaultOffsetX = isDesktop ? 1.35 : isTablet ? 0.85 : 0.32;
     const defaultOffsetY = isMobile ? 0.65 : 0;
@@ -198,7 +198,7 @@ export const CisLogo3D: React.FC = () => {
       camera.aspect = w / h;
       camera.position.z = desktop ? 5.0 : tablet ? 5.6 : 6.2;
 
-      const scale = desktop ? 0.88 : tablet ? 0.68 : 0.38;
+      const scale = desktop ? 1.22 : tablet ? 0.95 : 0.54;
       mainGroup.scale.set(scale, scale, scale);
 
       camera.updateProjectionMatrix();
