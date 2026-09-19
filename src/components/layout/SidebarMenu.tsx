@@ -32,24 +32,28 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[100] bg-white/80 backdrop-blur-2xl h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col justify-between select-none"
+          className="fixed inset-0 z-[100] bg-slate-900/10 backdrop-blur-3xl backdrop-saturate-150 h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col justify-between select-none"
         >
-          {/* Subtle frosted glass ambient glows */}
-          <div className="absolute top-1/4 right-1/4 w-[600px] h-[500px] bg-sky-200/30 rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-1/4 left-1/4 w-[450px] h-[450px] bg-[#0284C7]/15 rounded-full blur-[120px] pointer-events-none" />
+          {/* Glassmorphism ambient refractive lighting orbs */}
+          <div className="absolute -top-20 -left-20 w-[500px] h-[500px] bg-sky-300/25 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute top-1/3 right-10 w-[550px] h-[550px] bg-[#38BDF8]/20 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] bg-[#0284C7]/15 rounded-full blur-[110px] pointer-events-none" />
 
-          {/* Subtle background giant watermark typography */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden opacity-[0.03]">
-            <span className="font-display font-black text-[24vw] tracking-tighter text-[#0F172A] uppercase leading-none select-none">
+          {/* Frosted Glass Overlay Tint */}
+          <div className="absolute inset-0 bg-white/55 backdrop-blur-2xl pointer-events-none" />
+
+          {/* Giant watermark typography with frosted transparency */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden opacity-[0.035]">
+            <span className="font-display font-black text-[22vw] tracking-tighter text-[#0F172A] uppercase leading-none select-none">
               IEEE CIS
             </span>
           </div>
 
-          {/* Top Bar: Compact Header (Frosted Glass) */}
-          <div className="w-full px-4 sm:px-8 py-3 sm:py-4 flex items-center justify-between relative z-20 border-b border-slate-200/70 bg-white/60 backdrop-blur-md shrink-0">
+          {/* Top Bar: Ultra Glass Header */}
+          <div className="w-full px-4 sm:px-8 py-3.5 sm:py-4 flex items-center justify-between relative z-20 border-b border-white/60 bg-white/45 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.03)] shrink-0">
             {/* Left: MUJ Chapter Identity */}
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white/90 border border-slate-200/80 p-1 flex items-center justify-center shadow-xs">
+              <div className="w-9 h-9 rounded-xl bg-white/80 backdrop-blur-md border border-white/90 p-1 flex items-center justify-center shadow-xs">
                 <img
                   src="/logo-mark.png"
                   alt="IEEE CIS Logo"
@@ -66,20 +70,20 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
               </div>
             </div>
 
-            {/* Right: Close button */}
+            {/* Right: Glass Close Button */}
             <button
               onClick={onClose}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-100 hover:bg-[#0284C7] text-[#0F172A] hover:text-white border border-slate-200 hover:border-[#0284C7] flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs group"
+              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/70 hover:bg-[#0284C7] text-[#0F172A] hover:text-white border border-white/80 hover:border-[#0284C7] backdrop-blur-md flex items-center justify-center transition-all duration-200 cursor-pointer shadow-xs hover:shadow-[0_4px_16px_rgba(2,132,199,0.3)] group"
               aria-label="Close Menu"
             >
               <X className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-90 transition-transform duration-300" />
             </button>
           </div>
 
-          {/* Center Main Navigation: Dynamically sized to never overflow */}
+          {/* Center Main Navigation: Glass Viewport */}
           <div className="flex-1 min-h-0 w-full max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-center relative z-20 overflow-hidden">
             <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-              {/* Left Column: Responsive Links with Fluid Clamp Typography */}
+              {/* Left Column: Responsive Links with Glass Hover Highlight */}
               <div className="lg:col-span-7 flex flex-col justify-center gap-1 sm:gap-1.5 md:gap-2">
                 {menuItems.map((item, idx) => {
                   const isActive = pathname === item.href;
@@ -93,24 +97,34 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className="group flex items-center gap-3 sm:gap-4 py-0.5 sm:py-1 transition-all cursor-pointer"
+                        className={`group flex items-center gap-3 sm:gap-4 px-3 py-1 sm:py-1.5 -ml-3 rounded-2xl transition-all duration-200 cursor-pointer border border-transparent ${
+                          isActive
+                            ? 'bg-white/60 backdrop-blur-md border-white/80 shadow-xs'
+                            : 'hover:bg-white/50 hover:backdrop-blur-md hover:border-white/70 hover:shadow-xs'
+                        }`}
                       >
-                        <span className="font-mono text-[9px] sm:text-[11px] text-slate-400 group-hover:text-[#0284C7] transition-colors font-bold w-5">
+                        <span
+                          className={`font-mono text-[9px] sm:text-[11px] font-bold w-5 transition-colors ${
+                            isActive
+                              ? 'text-[#0284C7]'
+                              : 'text-slate-400 group-hover:text-[#0284C7]'
+                          }`}
+                        >
                           0{idx + 1}
                         </span>
 
                         <span
                           className={`font-serif text-[clamp(1.35rem,4vh,3rem)] font-black tracking-tight uppercase leading-none transition-all duration-200 ${
                             isActive
-                              ? 'text-[#0284C7] translate-x-1.5'
-                              : 'text-[#0F172A] group-hover:text-[#0284C7] group-hover:translate-x-1.5'
+                              ? 'text-[#0284C7] translate-x-1'
+                              : 'text-[#0F172A] group-hover:text-[#0284C7] group-hover:translate-x-1'
                           }`}
                         >
                           {item.name}
                         </span>
 
                         {isActive && (
-                          <span className="w-2 h-2 rounded-full bg-[#0284C7] animate-pulse ml-1" />
+                          <span className="w-2 h-2 rounded-full bg-[#0284C7] shadow-[0_0_8px_rgba(2,132,199,0.8)] animate-pulse ml-1" />
                         )}
                       </Link>
                     </motion.div>
@@ -118,12 +132,12 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
                 })}
               </div>
 
-              {/* Right Column: Compact Spotlight Feature Box (Desktop/Tablet) */}
-              <div className="hidden lg:flex lg:col-span-5 flex-col gap-3">
+              {/* Right Column: Premium Glass Spotlight Feature Boxes */}
+              <div className="hidden lg:flex lg:col-span-5 flex-col gap-3.5">
                 {/* Highlight Card 1: Newsletter */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/80 border border-slate-200 shadow-xs space-y-2 hover:border-[#0284C7] transition-all">
+                <div className="p-4 sm:p-5 rounded-2xl bg-white/55 backdrop-blur-xl border border-white/80 shadow-[0_8px_32px_0_rgba(31,38,135,0.06)] space-y-2 hover:bg-white/70 hover:shadow-[0_12px_40px_0_rgba(2,132,199,0.12)] hover:border-[#38BDF8]/50 transition-all duration-300">
                   <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="px-2 py-0.5 rounded-full bg-sky-50 text-[#0284C7] font-bold border border-[#0284C7]/30 text-[9px]">
+                    <span className="px-2.5 py-0.5 rounded-full bg-sky-100/70 text-[#0284C7] font-bold border border-[#0284C7]/20 text-[9px] backdrop-blur-xs">
                       LATEST PUBLICATION
                     </span>
                     <span className="text-slate-400 font-semibold text-[10px]">ISSUE 08</span>
@@ -149,9 +163,9 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
                 </div>
 
                 {/* Highlight Card 2: Events */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-2 hover:border-[#0284C7] transition-all">
+                <div className="p-4 sm:p-5 rounded-2xl bg-white/55 backdrop-blur-xl border border-white/80 shadow-[0_8px_32px_0_rgba(31,38,135,0.06)] space-y-2 hover:bg-white/70 hover:shadow-[0_12px_40px_0_rgba(2,132,199,0.12)] hover:border-[#38BDF8]/50 transition-all duration-300">
                   <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="px-2 py-0.5 rounded-full bg-[#0F172A] text-white font-bold text-[9px]">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#0F172A]/90 text-white font-bold text-[9px] backdrop-blur-xs">
                       FLAGSHIP HACKATHON
                     </span>
                     <span className="text-slate-400 font-semibold text-[10px]">MUJ CAMPUS</span>
@@ -179,8 +193,8 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
             </div>
           </div>
 
-          {/* Bottom Bar: Frosted Glass Footer */}
-          <div className="w-full px-4 sm:px-8 py-3 sm:py-4 relative z-20 border-t border-slate-200/70 bg-white/70 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs shrink-0">
+          {/* Bottom Bar: Ultra Glass Footer */}
+          <div className="w-full px-4 sm:px-8 py-3.5 sm:py-4 relative z-20 border-t border-white/60 bg-white/45 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.02)] flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs shrink-0">
             <div className="flex items-center gap-3 sm:gap-4 font-bold text-xs">
               <a
                 href="https://www.instagram.com/ieee.cismuj/"
@@ -212,7 +226,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
               href="https://www.instagram.com/ieee.cismuj/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-[0_4px_14px_rgba(2,132,199,0.35)] border border-white/20 transition-all cursor-pointer hover:-translate-y-0.5"
             >
               <span>JOIN CHAPTER</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
