@@ -6,8 +6,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { CyberBrainVisual } from '@/components/animated/CyberBrainVisual';
 
-import { OrbitalCore3D } from '@/components/3d/OrbitalCore3D';
-
 export const WhatIsCis: React.FC = () => {
   return (
     <section className="relative w-full bg-white text-[#0F172A] overflow-hidden select-none">
@@ -23,8 +21,8 @@ export const WhatIsCis: React.FC = () => {
       {/* ============================================================ */}
       {/* PART 1: HERO VIEWPORT (1:1 Match with User's Reference)      */}
       {/* ============================================================ */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-16 sm:pt-24 pb-4 sm:pb-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-20 sm:pt-28 pb-4 sm:pb-10 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-6 items-center">
           
           {/* Left Column: Heading, Indicators, Subtitle & Circular Arrow CTA */}
           <div className="lg:col-span-5 space-y-4 sm:space-y-6 z-10">
@@ -93,9 +91,115 @@ export const WhatIsCis: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: 3D Interactive Glowing Orbital Core Assembly */}
-          <div className="lg:col-span-7 relative flex items-center justify-center w-full min-h-[360px] sm:min-h-[440px] lg:min-h-[500px]">
-            <OrbitalCore3D className="w-full h-full" />
+          {/* Right Column: 3D Translucent Orbital Ribbon Artwork & Center Emblem (Expanded & Transparent) */}
+          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[320px] sm:min-h-[400px] lg:min-h-[460px]">
+            
+            {/* Dynamic Motion Container for Ribbon + Orbits + Logo */}
+            <motion.div
+              animate={{
+                y: [-6, 6, -6],
+                rotateZ: [-0.4, 0.4, -0.4],
+              }}
+              transition={{
+                duration: 6.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="relative w-full max-w-[740px] lg:max-w-[820px] aspect-[16/9] flex items-center justify-center select-none"
+            >
+              {/* Base Ethereal 3D Swirling Silk Ribbon Artwork */}
+              <img
+                src="/orbital-ribbon-transparent.png"
+                alt="3D Translucent Orbital Silk Ribbon"
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none z-10 filter drop-shadow-[0_16px_36px_rgba(2,132,199,0.18)]"
+              />
+
+              {/* Dynamic CSS/SVG Orbital Track Overlays for Interactive Depth */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+                
+                {/* Inner Tilted Orbit Ring */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 32, repeat: Infinity, ease: 'linear' }}
+                  className="absolute w-[80%] sm:w-[480px] lg:w-[540px] h-[36%] sm:h-[210px] lg:h-[240px] rounded-[100%] border border-[#0284C7]/30"
+                  style={{
+                    transform: 'rotateX(64deg) rotateZ(-22deg)',
+                  }}
+                >
+                  {/* 3D Glossy Blue Planetary Sphere */}
+                  <div
+                    className="absolute -top-3 left-1/4 w-4 sm:w-5 h-4 sm:h-5 rounded-full shadow-[0_4px_14px_rgba(2,132,199,0.5)]"
+                    style={{
+                      background:
+                        'radial-gradient(circle at 35% 35%, #bae6fd 0%, #0284c7 50%, #0369a1 100%)',
+                    }}
+                  />
+                  <div
+                    className="absolute bottom-2 right-1/3 w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
+                    style={{
+                      background:
+                        'radial-gradient(circle at 35% 35%, #e0f2fe 0%, #0284c7 60%, #075985 100%)',
+                    }}
+                  />
+                </motion.div>
+
+                {/* Outer Counter-Rotating Orbit Ring */}
+                <motion.div
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 44, repeat: Infinity, ease: 'linear' }}
+                  className="absolute w-[94%] sm:w-[580px] lg:w-[640px] h-[44%] sm:h-[250px] lg:h-[280px] rounded-[100%] border border-[#0284C7]/20 border-dashed"
+                  style={{
+                    transform: 'rotateX(58deg) rotateZ(28deg)',
+                  }}
+                >
+                  {/* Large 3D Planetary Sphere at Bottom-Right */}
+                  <div
+                    className="absolute top-1/2 -right-3 w-5 sm:w-6 h-5 sm:h-6 rounded-full shadow-[0_6px_18px_rgba(2,132,199,0.55)]"
+                    style={{
+                      background:
+                        'radial-gradient(circle at 35% 35%, #7dd3fc 0%, #0284c7 50%, #0c4a6e 100%)',
+                    }}
+                  />
+                  <div
+                    className="absolute -bottom-2 left-1/5 w-3 sm:w-3.5 h-3 sm:h-3.5 rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.4)]"
+                    style={{
+                      background:
+                        'radial-gradient(circle at 35% 35%, #e0f2fe 0%, #0284c7 60%, #0369a1 100%)',
+                    }}
+                  />
+                </motion.div>
+
+                {/* Floating Constellation Synapse Dots */}
+                <span className="absolute top-[22%] left-[28%] w-1.5 h-1.5 rounded-full bg-[#0284C7] shadow-[0_0_6px_#0284C7]" />
+                <span className="absolute bottom-[26%] right-[22%] w-2 h-2 rounded-full bg-[#38BDF8] shadow-[0_0_8px_#38BDF8]" />
+                <span className="absolute top-[38%] right-[16%] w-1.5 h-1.5 rounded-full bg-[#0284C7]" />
+                <span className="absolute bottom-[40%] left-[18%] w-2 h-2 rounded-full bg-[#0284C7]" />
+              </div>
+
+              {/* Center Core: IEEE CIS Fluid Logo Emblem - Placed DIRECTLY in the center of the ribbon */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+                <motion.div
+                  initial={{ scale: 0.85, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.15 }}
+                  className="relative flex items-center justify-center"
+                >
+                  {/* Soft blue back aura */}
+                  <div className="absolute w-32 h-32 rounded-full bg-[#0284C7]/20 blur-xl pointer-events-none" />
+
+                  {/* Logo Emblem centered perfectly inside ribbon loop */}
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 flex items-center justify-center">
+                    <img
+                      src="/logo-mark.png"
+                      alt="IEEE CIS Emblem"
+                      className="w-full h-full object-contain filter drop-shadow-[0_6px_20px_rgba(2,132,199,0.4)]"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+
+            </motion.div>
+
           </div>
         </div>
       </div>
