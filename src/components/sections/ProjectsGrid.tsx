@@ -81,22 +81,22 @@ export const ProjectsGrid: React.FC = () => {
             <filter id="waveBallGlow" x="-50%" y="-50%" width="200%" height="200%">
               <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#0284C7" floodOpacity="0.75" />
             </filter>
-            {/* Natural primary wave path flowing gracefully across hero */}
+            {/* Natural wave path sweeping along the lower background behind the artwork */}
             <path
               id="mainWaveTravelPath"
-              d="M -40,320 C 220,330 380,270 600,300 C 820,330 960,190 1160,220 C 1280,240 1380,280 1480,290"
+              d="M -40,355 C 240,365 420,330 640,365 C 860,400 1060,395 1240,375 C 1360,360 1420,350 1480,345"
             />
           </defs>
 
-          {/* Visible Single Solid Wave Path */}
+          {/* Visible Single Solid Wave Path (Background Layer) */}
           <path
-            d="M 40,320 C 220,330 380,270 600,300 C 820,330 960,190 1160,220 C 1280,240 1380,280 1460,290"
+            d="M 40,355 C 240,365 420,330 640,365 C 860,400 1060,395 1240,375 C 1360,360 1420,350 1460,345"
             stroke="#0284C7"
-            strokeWidth="1.5"
-            strokeOpacity="0.5"
+            strokeWidth="1.4"
+            strokeOpacity="0.45"
           />
 
-          {/* --- TRAVELLING SPHERES (BALLS) ALONG THE SINGLE WAVE --- */}
+          {/* --- TRAVELLING SPHERES (BALLS) ALONG THE WAVE --- */}
           {/* Ball 1: Primary Large Glossy Blue Sphere */}
           <g filter="url(#waveBallGlow)">
             <animateMotion dur="9s" repeatCount="indefinite">
