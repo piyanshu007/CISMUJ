@@ -1,140 +1,87 @@
-# IEEE Computational Intelligence Society — Manipal University Jaipur (IEEE CIS MUJ)
+# IEEE CIS MUJ — Student Branch Chapter Website
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-[![WebGL / OGL](https://img.shields.io/badge/WebGL-OGL_Shaders-blueviolet?style=flat-square&logo=webgl)](https://github.com/oframe/ogl)
-[![Vitest](https://img.shields.io/badge/Tested_with-Vitest-729B1B?style=flat-square&logo=vitest)](https://vitest.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+Hey there! 👋 Welcome to the official repository for the **IEEE Computational Intelligence Society (CIS)** Student Branch Chapter at **Manipal University Jaipur** (Chapter #6248).
 
-Official production web platform for the **IEEE Computational Intelligence Society Student Branch Chapter at Manipal University Jaipur** (IEEE CIS MUJ — Chapter #6248).
+We built this platform to showcase what our community does throughout the year — from our 36-hour flagship hackathons (*WebForge*) and deep learning masterclasses (*Oneiros*) to autonomous robotics rovers and our annual technical publication, *The CIS Chronicle*.
 
 ---
 
-## 🔬 Chapter Overview
+## ⚡ What's Under the Hood
 
-The **IEEE Computational Intelligence Society (CIS)** is a global technical society focused on the theory, design, application, and development of biologically and linguistically motivated computational paradigms. At **Manipal University Jaipur**, our student chapter actively conducts hackathons, research symposiums, technical masterclasses, robotics expos, and publication broadsheets.
+We wanted the site to feel fast, responsive, and visually engaging without drowning in heavy 3D asset bundles. Here's a quick look at the tech we picked and why:
 
-### Core Technical Pillars:
-- **Neural Networks & Deep Learning**: Foundation models, transformer fine-tuning, computer vision, and on-device inference.
-- **Evolutionary Computation**: Genetic algorithms, swarm intelligence, and autonomous robotics navigation.
-- **Fuzzy Systems**: Approximate reasoning, neural-fuzzy hybrid systems, and uncertainty modeling.
-- **Embedded & Hardware AI**: Edge-AI robotics rovers, ROS2 autonomy, and sensory perception.
-
----
-
-## 🏗️ Architecture & Technology Stack
-
-The platform is engineered with modern web standards, server-side rendering, and hardware-accelerated graphics:
-
-| Layer | Technologies | Purpose |
-| :--- | :--- | :--- |
-| **Framework** | Next.js 15 (App Router) | Server Components, routing, SEO optimization, and static generation |
-| **Language** | TypeScript (Strict Mode) | End-to-end type safety across datasets and components |
-| **Styling** | Tailwind CSS & CSS Modules | Responsive design, glassmorphism tokens, and CSS variables |
-| **Graphics** | WebGL via `ogl` & GLSL | Real-time procedural shaders (`DarkVeil`, `GradientWaves`) |
-| **Animations** | Framer Motion & RAF loops | Smooth 3D carousels, spring physics, and viewport triggers |
-| **Icons** | Lucide React | Clean, scalable UI iconography |
-| **Testing** | Vitest & React Testing Library | Unit tests, component rendering, and regression suites |
+- **Next.js 14/15 (App Router)**: Fast server-side rendering, clean file-based routing, and built-in image optimizations.
+- **TypeScript**: Strict type checks across all our datasets (events, team registry, project showcases).
+- **Tailwind CSS**: Utility-first styling with custom glassmorphism layers and responsive typography.
+- **WebGL via `ogl`**: Lightweight GPU fragment shaders (`DarkVeil` and `GradientWaves`) for smooth fluid ribbon effects that don't choke lower-end laptops.
+- **Framer Motion**: Gesture handling for our 3D cylindrical carousels, spring physics, and mobile touch intent tracking.
+- **Vitest & Testing Library**: Fast unit testing for data validation and component sanity checks.
 
 ---
 
-## 🚀 Getting Started
+## 💻 Running It Locally
 
-### Prerequisites
-- **Node.js**: `v18.17.0` or higher (Node 20 LTS recommended)
-- **Package Manager**: `npm` (v9+) or `pnpm` / `yarn`
+Getting the dev server up and running on your machine is straightforward:
 
-### Installation
+```bash
+# 1. Grab the code
+git clone https://github.com/piyanshu007/CISMUJ.git
+cd CISMUJ
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/piyanshu007/CISMUJ.git
-   cd CISMUJ
-   ```
+# 2. Install dependencies
+npm install
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Start the local development server:**
-   ```bash
-   npm run dev
-   ```
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-4. **Run unit tests:**
-   ```bash
-   npm test
-   ```
-
-5. **Build for production:**
-   ```bash
-   npm run build
-   npm run start
-   ```
-
----
-
-## 📁 Repository Structure
-
-```text
-├── public/                     # Static assets (emblems, events, gallery, team photos)
-│   ├── events/                 # Hackathon and workshop banners
-│   ├── gallery/                # Chapter milestone photography
-│   ├── logos/                  # IEEE emblem, Genesis, and chapter marks
-│   └── team/2026/              # Official executive director portraits
-├── src/
-│   ├── app/                    # Next.js App Router routes & layouts
-│   │   ├── about/              # Chapter mission, four paradigms & lab pillars
-│   │   ├── events/             # Hackathons, fan decks, and workshop archives
-│   │   ├── gallery/            # 3D interactive photo cylinder & DarkVeil hero
-│   │   ├── newsletter/         # The CIS Chronicle digital broadsheet reader
-│   │   ├── projects/           # Member innovation showcase & robotics repos
-│   │   ├── team/               # Executive committee & director registry
-│   │   ├── globals.css         # Global Tailwind layers & custom utilities
-│   │   └── layout.tsx          # Root HTML layout with JSON-LD schema
-│   ├── components/
-│   │   ├── 3d/                 # Interactive 3D Canvas emblems
-│   │   ├── animated/           # WebGL GLSL shaders (DarkVeil, GradientWaves)
-│   │   ├── computational/      # Synapse meshes & algorithmic visualizers
-│   │   ├── layout/             # Global Navbar, Footer, and SidebarMenu
-│   │   ├── sections/           # Modular page sections and hero components
-│   │   └── ui/                 # Reusable UI primitives (SectionHeader, TiltCard, Badges)
-│   ├── data/                   # Structured TypeScript data models (events, team, projects)
-│   └── lib/                    # Shared utilities, class mergers, and formatters
-├── .github/                    # CI/CD workflows and issue/PR templates
-├── vitest.config.ts            # Unit testing configuration
-└── tailwind.config.ts          # Design tokens and theme extensions
+# 3. Fire up the local dev server
+npm run dev
 ```
+
+Head over to `http://localhost:3000` to see it live. Any edits you make in `src/` will hot-reload automatically.
+
+### Handy Scripts
+
+```bash
+npm run dev        # Starts Next.js dev server on port 3000
+npm run build      # Creates optimized production build
+npm test           # Runs the Vitest test suite
+npm run lint       # Runs ESLint checks across the codebase
+```
+
+> **Note on WebGL & Shaders**: If you're developing on an older machine or low-power VM without GPU acceleration, you might see WebGL fallback to software rendering. We've capped the `dpr` at `2` in `ogl` renderers to keep frame rates smooth on high-density displays.
+
+---
+
+## 📂 Quick Project Tour
+
+If you're looking to tweak something specific, here's where things live:
+
+- `src/app/` — All route pages (`/`, `/about`, `/events`, `/gallery`, `/projects`, `/team`, `/newsletter`).
+- `src/components/animated/` — Custom WebGL GLSL shaders like `DarkVeil.tsx` and `GradientWaves.tsx`.
+- `src/components/sections/` — Core section components (photo mosaic cylinder, hero banner, team grid, fan deck).
+- `src/components/layout/` — Global navigation bar, full-screen glass sidebar menu, and footer.
+- `src/data/` — Static data stores for team members, event archives, and student projects. Edit `team.ts` or `events.ts` to add new entries!
+- `public/` — Logos, team cutouts, event posters, and vector emblems.
+
+---
+
+## 🛠️ Roadmap & Known Quirks
+
+A few things we're actively hacking on or keeping an eye on:
+
+- [ ] Connect the newsletter section to a live PDF viewer embed.
+- [ ] Add direct vTools event RSVP sync once IEEE API credentials are renewed.
+- [ ] Optimize 3D cylindrical touch momentum on iOS Safari 17.
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions from chapter members, student researchers, and the open-source community!
-
-1. Fork the repository.
-2. Create a feature branch (`git checkout -b feat/quantum-visualizer`).
-3. Commit your changes with meaningful messages following [Conventional Commits](https://www.conventionalcommits.org/).
-4. Run `npm test` and `npx tsc --noEmit` to verify type safety and tests pass.
-5. Open a Pull Request using our [PR Template](.github/PULL_REQUEST_TEMPLATE.md).
-
-For detailed contribution guidelines, please refer to [CONTRIBUTING.md](CONTRIBUTING.md).
+Got an idea or spotted a bug? We'd love your help! Check out [CONTRIBUTING.md](CONTRIBUTING.md) for branch naming conventions, commit guidelines, and how to submit a PR.
 
 ---
 
-## 📄 License
+## 📜 License & Contact
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🏛️ IEEE Chapter Attribution
-
-**IEEE Computational Intelligence Society Student Branch Chapter**  
-*Manipal University Jaipur, Dehmi Kalan, Jaipur-Ajmer Expressway, Rajasthan, India — 303007*  
-- **Email**: `cis.muj@ieee.org`  
-- **Instagram**: [@ieee.cismuj](https://www.instagram.com/ieee.cismuj/)  
-- **Global Parent Society**: [IEEE Computational Intelligence Society (cis.ieee.org)](https://cis.ieee.org/)
+- **License**: Released under the [MIT License](LICENSE).
+- **Chapter Email**: `cis.muj@ieee.org`
+- **Instagram**: [@ieee.cismuj](https://www.instagram.com/ieee.cismuj/)
+- **Campus**: Manipal University Jaipur, Dehmi Kalan, Rajasthan 303007

@@ -76,7 +76,7 @@ export const PhotoMosaicSection: React.FC = () => {
   const activePhotoRef = useRef<GalleryPhoto | null>(null);
   const isVisibleRef = useRef<boolean>(true);
 
-  // Touch intent tracking to prevent scroll fighting on mobile
+  // Touch intent tracking to prevent vertical page scroll fighting on touchscreens
   const touchStartPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const touchDragState = useRef<'undecided' | 'horizontal' | 'vertical'>('undecided');
   const lastTouchRotation = useRef<number>(0);
@@ -87,12 +87,13 @@ export const PhotoMosaicSection: React.FC = () => {
 
   const numPhotos = GALLERY_PHOTOS.length;
 
-  // Sync activePhoto ref
+  // Sync activePhoto ref to avoid stale closures in RAF loop
   useEffect(() => {
     activePhotoRef.current = activePhoto;
   }, [activePhoto]);
 
-  // Update 3D radius on resize
+  // Dynamically calculate 3D cylindrical radius based on viewport width
+  // TODO(gallery): consider exposing customizable auto-rotation speed in chapter admin settings
   useEffect(() => {
     const updateRadius = () => {
       if (window.innerWidth < 640) {
