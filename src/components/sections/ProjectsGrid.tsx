@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS, ProjectCaseStudy } from '@/data/projects';
-import { ArrowRight, X, Layers, Cpu, Activity, Zap, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
 
 export const ProjectsGrid: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);

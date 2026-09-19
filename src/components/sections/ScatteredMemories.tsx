@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, MapPin, ArrowRight, ChevronLeft, ChevronRight, X, Sparkles } from 'lucide-react';
+import { Calendar, MapPin, ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 interface EventItem {
   id: string;
@@ -344,7 +344,7 @@ export const ScatteredMemories: React.FC = () => {
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.2}
-                onDragEnd={(e, info) => {
+                onDragEnd={(_e, info) => {
                   if (info.offset.x < -40) nextMobile();
                   else if (info.offset.x > 40) prevMobile();
                 }}

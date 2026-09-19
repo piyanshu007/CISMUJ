@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeader } from '../ui/SectionHeader';
-import { ArrowUpRight, ChevronLeft, ChevronRight, Users, Sparkles, TrendingUp } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const CisMujChapter: React.FC = () => {
   const [activeMobileIdx, setActiveMobileIdx] = useState<number>(0);

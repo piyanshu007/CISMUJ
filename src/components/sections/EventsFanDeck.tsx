@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Calendar, MapPin, Clock, X, ExternalLink, Users, Sparkles, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Calendar, X, ExternalLink, Users, ChevronLeft, ChevronRight } from 'lucide-react';
 import { EVENTS, EventItem } from '@/data/events';
 
 const EVENTS_PER_PAGE = 6;

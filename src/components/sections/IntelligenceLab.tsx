@@ -8,13 +8,7 @@ import {
   Clock,
   User,
   ArrowUpRight,
-  BookOpen,
-  FileText,
-  Activity,
-  Zap,
   Gauge,
-  Sparkles,
-  Download,
 } from 'lucide-react';
 
 export const IntelligenceLab: React.FC = () => {
@@ -108,7 +102,7 @@ export const IntelligenceLab: React.FC = () => {
 
             {/* Benchmark Tab Switcher */}
             <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl font-mono text-xs font-bold self-start sm:self-auto">
-              {benchmarkMetrics.map((b, i) => (
+              {benchmarkMetrics.map((_b, i) => (
                 <button
                   key={i}
                   type="button"

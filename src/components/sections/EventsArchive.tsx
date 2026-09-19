@@ -5,7 +5,7 @@ import { SectionHeader } from '../ui/SectionHeader';
 import { TiltCard } from '../ui/TiltCard';
 import { NodenzaButton } from '../ui/NodenzaButton';
 import { EVENTS, EventItem } from '@/data/events';
-import { MapPin, ArrowUpRight, ChevronRight, X, Calendar, Users, Zap } from 'lucide-react';
+import { ChevronRight, X, Calendar, Users } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 
 export const EventsArchive: React.FC = () => {

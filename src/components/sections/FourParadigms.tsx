@@ -12,8 +12,6 @@ import { Brain, Layers, Dna, GitMerge, ChevronRight } from 'lucide-react';
 export const FourParadigms: React.FC = () => {
   const [selectedParadigmId, setSelectedParadigmId] = useState<string>('neural-networks');
 
-  const selectedParadigm = PARADIGMS.find((p) => p.id === selectedParadigmId) || PARADIGMS[0];
-
   const renderVisual = () => {
     switch (selectedParadigmId) {
       case 'neural-networks':

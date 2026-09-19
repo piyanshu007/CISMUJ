@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight, BookOpen, Download, Share2, ZoomIn, Printer } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, ZoomIn, Printer } from 'lucide-react';
 
 interface BroadsheetEdition {
   id: string;

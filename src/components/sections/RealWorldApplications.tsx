@@ -1,21 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { SectionHeader } from '../ui/SectionHeader';
-import { APPLICATION_AREAS } from '@/data/applications';
-import {
-  Zap,
-  CheckCircle2,
-  ArrowRight,
-  ShieldCheck,
-  Cpu,
-  Layers,
-  Sparkles,
-  Workflow,
-  Radio,
-  Microchip,
-} from 'lucide-react';
+import { CheckCircle2, Workflow, Microchip } from 'lucide-react';
 
 const DEPLOYMENT_STAGES = [
   {

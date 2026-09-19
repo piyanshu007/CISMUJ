@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { SectionHeader } from '../ui/SectionHeader';
 import { TiltCard } from '../ui/TiltCard';
-import { NodenzaButton } from '../ui/NodenzaButton';
 import {
   Brain,
   Cpu,

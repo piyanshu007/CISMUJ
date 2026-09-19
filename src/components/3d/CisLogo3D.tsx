@@ -25,7 +25,6 @@ export const CisLogo3D: React.FC = () => {
     // 2. Camera setup
     const isDesktop = width > 1024;
     const isTablet = width >= 640 && width <= 1024;
-    const isMobile = width < 640;
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.set(0, 0, isDesktop ? 5.2 : isTablet ? 5.4 : 5.2);
@@ -193,7 +192,6 @@ export const CisLogo3D: React.FC = () => {
       if (w === 0 || h === 0) return;
       const desktop = w > 1024;
       const tablet = w >= 640 && w <= 1024;
-      const mobile = w < 640;
 
       camera.aspect = w / h;
       camera.position.z = desktop ? 5.2 : tablet ? 5.4 : 5.2;
