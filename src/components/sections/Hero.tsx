@@ -35,10 +35,6 @@ export const Hero: React.FC = () => {
             <span className="font-mono text-2xl sm:text-5xl lg:text-6xl text-slate-400 font-bold">MUJ</span>
           </h1>
 
-          {/* Club Description Box with high-contrast backdrop */}
-          <p className="text-xs sm:text-lg text-slate-800 font-sans max-w-xl leading-relaxed font-normal bg-white/95 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm">
-            Manipal University Jaipur&apos;s premier student technology chapter exploring artificial intelligence, neural networks, robotics, competitive coding, and high-octane hackathons.
-          </p>
 
           {/* Action CTAs */}
           <div className="pt-2 flex flex-wrap items-center gap-3 font-mono text-xs">

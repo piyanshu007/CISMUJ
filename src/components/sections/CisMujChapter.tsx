@@ -1,11 +1,14 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeader } from '../ui/SectionHeader';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const CisMujChapter: React.FC = () => {
+  const [activeMobileIdx, setActiveMobileIdx] = useState<number>(0);
+  const [direction, setDirection] = useState<number>(0);
+
   const chapterWings = [
     {
       title: 'INTELLIGENCE RESEARCH COHORTS',
@@ -36,6 +39,42 @@ export const CisMujChapter: React.FC = () => {
       metric: '100% REPRODUCIBLE',
     },
   ];
+
+  const handlePrev = () => {
+    setDirection(-1);
+    setActiveMobileIdx((prev) => (prev > 0 ? prev - 1 : chapterWings.length - 1));
+  };
+
+  const handleNext = () => {
+    setDirection(1);
+    setActiveMobileIdx((prev) => (prev + 1) % chapterWings.length);
+  };
+
+  const currentWing = chapterWings[activeMobileIdx];
+
+  const slideVariants = {
+    enter: (dir: number) => ({
+      x: dir >= 0 ? 40 : -40,
+      opacity: 0,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      transition: {
+        x: { type: 'spring', stiffness: 350, damping: 32 },
+        opacity: { duration: 0.22 },
+      },
+    },
+    exit: (dir: number) => ({
+      zIndex: 0,
+      x: dir < 0 ? 40 : -40,
+      opacity: 0,
+      transition: {
+        duration: 0.18,
+      },
+    }),
+  };
 
   return (
     <section id="chapter" className="py-10 sm:py-20 lg:py-32 bg-slate-50/70 relative border-b border-slate-200 overflow-hidden">
@@ -94,8 +133,110 @@ export const CisMujChapter: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* 4 Chapter Wings Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+        {/* ------------------------------------------------------------ */}
+        {/* MOBILE VIEW (< md): Single-Card Slider with Arrows & Dots    */}
+        {/* ------------------------------------------------------------ */}
+        <div className="block md:hidden mt-6">
+          <div className="relative min-h-[260px] flex flex-col justify-between">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={activeMobileIdx}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(_, { offset, velocity }) => {
+                  const swipe = offset.x + velocity.x;
+                  if (swipe < -50) {
+                    handleNext();
+                  } else if (swipe > 50) {
+                    handlePrev();
+                  }
+                }}
+                className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4 font-mono text-xs flex flex-col justify-between min-h-[250px] touch-pan-y"
+              >
+                <div className="space-y-3.5">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <span className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-widest">
+                      0{activeMobileIdx + 1} // CHAPTER WING
+                    </span>
+                    <span className="text-[10px] font-mono font-semibold text-slate-500 uppercase tracking-wider bg-slate-100 px-2 py-0.5 rounded-md">
+                      {currentWing.badge}
+                    </span>
+                  </div>
+
+                  <h4 className="font-display font-extrabold text-[#0F172A] text-lg uppercase tracking-tight leading-snug">
+                    {currentWing.title}
+                  </h4>
+
+                  <p className="font-sans text-slate-600 text-xs leading-relaxed">
+                    {currentWing.description}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold">
+                  <span className="text-[#0284C7]">{currentWing.metric}</span>
+                  <div className="flex items-center gap-1 text-[#0284C7]">
+                    <span className="text-[10px] uppercase font-mono">EXPLORE</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Compact Left/Right Navigation & Step Indicators */}
+          <div className="flex items-center justify-between mt-4 px-1">
+            <button
+              onClick={handlePrev}
+              aria-label="Previous Chapter Wing"
+              className="p-2.5 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] bg-white shadow-2xs transition-all cursor-pointer active:scale-95"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            {/* Step Counter & Dot Indicators */}
+            <div className="flex flex-col items-center gap-1.5">
+              <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                WING 0{activeMobileIdx + 1} / 0{chapterWings.length}
+              </span>
+              <div className="flex items-center gap-1.5">
+                {chapterWings.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setDirection(idx > activeMobileIdx ? 1 : -1);
+                      setActiveMobileIdx(idx);
+                    }}
+                    aria-label={`Go to wing ${idx + 1}`}
+                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                      activeMobileIdx === idx
+                        ? 'w-6 bg-[#0284C7]'
+                        : 'w-1.5 bg-slate-300 hover:bg-slate-400'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={handleNext}
+              aria-label="Next Chapter Wing"
+              className="p-2.5 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] bg-white shadow-2xs transition-all cursor-pointer active:scale-95"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* ------------------------------------------------------------ */}
+        {/* DESKTOP VIEW (>= md): Full 2x2 Grid Layout                   */}
+        {/* ------------------------------------------------------------ */}
+        <div className="hidden md:grid md:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
           {chapterWings.map((wing, idx) => (
             <motion.div
               key={idx}
