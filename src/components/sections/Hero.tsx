@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
               <br />
               SOCIETY
             </h1>
-            <p className="font-sans italic font-semibold text-base sm:text-2xl lg:text-3xl text-[#0284C7] tracking-tight">
+            <p className="font-sans italic font-semibold text-xs sm:text-sm md:text-base lg:text-lg text-[#0284C7] tracking-normal">
               Manipal University Jaipur
             </p>
           </div>
