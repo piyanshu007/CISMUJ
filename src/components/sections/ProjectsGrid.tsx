@@ -81,63 +81,44 @@ export const ProjectsGrid: React.FC = () => {
             <filter id="waveBallGlow" x="-50%" y="-50%" width="200%" height="200%">
               <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#0284C7" floodOpacity="0.75" />
             </filter>
-            {/* Natural wave paths flowing gracefully across hero */}
+            {/* Natural primary wave path flowing gracefully across hero */}
             <path
               id="mainWaveTravelPath"
               d="M -40,320 C 220,330 380,270 600,300 C 820,330 960,190 1160,220 C 1280,240 1380,280 1480,290"
             />
-            <path
-              id="secondaryWaveTravelPath"
-              d="M -40,350 C 240,360 440,295 660,325 C 880,355 1020,220 1220,250 C 1340,270 1420,300 1480,305"
-            />
           </defs>
 
-          {/* Visible Wave Paths */}
+          {/* Visible Single Solid Wave Path */}
           <path
             d="M 40,320 C 220,330 380,270 600,300 C 820,330 960,190 1160,220 C 1280,240 1380,280 1460,290"
             stroke="#0284C7"
             strokeWidth="1.5"
             strokeOpacity="0.5"
           />
-          <path
-            d="M 60,350 C 240,360 440,295 660,325 C 880,355 1020,220 1220,250 C 1340,270 1420,300 1460,305"
-            stroke="#38BDF8"
-            strokeWidth="1.0"
-            strokeDasharray="5 5"
-            strokeOpacity="0.4"
-          />
 
-          {/* --- TRAVELLING SPHERES (BALLS) ALONG THE WAVE --- */}
+          {/* --- TRAVELLING SPHERES (BALLS) ALONG THE SINGLE WAVE --- */}
           {/* Ball 1: Primary Large Glossy Blue Sphere */}
           <g filter="url(#waveBallGlow)">
             <animateMotion dur="9s" repeatCount="indefinite">
               <mpath href="#mainWaveTravelPath" />
             </animateMotion>
-            <circle r="7.5" fill="url(#waveBallGrad)" />
+            <circle r="7" fill="url(#waveBallGrad)" />
           </g>
 
-          {/* Ball 2: Staggered Secondary Cyan Sphere */}
+          {/* Ball 2: Staggered Cyan Sphere */}
           <g filter="url(#waveBallGlow)">
-            <animateMotion dur="9s" begin="-4.5s" repeatCount="indefinite">
+            <animateMotion dur="9s" begin="-3s" repeatCount="indefinite">
               <mpath href="#mainWaveTravelPath" />
             </animateMotion>
-            <circle r="6" fill="url(#waveBallCyan)" />
+            <circle r="5.5" fill="url(#waveBallCyan)" />
           </g>
 
-          {/* Ball 3: Tertiary Sphere on Secondary Path */}
+          {/* Ball 3: Staggered Third Sphere */}
           <g filter="url(#waveBallGlow)">
-            <animateMotion dur="11s" begin="-2.5s" repeatCount="indefinite">
-              <mpath href="#secondaryWaveTravelPath" />
-            </animateMotion>
-            <circle r="5.5" fill="url(#waveBallGrad)" />
-          </g>
-
-          {/* Ball 4: Small Quick Photon Sphere */}
-          <g filter="url(#waveBallGlow)">
-            <animateMotion dur="7.5s" begin="-5.5s" repeatCount="indefinite">
+            <animateMotion dur="9s" begin="-6s" repeatCount="indefinite">
               <mpath href="#mainWaveTravelPath" />
             </animateMotion>
-            <circle r="4.5" fill="url(#waveBallCyan)" />
+            <circle r="5" fill="url(#waveBallGrad)" />
           </g>
         </svg>
 
