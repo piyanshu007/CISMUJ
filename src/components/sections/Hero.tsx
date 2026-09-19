@@ -5,13 +5,13 @@ import { ArrowDown } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
-    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-white border-b border-slate-200 overflow-hidden select-none">
-      {/* React Bits Gradient Waves Animated Background (Multi-Shade Blue Raymarched Sine Waves) */}
+    <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-[#050814] border-b border-slate-800/80 overflow-hidden select-none">
+      {/* React Bits Gradient Waves Animated Background (Dark Horizon, Royal Ocean Waves & Illuminated Sky Cyan Crest) */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
         <GradientWaves
-          horizonColor="#0284C7"
-          waveColor="#38BDF8"
-          crestColor="#FFFFFF"
+          horizonColor="#050814"
+          waveColor="#1D4ED8"
+          crestColor="#38BDF8"
           speed={0.4}
           amplitude={2.5}
           waveScale={0.6}
@@ -33,13 +33,13 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* 1. Full-Screen Interactive 3D Canvas */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden opacity-100 pointer-events-auto">
+      <div className="absolute inset-0 w-full h-full z-10 overflow-hidden opacity-100 pointer-events-auto">
         <CisLogo3D />
       </div>
 
       {/* Top Floating Control Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 flex items-center justify-between pt-2 sm:pt-4 mb-1 sm:mb-2 pointer-events-none">
-        <div className="pointer-events-auto font-mono text-[10px] sm:text-xs font-bold text-[#0F172A] uppercase tracking-wider">
+        <div className="pointer-events-auto font-mono text-[10px] sm:text-xs font-bold text-sky-300/90 tracking-wider">
           IEEE CIS MUJ • CHAPTER 2024-2026
         </div>
       </div>
@@ -47,41 +47,40 @@ export const Hero: React.FC = () => {
       {/* Hero Main Content Floating Layer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 my-auto py-3 sm:py-6">
         <div className="max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-6">
-          {/* Main Huge Typography (Direct Crisp Black Font with IEEE Blue Accent) */}
+          {/* Main Huge Typography (Direct Crisp White Font with Sky Blue Accent) */}
           <div className="space-y-1.5 sm:space-y-2">
-            <h1 className="text-3xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-black tracking-tight uppercase leading-[0.93] text-[#0F172A] drop-shadow-xs">
+            <h1 className="text-3xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-black tracking-tight uppercase leading-[0.93] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
               <span className="inline-flex items-center gap-2 sm:gap-3 lg:gap-4 align-baseline">
                 <img
                   src="/logos/ieee-emblem.svg"
                   alt="IEEE Emblem"
-                  className="w-7 h-7 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 object-contain inline-block shrink-0 -translate-y-0.5 sm:-translate-y-1"
+                  className="w-7 h-7 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 object-contain inline-block shrink-0 -translate-y-0.5 sm:-translate-y-1 brightness-0 invert"
                 />
                 <span>IEEE</span>
               </span>{' '}
               COMPUTATIONAL
               <br />
-              <span className="text-[#0284C7]">INTELLIGENCE</span>
+              <span className="text-[#38BDF8]">INTELLIGENCE</span>
               <br />
               SOCIETY
             </h1>
-            <p className="font-sans italic font-semibold text-xs sm:text-sm md:text-base lg:text-lg text-[#0284C7] tracking-normal">
+            <p className="font-sans italic font-semibold text-xs sm:text-sm md:text-base lg:text-lg text-[#7DD3FC] tracking-normal">
               Manipal University Jaipur
             </p>
           </div>
-
 
           {/* Action CTAs */}
           <div className="pt-2 flex flex-wrap items-center gap-3 font-mono text-xs">
             <a
               href="/events"
-              className="px-6 py-3.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold tracking-wider shadow-[0_4px_14px_rgba(2,132,199,0.3)] hover:shadow-[0_6px_20px_rgba(2,132,199,0.4)] transition-all cursor-pointer inline-block hover:-translate-y-0.5"
+              className="px-6 py-3.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold tracking-wider shadow-[0_4px_20px_rgba(2,132,199,0.5)] hover:shadow-[0_6px_25px_rgba(2,132,199,0.6)] transition-all cursor-pointer inline-block hover:-translate-y-0.5"
             >
               EXPLORE EVENTS &amp; HACKS
             </a>
 
             <a
               href="/newsletter"
-              className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-[#0F172A] border border-slate-200 font-bold tracking-wider transition-all cursor-pointer shadow-xs hover:border-[#0284C7] inline-block hover:-translate-y-0.5"
+              className="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold tracking-wider backdrop-blur-md transition-all cursor-pointer shadow-sm hover:border-[#38BDF8] inline-block hover:-translate-y-0.5"
             >
               READ OUR NEWSLETTER
             </a>
@@ -91,13 +90,13 @@ export const Hero: React.FC = () => {
 
       {/* Bottom Hero Status Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20">
-        <div className="pt-2 flex items-center justify-center sm:justify-end font-mono text-xs text-slate-600">
+        <div className="pt-2 flex items-center justify-center sm:justify-end font-mono text-xs text-slate-300">
           <a
             href="#events"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200 text-slate-700 hover:text-[#0284C7] font-bold transition-colors cursor-pointer shadow-xs"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 backdrop-blur-md border border-slate-700/80 text-slate-200 hover:text-[#38BDF8] font-bold transition-colors cursor-pointer shadow-sm"
           >
             <span>SCROLL TO DISCOVER</span>
-            <ArrowDown className="w-3.5 h-3.5 text-[#0284C7] animate-bounce" />
+            <ArrowDown className="w-3.5 h-3.5 text-[#38BDF8] animate-bounce" />
           </a>
         </div>
       </div>

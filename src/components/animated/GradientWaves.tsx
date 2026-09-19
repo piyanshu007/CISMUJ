@@ -32,7 +32,7 @@ export interface GradientWavesProps {
 
 const hexToRgb = (hex: string): [number, number, number] => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result) return [1, 1, 1];
+  if (!result) return [0, 0, 0];
   return [
     parseInt(result[1], 16) / 255,
     parseInt(result[2], 16) / 255,
@@ -146,15 +146,13 @@ void main() {
   vec3 body = mix(uWaveColor, uCrestColor, clamp(pos.z * 0.08 + 0.5, 0.0, 1.0));
   vec3 col = mix(uHorizonColor, body, t);
   col *= uBrightness;
-  col = clamp(col, 0.0, 1.0);
 
-  float alpha = clamp(t, 0.0, 1.0) * uOpacity;
   if (uGrain > 0.5) {
     float g = hash21(gl_FragCoord.xy + mod(iTime, 64.0) * 11.0);
-    alpha += (g - 0.5) * uGrainIntensity;
+    col += (g - 0.5) * uGrainIntensity;
   }
-  alpha = clamp(alpha, 0.0, 1.0);
-  fragColor = vec4(col * alpha, alpha);
+  col = clamp(col, 0.0, 1.0);
+  fragColor = vec4(col, uOpacity);
 }
 `;
 
@@ -166,9 +164,9 @@ type GradientWavesCtx = {
 const ctxMap = new WeakMap<HTMLDivElement, GradientWavesCtx>();
 
 export const GradientWaves: React.FC<GradientWavesProps> = ({
-  horizonColor = '#0284C7',
-  waveColor = '#38BDF8',
-  crestColor = '#FFFFFF',
+  horizonColor = '#020617',
+  waveColor = '#1E40AF',
+  crestColor = '#38BDF8',
   speed = 0.4,
   amplitude = 2.5,
   waveScale = 0.6,
@@ -200,7 +198,6 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
       renderer = new Renderer({
         webgl: 2,
         alpha: true,
-        premultipliedAlpha: true,
         antialias: false,
         dpr: Math.min(typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1, 2)
       });
@@ -215,6 +212,10 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
     canvas.style.width = '100%';
     canvas.style.height = '100%';
     canvas.style.display = 'block';
+    canvas.style.position = 'absolute';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.pointerEvents = 'none';
     container.appendChild(canvas);
 
     const initHorizon = hexToRgb(horizonColor);
@@ -273,7 +274,7 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
     const currentMouse: [number, number] = [0.5, 0.5];
     const targetMouse: [number, number] = [0.5, 0.5];
 
-    const onPointerMove = (e: MouseEvent | PointerEvent) => {
+    const onPointerMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       if (rect.width > 0 && rect.height > 0) {
         targetMouse[0] = (e.clientX - rect.left) / rect.width;
@@ -284,12 +285,10 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
       targetMouse[0] = 0.5;
       targetMouse[1] = 0.5;
     };
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
-    window.addEventListener('pointerleave', onPointerLeave);
+    window.addEventListener('mousemove', onPointerMove, { passive: true });
+    document.documentElement.addEventListener('mouseleave', onPointerLeave);
 
     let raf = 0;
-    let isVisible = true;
-    let isPageVisible = typeof document !== 'undefined' ? !document.hidden : true;
     const t0 = performance.now();
 
     const loop = (t: number) => {
@@ -305,42 +304,13 @@ export const GradientWaves: React.FC<GradientWavesProps> = ({
       raf = requestAnimationFrame(loop);
     };
 
-    const tryStart = () => {
-      if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop);
-    };
-    const tryStop = () => {
-      if (raf !== 0) {
-        cancelAnimationFrame(raf);
-        raf = 0;
-      }
-    };
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
-        if (isVisible) tryStart();
-        else tryStop();
-      },
-      { threshold: 0 }
-    );
-    io.observe(container);
-
-    const onVisibility = () => {
-      isPageVisible = !document.hidden;
-      if (isPageVisible) tryStart();
-      else tryStop();
-    };
-    document.addEventListener('visibilitychange', onVisibility);
-
-    tryStart();
+    raf = requestAnimationFrame(loop);
 
     return () => {
-      tryStop();
+      if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
-      io.disconnect();
-      document.removeEventListener('visibilitychange', onVisibility);
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerleave', onPointerLeave);
+      window.removeEventListener('mousemove', onPointerMove);
+      document.documentElement.removeEventListener('mouseleave', onPointerLeave);
       ctxMap.delete(container);
       try {
         if (container.contains(canvas)) {
