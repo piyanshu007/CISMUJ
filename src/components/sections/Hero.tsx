@@ -7,13 +7,10 @@ import { ArrowDown } from 'lucide-react';
 export const Hero: React.FC = () => {
   return (
     <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-transparent border-b border-slate-200 overflow-hidden select-none">
-      {/* 1. Full-Screen Interactive 3D Canvas Background */}
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden opacity-95 pointer-events-auto">
+      {/* 1. Full-Screen Interactive 3D Canvas */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden opacity-100 pointer-events-auto">
         <CisLogo3D />
       </div>
-
-      {/* Subtle edge blend overlay */}
-      <div className="absolute inset-0 pointer-events-none z-1 bg-gradient-to-b from-white/10 via-transparent to-white/60" />
 
       {/* Top Floating Control Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20 flex items-center justify-between pt-2 sm:pt-4 mb-1 sm:mb-2 pointer-events-none">

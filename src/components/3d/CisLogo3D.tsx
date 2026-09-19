@@ -28,7 +28,7 @@ export const CisLogo3D: React.FC = () => {
     const isMobile = width < 640;
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(0, 0, isDesktop ? 5.0 : isTablet ? 5.6 : 6.2);
+    camera.position.set(0, 0, isDesktop ? 4.8 : isTablet ? 5.2 : 5.0);
 
     // 3. Renderer with antialiasing and alpha
     const renderer = new THREE.WebGLRenderer({
@@ -39,28 +39,28 @@ export const CisLogo3D: React.FC = () => {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.35;
+    renderer.toneMappingExposure = 1.4;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
     // 4. Vibrant Lighting for Illuminated "Lit Up" Effect
-    const ambientLight = new THREE.AmbientLight(0xffffff, 3.0);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 3.2);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.8);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 3.0);
     keyLight.position.set(5, 6, 6);
     scene.add(keyLight);
 
-    const cyanPointLight = new THREE.PointLight(0x38bdf8, 3.5, 12);
-    cyanPointLight.position.set(0, 0, 1.5);
+    const cyanPointLight = new THREE.PointLight(0x38bdf8, 4.0, 14);
+    cyanPointLight.position.set(0, 0, 1.8);
     scene.add(cyanPointLight);
 
     // 5. Create 3D Logo Object Group
     const mainGroup = new THREE.Group();
-    const initialScale = isDesktop ? 1.22 : isTablet ? 0.95 : 0.54;
+    const initialScale = isDesktop ? 1.25 : isTablet ? 1.05 : 0.95;
     mainGroup.scale.set(initialScale, initialScale, initialScale);
-    const defaultOffsetX = isDesktop ? 1.35 : isTablet ? 0.85 : 0.32;
-    const defaultOffsetY = isMobile ? 0.65 : 0;
+    const defaultOffsetX = isDesktop ? 1.35 : isTablet ? 0.85 : 0.0;
+    const defaultOffsetY = isMobile ? 0.05 : 0;
     mainGroup.position.set(defaultOffsetX, defaultOffsetY, 0);
     scene.add(mainGroup);
 
@@ -196,9 +196,9 @@ export const CisLogo3D: React.FC = () => {
       const mobile = w < 640;
 
       camera.aspect = w / h;
-      camera.position.z = desktop ? 5.0 : tablet ? 5.6 : 6.2;
+      camera.position.z = desktop ? 4.8 : tablet ? 5.2 : 5.0;
 
-      const scale = desktop ? 1.22 : tablet ? 0.95 : 0.54;
+      const scale = desktop ? 1.25 : tablet ? 1.05 : 0.95;
       mainGroup.scale.set(scale, scale, scale);
 
       camera.updateProjectionMatrix();
@@ -243,8 +243,8 @@ export const CisLogo3D: React.FC = () => {
       const currentWidth = getWidth();
       const isDsk = currentWidth > 1024;
       const isTab = currentWidth >= 640 && currentWidth <= 1024;
-      const baseOffsetX = isDsk ? 1.35 : isTab ? 0.85 : 0.32;
-      const baseOffsetY = isDsk ? 0 : isTab ? 0.1 : 0.65;
+      const baseOffsetX = isDsk ? 1.35 : isTab ? 0.85 : 0.0;
+      const baseOffsetY = isDsk ? 0 : isTab ? 0.05 : 0.05;
 
       mainGroup.position.y = baseOffsetY + floatY;
       mainGroup.position.x = baseOffsetX + floatX;
