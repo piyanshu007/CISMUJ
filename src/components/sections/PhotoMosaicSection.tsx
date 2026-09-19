@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Camera, Move3d, ChevronLeft, ChevronRight, X, Sparkles } from 'lucide-react';
 
@@ -66,18 +66,36 @@ const GALLERY_PHOTOS: GalleryPhoto[] = [
 
 export const PhotoMosaicSection: React.FC = () => {
   const [activePhoto, setActivePhoto] = useState<GalleryPhoto | null>(null);
-  const [rotationY, setRotationY] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const startXRef = useRef(0);
-  const lastRotationRef = useRef(0);
-
-  const numPhotos = GALLERY_PHOTOS.length;
   const [radius, setRadius] = useState(340);
 
+  const cylinderRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const rotationRef = useRef<number>(0);
+  const isDraggingRef = useRef<boolean>(false);
+  const activePhotoRef = useRef<GalleryPhoto | null>(null);
+  const isVisibleRef = useRef<boolean>(true);
+
+  // Touch intent tracking to prevent scroll fighting on mobile
+  const touchStartPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const touchDragState = useRef<'undecided' | 'horizontal' | 'vertical'>('undecided');
+  const lastTouchRotation = useRef<number>(0);
+
+  // Mouse drag tracking
+  const mouseStartX = useRef<number>(0);
+  const mouseStartRotation = useRef<number>(0);
+
+  const numPhotos = GALLERY_PHOTOS.length;
+
+  // Sync activePhoto ref
+  useEffect(() => {
+    activePhotoRef.current = activePhoto;
+  }, [activePhoto]);
+
+  // Update 3D radius on resize
   useEffect(() => {
     const updateRadius = () => {
       if (window.innerWidth < 640) {
-        setRadius(Math.min(window.innerWidth * 0.4, 185));
+        setRadius(Math.min(window.innerWidth * 0.42, 190));
       } else if (window.innerWidth < 1024) {
         setRadius(280);
       } else {
@@ -89,52 +107,119 @@ export const PhotoMosaicSection: React.FC = () => {
     return () => window.removeEventListener('resize', updateRadius);
   }, []);
 
-  // Gentle auto-rotation when idle
-  useEffect(() => {
-    if (isDragging || activePhoto) return;
-    const interval = setInterval(() => {
-      setRotationY((prev) => prev - 0.22);
-    }, 30);
-    return () => clearInterval(interval);
-  }, [isDragging, activePhoto]);
+  // Update cylinder transform directly for 60fps GPU smoothness without React re-renders
+  const applyTransform = useCallback((isSmoothTransition = false) => {
+    if (!cylinderRef.current) return;
+    if (isSmoothTransition) {
+      cylinderRef.current.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+    } else {
+      cylinderRef.current.style.transition = 'none';
+    }
+    cylinderRef.current.style.transform = `rotateX(-1.5deg) rotateY(${rotationRef.current}deg)`;
+  }, []);
 
+  // IntersectionObserver to pause RAF loop when offscreen (saves mobile CPU/battery)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  // Butter-smooth RAF animation loop (Zero React state updates!)
+  useEffect(() => {
+    let animId: number;
+
+    const tick = () => {
+      if (!isDraggingRef.current && !activePhotoRef.current && isVisibleRef.current) {
+        rotationRef.current -= 0.16;
+        if (cylinderRef.current) {
+          cylinderRef.current.style.transition = 'none';
+          cylinderRef.current.style.transform = `rotateX(-1.5deg) rotateY(${rotationRef.current}deg)`;
+        }
+      }
+      animId = requestAnimationFrame(tick);
+    };
+
+    animId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
+  // Mouse drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    startXRef.current = e.clientX;
-    lastRotationRef.current = rotationY;
+    isDraggingRef.current = true;
+    mouseStartX.current = e.clientX;
+    mouseStartRotation.current = rotationRef.current;
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const deltaX = e.clientX - startXRef.current;
-    setRotationY(lastRotationRef.current + deltaX * 0.4);
+    if (!isDraggingRef.current) return;
+    const deltaX = e.clientX - mouseStartX.current;
+    rotationRef.current = mouseStartRotation.current + deltaX * 0.35;
+    applyTransform(false);
   };
 
   const handleMouseUp = () => {
-    setIsDragging(false);
+    isDraggingRef.current = false;
   };
 
+  // Touch handlers with intelligent intent detection (Fixes touch/scroll fighting!)
   const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    startXRef.current = e.touches[0].clientX;
-    lastRotationRef.current = rotationY;
+    touchStartPos.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    touchDragState.current = 'undecided';
+    lastTouchRotation.current = rotationRef.current;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    const deltaX = e.touches[0].clientX - startXRef.current;
-    setRotationY(lastRotationRef.current + deltaX * 0.4);
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+    const deltaX = currentX - touchStartPos.current.x;
+    const deltaY = currentY - touchStartPos.current.y;
+
+    // Detect gesture direction intent
+    if (touchDragState.current === 'undecided') {
+      if (Math.abs(deltaY) > 8 && Math.abs(deltaY) >= Math.abs(deltaX)) {
+        // User is scrolling vertically -> Do not interfere! Native scroll proceeds smoothly.
+        touchDragState.current = 'vertical';
+        isDraggingRef.current = false;
+        return;
+      } else if (Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        // User is intentionally dragging horizontally -> Lock to 3D carousel rotate
+        touchDragState.current = 'horizontal';
+        isDraggingRef.current = true;
+      }
+    }
+
+    if (touchDragState.current === 'horizontal') {
+      rotationRef.current = lastTouchRotation.current + deltaX * 0.35;
+      applyTransform(false);
+    }
   };
 
   const handleTouchEnd = () => {
-    setIsDragging(false);
+    isDraggingRef.current = false;
+    touchDragState.current = 'undecided';
   };
 
-  const rotateLeft = () => setRotationY((prev) => prev + 360 / numPhotos);
-  const rotateRight = () => setRotationY((prev) => prev - 360 / numPhotos);
+  const rotateLeft = () => {
+    rotationRef.current += 360 / numPhotos;
+    applyTransform(true);
+  };
+
+  const rotateRight = () => {
+    rotationRef.current -= 360 / numPhotos;
+    applyTransform(true);
+  };
 
   return (
-    <section className="relative w-full bg-white/95 backdrop-blur-xs pt-8 sm:pt-10 pb-12 sm:pb-16 overflow-hidden border-b border-slate-200 select-none">
+    <section ref={sectionRef} className="relative w-full bg-white/95 backdrop-blur-xs pt-8 sm:pt-10 pb-12 sm:pb-16 overflow-hidden border-b border-slate-200 select-none">
       {/* Background radial highlight & subtle coordinate lines */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-[#0284C7]/8 rounded-full blur-[140px] pointer-events-none" />
 
@@ -171,9 +256,9 @@ export const PhotoMosaicSection: React.FC = () => {
         </div>
       </div>
 
-      {/* 3D Perspective Cylindrical Ring Stage - Compact & Balanced */}
+      {/* 3D Perspective Cylindrical Ring Stage - Optimized Touch & GPU Acceleration */}
       <div
-        className="relative w-full max-w-6xl mx-auto h-[360px] sm:h-[440px] lg:h-[480px] flex items-center justify-center cursor-grab active:cursor-grabbing my-2"
+        className="relative w-full max-w-6xl mx-auto h-[340px] sm:h-[440px] lg:h-[480px] flex items-center justify-center cursor-grab active:cursor-grabbing my-2 touch-pan-y"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -187,11 +272,11 @@ export const PhotoMosaicSection: React.FC = () => {
 
         {/* 3D Carousel Cylinder */}
         <div
-          className="relative w-[180px] sm:w-[280px] lg:w-[300px] h-[240px] sm:h-[340px] lg:h-[360px]"
+          ref={cylinderRef}
+          className="relative w-[180px] sm:w-[280px] lg:w-[300px] h-[240px] sm:h-[340px] lg:h-[360px] will-change-transform"
           style={{
             transformStyle: 'preserve-3d',
-            transform: `rotateX(-1.5deg) rotateY(${rotationY}deg)`,
-            transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            transform: 'rotateX(-1.5deg) rotateY(0deg)',
           }}
         >
           {GALLERY_PHOTOS.map((photo, index) => {
@@ -204,7 +289,7 @@ export const PhotoMosaicSection: React.FC = () => {
                   e.stopPropagation();
                   setActivePhoto(photo);
                 }}
-                className="absolute inset-0 rounded-2xl bg-white p-3 border border-slate-200 hover:border-[#0284C7] shadow-[0_10px_28px_rgba(15,23,42,0.08)] hover:shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition-all duration-300 flex flex-col justify-between cursor-pointer group"
+                className="absolute inset-0 rounded-2xl bg-white p-3 border border-slate-200 hover:border-[#0284C7] shadow-[0_10px_28px_rgba(15,23,42,0.08)] hover:shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition-all duration-300 flex flex-col justify-between cursor-pointer group will-change-transform"
                 style={{
                   transformStyle: 'preserve-3d',
                   transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
@@ -216,6 +301,7 @@ export const PhotoMosaicSection: React.FC = () => {
                   <img
                     src={photo.image}
                     alt={photo.title}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {/* Subtle top chip */}
@@ -254,34 +340,34 @@ export const PhotoMosaicSection: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-3xl rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-2xl space-y-5"
+              className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 relative"
             >
-              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-                <span className="font-mono text-xs font-bold text-[#0284C7] uppercase tracking-wider block">
-                  {activePhoto.category}
-                </span>
-                <button
-                  onClick={() => setActivePhoto(null)}
-                  className="p-2 rounded-xl bg-slate-100 text-slate-700 hover:text-black hover:bg-slate-200 transition-colors cursor-pointer"
-                  aria-label="Close modal"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+              <button
+                onClick={() => setActivePhoto(null)}
+                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white transition-colors cursor-pointer"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-slate-200 shadow-md">
+              <div className="relative aspect-video w-full bg-slate-100">
                 <img
                   src={activePhoto.image}
                   alt={activePhoto.title}
                   className="w-full h-full object-cover"
                 />
+                <div className="absolute bottom-3 left-4">
+                  <span className="px-3 py-1 rounded-full bg-[#0284C7] text-white font-mono text-[10px] font-bold tracking-wider uppercase shadow-md">
+                    {activePhoto.category}
+                  </span>
+                </div>
               </div>
 
-              <div className="space-y-2">
-                <h3 className="font-display font-black text-2xl text-[#0F172A] uppercase">
+              <div className="p-6 space-y-2">
+                <h3 className="font-sans text-xl sm:text-2xl font-bold text-[#0F172A]">
                   {activePhoto.title}
                 </h3>
-                <p className="font-sans text-slate-700 text-base leading-relaxed">
+                <p className="font-sans text-slate-600 text-sm leading-relaxed">
                   {activePhoto.caption}
                 </p>
               </div>
