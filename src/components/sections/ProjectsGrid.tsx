@@ -81,16 +81,16 @@ export const ProjectsGrid: React.FC = () => {
             <filter id="waveBallGlow" x="-50%" y="-50%" width="200%" height="200%">
               <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#0284C7" floodOpacity="0.75" />
             </filter>
-            {/* Natural wave path sweeping along the lower background behind the artwork */}
+            {/* Natural wave path sweeping across hero behind the artwork */}
             <path
               id="mainWaveTravelPath"
-              d="M -40,355 C 240,365 420,330 640,365 C 860,400 1060,395 1240,375 C 1360,360 1420,350 1480,345"
+              d="M -40,300 C 220,310 380,260 600,280 C 820,300 960,200 1160,220 C 1280,240 1380,260 1480,270"
             />
           </defs>
 
           {/* Visible Single Solid Wave Path (Background Layer) */}
           <path
-            d="M 40,355 C 240,365 420,330 640,365 C 860,400 1060,395 1240,375 C 1360,360 1420,350 1460,345"
+            d="M 40,300 C 220,310 380,260 600,280 C 820,300 960,200 1160,220 C 1280,240 1380,260 1460,270"
             stroke="#0284C7"
             strokeWidth="1.4"
             strokeOpacity="0.45"
@@ -196,6 +196,15 @@ export const ProjectsGrid: React.FC = () => {
               }}
               className="relative w-full max-w-[560px] sm:max-w-[700px] lg:max-w-[820px] aspect-[16/10] flex items-center justify-center select-none"
             >
+              {/* Soft White Depth Shield to push background wave visually behind ribbon artwork */}
+              <div
+                className="absolute w-[82%] h-[78%] rounded-full pointer-events-none blur-xl"
+                style={{
+                  background:
+                    'radial-gradient(circle at center, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.7) 45%, rgba(255,255,255,0) 75%)',
+                }}
+              />
+
               {/* Soft Ambient Ethereal Aura Glow */}
               <div className="absolute w-52 h-52 sm:w-88 sm:h-88 rounded-full bg-gradient-to-tr from-sky-400/25 via-[#0284C7]/20 to-transparent blur-3xl pointer-events-none" />
 
@@ -214,7 +223,8 @@ export const ProjectsGrid: React.FC = () => {
                   transition={{ duration: 0.8, delay: 0.15 }}
                   className="relative flex items-center justify-center -translate-x-[4%] -translate-y-[2%]"
                 >
-                  {/* Soft emblem back aura */}
+                  {/* Soft emblem back aura & solidifying layer */}
+                  <div className="absolute w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full bg-white/80 blur-md pointer-events-none" />
                   <div className="absolute w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full bg-[#0284C7]/20 blur-xl pointer-events-none" />
 
                   {/* Logo Emblem centered inside the open orbital loop */}
