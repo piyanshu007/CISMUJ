@@ -2,34 +2,14 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS, ProjectCaseStudy } from '@/data/projects';
 import { ArrowRight, X, Layers, Cpu, Activity, Zap, CheckCircle2 } from 'lucide-react';
+import { ProjectsHypercube3D } from '@/components/3d/ProjectsHypercube3D';
 
 export const ProjectsGrid: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
   const [showAllModal, setShowAllModal] = useState<boolean>(false);
-
-  // 3D Parallax Mouse Tracking for Hero Visual
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { stiffness: 120, damping: 20 });
-  const smoothY = useSpring(mouseY, { stiffness: 120, damping: 20 });
-  const rotateX = useTransform(smoothY, [-0.5, 0.5], ['7deg', '-7deg']);
-  const rotateY = useTransform(smoothX, [-0.5, 0.5], ['-8deg', '8deg']);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
 
   // Map the 3 primary showcase projects from our real club portfolio
   const displayProjects = [
@@ -79,9 +59,9 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-16 sm:pt-28 pb-3 sm:pb-6 relative z-10">
         
-        {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres (Passing OVER image) */}
+        {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres in background */}
         <svg
-          className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible"
+          className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible opacity-50"
           viewBox="0 0 1400 320"
           fill="none"
           preserveAspectRatio="none"
@@ -118,14 +98,14 @@ export const ProjectsGrid: React.FC = () => {
             d="M 40,240 C 240,240 380,170 580,210 C 780,250 920,130 1120,160 C 1240,180 1340,220 1460,230"
             stroke="#0284C7"
             strokeWidth="1.2"
-            strokeOpacity="0.4"
+            strokeOpacity="0.35"
           />
           <path
             d="M 60,270 C 280,280 480,200 700,240 C 920,280 1060,170 1340,220"
             stroke="#38BDF8"
             strokeWidth="0.8"
             strokeDasharray="4 4"
-            strokeOpacity="0.3"
+            strokeOpacity="0.25"
           />
 
           {/* Cyan Marker Dots along the wave paths */}
@@ -230,133 +210,9 @@ export const ProjectsGrid: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: 3D Translucent Glass Panes & Hypercube Visual with Interactive Parallax & Animation */}
-          <div
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ perspective: 1200 }}
-            className="lg:col-span-7 relative flex items-center justify-center min-h-0 sm:min-h-[220px] lg:min-h-[300px] cursor-pointer my-1 sm:my-0"
-          >
-            {/* 3D Floating Motion Container with Interactive Tilt */}
-            <motion.div
-              style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-              animate={{
-                y: [-5, 5, -5],
-                rotateZ: [-0.5, 0.5, -0.5],
-              }}
-              transition={{
-                duration: 6.5,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="relative w-full max-w-[240px] sm:max-w-[480px] lg:max-w-[740px] flex items-center justify-center select-none"
-            >
-              {/* Breathing Ambient Holographic Aura Behind Artwork */}
-              <motion.div
-                animate={{
-                  scale: [0.92, 1.1, 0.92],
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  duration: 4.5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 sm:w-88 sm:h-88 bg-gradient-to-tr from-[#0284C7]/25 via-sky-400/20 to-transparent rounded-full blur-2xl sm:blur-3xl pointer-events-none"
-              />
-
-              {/* Exact 3D Glass Artwork */}
-              <img
-                src="/projects-hero-cube.png"
-                alt="3D Translucent Glass Panes with Neural Hypercube"
-                className="w-full h-auto object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_14px_34px_rgba(2,132,199,0.12)] max-h-[140px] sm:max-h-none"
-              />
-
-              {/* Glowing Neural Vertex Sparkle Beacons */}
-              {/* Center Node Beacon */}
-              <div className="absolute left-[50.2%] top-[41.5%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-                <motion.div
-                  animate={{
-                    scale: [1, 2.2, 1],
-                    opacity: [0.8, 0, 0.8],
-                  }}
-                  transition={{
-                    duration: 2.6,
-                    repeat: Infinity,
-                    ease: 'easeOut',
-                  }}
-                  className="w-4 h-4 rounded-full border border-sky-400 bg-sky-300/30"
-                />
-                <div className="absolute inset-0 m-auto w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_#38bdf8]" />
-              </div>
-
-              {/* Top Node Beacon */}
-              <div className="absolute left-[46.3%] top-[25.2%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-                <motion.div
-                  animate={{
-                    scale: [1, 2],
-                    opacity: [0.7, 0, 0.7],
-                  }}
-                  transition={{
-                    duration: 2.3,
-                    repeat: Infinity,
-                    delay: 0.7,
-                    ease: 'easeOut',
-                  }}
-                  className="w-3.5 h-3.5 rounded-full border border-cyan-400 bg-cyan-300/30"
-                />
-              </div>
-
-              {/* Right Node Beacon */}
-              <div className="absolute left-[55.5%] top-[30.2%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-                <motion.div
-                  animate={{
-                    scale: [1, 2],
-                    opacity: [0.7, 0, 0.7],
-                  }}
-                  transition={{
-                    duration: 2.8,
-                    repeat: Infinity,
-                    delay: 1.3,
-                    ease: 'easeOut',
-                  }}
-                  className="w-3.5 h-3.5 rounded-full border border-sky-400 bg-sky-300/30"
-                />
-              </div>
-
-              {/* Bottom Node Beacon */}
-              <div className="absolute left-[55.5%] top-[52.4%] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
-                <motion.div
-                  animate={{
-                    scale: [1, 2],
-                    opacity: [0.7, 0, 0.7],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    delay: 1.9,
-                    ease: 'easeOut',
-                  }}
-                  className="w-3.5 h-3.5 rounded-full border border-cyan-400 bg-cyan-300/30"
-                />
-              </div>
-
-              {/* Holographic Glass Specular Light Shimmer Sweep */}
-              <div className="absolute inset-0 overflow-hidden pointer-events-none z-15 rounded-3xl">
-                <motion.div
-                  animate={{
-                    x: ['-120%', '220%'],
-                  }}
-                  transition={{
-                    duration: 5.5,
-                    repeat: Infinity,
-                    repeatDelay: 3,
-                    ease: 'easeInOut',
-                  }}
-                  className="w-1/3 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -skew-x-25 filter blur-xs"
-                />
-              </div>
-            </motion.div>
+          {/* Right Column: 3D Interactive Glowing Glassmorphic Hypercube Visual */}
+          <div className="lg:col-span-7 relative flex items-center justify-center w-full min-h-[340px] sm:min-h-[440px] lg:min-h-[500px]">
+            <ProjectsHypercube3D className="w-full h-full" />
           </div>
         </div>
       </div>
