@@ -116,7 +116,6 @@ export const RetroStatsTerminal: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
               {STATS_DATA.map((item, idx) => {
                 const isActive = activeIndex === idx;
-                const IconComponent = item.icon;
 
                 return (
                   <motion.div
@@ -130,149 +129,163 @@ export const RetroStatsTerminal: React.FC = () => {
                     }`}
                   >
                     <div>
-                      {/* Card Header: Icon Box + Title + 3-Dots */}
-                      <div className="flex items-center justify-between mb-2.5">
-                        <div className="flex items-center gap-2.5">
-                          <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-colors ${
-                            isActive
-                              ? 'bg-[#0284C7] text-white'
-                              : 'bg-sky-50 border border-sky-200/60 text-[#0284C7] group-hover:bg-[#0284C7] group-hover:text-white'
-                          }`}>
-                            <IconComponent className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <h3 className="font-display font-bold text-xs sm:text-sm text-[#0F172A] tracking-tight group-hover:text-[#0284C7] transition-colors">
-                              {item.title}
-                            </h3>
-                          </div>
-                        </div>
-
-                        <div className="text-slate-300 group-hover:text-[#0284C7] transition-colors p-1">
-                          <MoreVertical className="w-3.5 h-3.5" />
-                        </div>
-                      </div>
-
-                      {/* Subtext description */}
-                      <p className="font-sans text-[11px] text-slate-500 leading-relaxed line-clamp-2 mb-3">
-                        {item.subtext}
-                      </p>
-
-                      {/* Large Metric & Growth Chip */}
-                      <div className="flex items-center gap-2.5 my-1">
-                        <span className="text-2xl sm:text-3xl lg:text-4xl font-display font-black text-[#0F172A] tracking-tight">
-                          {item.metric}
+                      {/* Top Metric Header & Growth Chip (Clean, No bulky icons or 3-dots) */}
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-mono text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-[#0284C7] transition-colors">
+                          {item.title}
                         </span>
                         <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-600 border border-emerald-200/60 shadow-2xs">
                           <TrendingUp className="w-3 h-3 text-emerald-600" />
                           <span>{item.growth}</span>
                         </span>
                       </div>
+
+                      {/* Large Bold Metric Number */}
+                      <div className="text-3xl sm:text-4xl font-display font-black text-[#0F172A] tracking-tight">
+                        {item.metric}
+                      </div>
                     </div>
 
-                    {/* Bottom Visual Modules (Matching Reference Style in CIS Blue) */}
+                    {/* Prominent High-Impact Data Graphs */}
                     {item.type === 'matrix' && (
-                      <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-slate-100">
-                        <div className="p-2.5 rounded-xl bg-gradient-to-br from-sky-500 to-[#0284C7] text-white shadow-2xs">
-                          <div className="grid grid-cols-5 gap-1 w-fit mb-1.5">
-                            {Array.from({ length: 15 }).map((_, i) => (
-                              <span
-                                key={i}
-                                className={`w-1.5 h-1.5 rounded-full ${
-                                  i < 12 ? 'bg-white' : 'bg-white/30'
-                                }`}
-                              />
-                            ))}
-                          </div>
-                          <span className="text-[9px] font-mono block opacity-90 leading-tight">Undergrad Cohort</span>
-                          <span className="text-[10px] font-bold font-mono">↗ +22% vs term</span>
+                      <div className="mt-3 pt-2">
+                        {/* Area Trend Graph */}
+                        <div className="w-full h-16 relative">
+                          <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" preserveAspectRatio="none">
+                            <defs>
+                              <linearGradient id="memberAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#0284C7" stopOpacity="0.4" />
+                                <stop offset="100%" stopColor="#0284C7" stopOpacity="0.0" />
+                              </linearGradient>
+                            </defs>
+                            {/* Gridlines */}
+                            <line x1="0" y1="15" x2="200" y2="15" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
+                            <line x1="0" y1="35" x2="200" y2="35" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
+                            {/* Area Fill */}
+                            <path
+                              d="M 0,55 C 30,50 50,38 80,32 C 110,26 135,34 160,18 C 180,8 190,10 200,4 L 200,60 L 0,60 Z"
+                              fill="url(#memberAreaGrad)"
+                            />
+                            {/* Main Stroke */}
+                            <path
+                              d="M 0,55 C 30,50 50,38 80,32 C 110,26 135,34 160,18 C 180,8 190,10 200,4"
+                              stroke="#0284C7"
+                              strokeWidth="2.2"
+                              fill="none"
+                              strokeLinecap="round"
+                            />
+                            {/* Data points */}
+                            <circle cx="80" cy="32" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+                            <circle cx="160" cy="18" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+                            <circle cx="200" cy="4" r="3.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2" />
+                          </svg>
                         </div>
-
-                        <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 text-slate-700 flex flex-col justify-between">
-                          <div>
-                            <span className="text-[9px] font-mono text-slate-400 block uppercase">Postgraduate</span>
-                            <span className="text-xs font-display font-black text-[#0F172A]">18% Research</span>
-                          </div>
-                          <span className="text-[10px] font-mono font-semibold text-emerald-600">↗ +8% YoY</span>
+                        <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 mt-1">
+                          <span>Q1</span>
+                          <span>Q2</span>
+                          <span>Q3</span>
+                          <span>Q4</span>
+                          <span className="text-[#0284C7] font-bold">2026</span>
                         </div>
                       </div>
                     )}
 
                     {item.type === 'avatars' && (
-                      <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                        <div className="flex items-center -space-x-2">
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-sky-600 to-sky-400 text-white font-mono text-[9px] font-bold flex items-center justify-center ring-2 ring-white shadow-xs">
-                            AI
-                          </div>
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-600 to-indigo-400 text-white font-mono text-[9px] font-bold flex items-center justify-center ring-2 ring-white shadow-xs">
-                            IEEE
-                          </div>
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-slate-800 to-slate-600 text-white font-mono text-[9px] font-bold flex items-center justify-center ring-2 ring-white shadow-xs">
-                            ROV
-                          </div>
-                          <div className="w-7 h-7 rounded-full bg-[#0284C7] text-white font-mono text-[9px] font-bold flex items-center justify-center ring-2 ring-white shadow-xs">
-                            +7
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-[11px] font-mono font-bold text-[#0F172A] block leading-tight">10+ Active Fellows</span>
-                          <span className="text-[10px] font-mono text-emerald-600 font-semibold">+18% mentor hours</span>
+                      <div className="mt-3 pt-2">
+                        {/* Multi-Bar Domain Distribution Graph */}
+                        <div className="h-16 flex items-end justify-between gap-2 px-1">
+                          {[
+                            { label: 'AI', height: '65%', val: '65' },
+                            { label: 'ML', height: '90%', val: '90' },
+                            { label: 'ROV', height: '75%', val: '75' },
+                            { label: 'GNN', height: '85%', val: '85' },
+                            { label: 'LLM', height: '100%', val: '100' },
+                            { label: 'BIO', height: '70%', val: '70' },
+                          ].map((bar, bIdx) => (
+                            <div key={bIdx} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+                              <div className="w-full bg-slate-100 rounded-t-md h-full relative flex items-end overflow-hidden">
+                                <motion.div
+                                  initial={{ height: 0 }}
+                                  whileInView={{ height: bar.height }}
+                                  viewport={{ once: true }}
+                                  transition={{ duration: 0.6, delay: bIdx * 0.08 }}
+                                  className={`w-full rounded-t-md ${
+                                    bIdx === 4
+                                      ? 'bg-gradient-to-t from-[#0284C7] to-sky-400'
+                                      : 'bg-gradient-to-t from-sky-400/80 to-sky-300'
+                                  }`}
+                                />
+                              </div>
+                              <span className="text-[8px] font-mono text-slate-500 font-bold">{bar.label}</span>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )}
 
                     {item.type === 'sparkline' && (
-                      <div className="mt-3 pt-3 border-t border-slate-100 flex items-end justify-between gap-3">
-                        <div>
-                          <span className="text-[10px] font-mono font-bold text-[#0284C7] bg-sky-50 px-2 py-0.5 rounded-full border border-sky-100 inline-block mb-1">
-                            36H Sprints ↗
-                          </span>
-                          <span className="text-[10px] font-mono text-slate-500 block">100% Run Rate</span>
-                        </div>
-                        <div className="w-24 h-9 relative">
-                          <svg className="w-full h-full overflow-visible" viewBox="0 0 100 36" fill="none">
+                      <div className="mt-3 pt-2">
+                        {/* Dual Velocity Wave Graph */}
+                        <div className="w-full h-16 relative">
+                          <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" preserveAspectRatio="none">
                             <defs>
-                              <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#0284C7" stopOpacity="0.35" />
-                                <stop offset="100%" stopColor="#0284C7" stopOpacity="0.0" />
+                              <linearGradient id="sprintAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.35" />
+                                <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.0" />
                               </linearGradient>
                             </defs>
+                            <line x1="0" y1="20" x2="200" y2="20" stroke="#E2E8F0" strokeWidth="0.75" strokeDasharray="3 3" />
                             <path
-                              d="M 0,30 Q 20,28 35,16 T 70,12 T 100,4 L 100,36 L 0,36 Z"
-                              fill="url(#sparkGrad)"
+                              d="M 0,48 Q 40,46 70,26 T 130,22 T 200,6 L 200,60 L 0,60 Z"
+                              fill="url(#sprintAreaGrad)"
                             />
                             <path
-                              d="M 0,30 Q 20,28 35,16 T 70,12 T 100,4"
+                              d="M 0,48 Q 40,46 70,26 T 130,22 T 200,6"
                               stroke="#0284C7"
-                              strokeWidth="2"
+                              strokeWidth="2.2"
+                              fill="none"
                               strokeLinecap="round"
                             />
-                            <circle cx="35" cy="16" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-                            <circle cx="70" cy="12" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
-                            <circle cx="100" cy="4" r="3" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+                            <circle cx="70" cy="26" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+                            <circle cx="130" cy="22" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+                            <circle cx="200" cy="6" r="3.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="2" />
                           </svg>
+                        </div>
+                        <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 mt-1">
+                          <span>36H Spr.</span>
+                          <span>Hacks</span>
+                          <span>CTF Runs</span>
+                          <span className="text-[#0284C7] font-bold">100% Rate</span>
                         </div>
                       </div>
                     )}
 
                     {item.type === 'progress' && (
-                      <div className="mt-3 pt-3 border-t border-slate-100 space-y-2">
+                      <div className="mt-3 pt-2 space-y-2">
+                        {/* Domain Progress Bars with Percentages */}
                         <div>
                           <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-                            <span className="text-slate-600 font-medium">Vision &amp; LLMs</span>
+                            <span className="text-slate-600 font-semibold">Vision &amp; LLMs</span>
                             <span className="text-[#0284C7] font-bold">88%</span>
                           </div>
-                          <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                             <div className="h-full bg-gradient-to-r from-sky-400 to-[#0284C7] rounded-full w-[88%]" />
                           </div>
                         </div>
+
                         <div>
                           <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-                            <span className="text-slate-600 font-medium">Swarm &amp; Robotics</span>
+                            <span className="text-slate-600 font-semibold">Swarm &amp; Robotics</span>
                             <span className="text-[#0284C7] font-bold">74%</span>
                           </div>
-                          <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                             <div className="h-full bg-gradient-to-r from-sky-400 to-[#0284C7] rounded-full w-[74%]" />
                           </div>
+                        </div>
+
+                        <div className="flex items-center justify-between text-[9px] font-mono text-slate-400 pt-0.5">
+                          <span>Active Repos</span>
+                          <span className="text-emerald-600 font-bold">● Production Ready</span>
                         </div>
                       </div>
                     )}
@@ -357,8 +370,34 @@ export const RetroStatsTerminal: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="p-2.5 rounded-xl bg-black/50 border border-slate-800 text-[11px] font-sans text-slate-300 leading-snug text-center">
-                        {activeStat.subtext}
+                      <div className="p-3 rounded-xl bg-black/60 border border-slate-800 space-y-2">
+                        <div className="flex items-center justify-between text-[9px] font-mono text-slate-400">
+                          <span>LIVE TRAJECTORY</span>
+                          <span className="text-emerald-400 font-bold">{activeStat.growth}</span>
+                        </div>
+                        <div className="w-full h-10 relative">
+                          <svg className="w-full h-full overflow-visible" viewBox="0 0 160 40" preserveAspectRatio="none">
+                            <defs>
+                              <linearGradient id="phoneGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#0284C7" stopOpacity="0.5" />
+                                <stop offset="100%" stopColor="#0284C7" stopOpacity="0.0" />
+                              </linearGradient>
+                            </defs>
+                            <path
+                              d="M 0,35 Q 30,30 60,18 T 110,14 T 160,4 L 160,40 L 0,40 Z"
+                              fill="url(#phoneGrad)"
+                            />
+                            <path
+                              d="M 0,35 Q 30,30 60,18 T 110,14 T 160,4"
+                              stroke="#38BDF8"
+                              strokeWidth="2"
+                              fill="none"
+                              strokeLinecap="round"
+                            />
+                            <circle cx="160" cy="4" r="3" fill="#38BDF8" className="animate-ping" />
+                            <circle cx="160" cy="4" r="2.5" fill="#FFFFFF" />
+                          </svg>
+                        </div>
                       </div>
                     </motion.div>
                   </AnimatePresence>

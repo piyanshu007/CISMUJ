@@ -114,17 +114,12 @@ export const CisMujChapter: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full md:w-auto shrink-0">
-            {/* Bento Card 1: Students Engaged */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/90 border border-slate-200/80 shadow-2xs flex flex-col justify-between space-y-3 min-w-[190px]">
+            {/* Bento Card 1: Students Engaged with Area Graph */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/90 border border-slate-200/80 shadow-2xs flex flex-col justify-between space-y-2 min-w-[190px]">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-lg bg-sky-100 text-[#0284C7] flex items-center justify-center">
-                    <Users className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                    COMMUNITY
-                  </span>
-                </div>
+                <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                  STUDENTS ENGAGED
+                </span>
                 <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-50 text-emerald-600 border border-emerald-200/60">
                   <TrendingUp className="w-2.5 h-2.5" />
                   +40%
@@ -132,69 +127,80 @@ export const CisMujChapter: React.FC = () => {
               </div>
 
               <div>
-                <div className="text-2xl sm:text-3xl font-display font-black text-[#0F172A] tracking-tight">
+                <div className="text-3xl font-display font-black text-[#0F172A] tracking-tight">
                   500+
-                </div>
-                <div className="text-[11px] font-sans font-medium text-slate-600">
-                  Students Engaged
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between">
-                <div className="flex items-center -space-x-1.5">
-                  <span className="w-5 h-5 rounded-full bg-sky-500 text-white font-mono text-[8px] font-bold flex items-center justify-center ring-1 ring-white">
-                    AI
-                  </span>
-                  <span className="w-5 h-5 rounded-full bg-indigo-500 text-white font-mono text-[8px] font-bold flex items-center justify-center ring-1 ring-white">
-                    ML
-                  </span>
-                  <span className="w-5 h-5 rounded-full bg-[#0284C7] text-white font-mono text-[8px] font-bold flex items-center justify-center ring-1 ring-white">
-                    +15
-                  </span>
+              {/* Area Growth Graph */}
+              <div className="pt-2 border-t border-slate-200/60">
+                <div className="w-full h-11 relative">
+                  <svg className="w-full h-full overflow-visible" viewBox="0 0 120 36" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="studGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#0284C7" stopOpacity="0.35" />
+                        <stop offset="100%" stopColor="#0284C7" stopOpacity="0.0" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M 0,30 Q 30,26 60,16 T 120,4 L 120,36 L 0,36 Z"
+                      fill="url(#studGrad)"
+                    />
+                    <path
+                      d="M 0,30 Q 30,26 60,16 T 120,4"
+                      stroke="#0284C7"
+                      strokeWidth="2"
+                      fill="none"
+                      strokeLinecap="round"
+                    />
+                    <circle cx="60" cy="16" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+                    <circle cx="120" cy="4" r="3" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1.5" />
+                  </svg>
                 </div>
-                <span className="font-mono text-[9px] text-[#0284C7] font-semibold">Active Cohort</span>
+                <div className="flex items-center justify-between text-[8px] font-mono text-slate-400 mt-1">
+                  <span>Growth Velocity</span>
+                  <span className="text-[#0284C7] font-bold">● Active</span>
+                </div>
               </div>
             </div>
 
-            {/* Bento Card 2: Research Driven */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-sky-50/70 border border-sky-200/80 shadow-2xs flex flex-col justify-between space-y-3 min-w-[190px]">
+            {/* Bento Card 2: Research Driven with Velocity Graph */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-sky-50/70 border border-sky-200/80 shadow-2xs flex flex-col justify-between space-y-2 min-w-[190px]">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-lg bg-[#0284C7] text-white flex items-center justify-center shadow-2xs">
-                    <Sparkles className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="font-mono text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">
-                    PEER-REVIEWED
-                  </span>
-                </div>
+                <span className="font-mono text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">
+                  RESEARCH DRIVEN
+                </span>
                 <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-white text-[#0284C7] border border-sky-200 shadow-2xs">
                   4 Preprints
                 </span>
               </div>
 
               <div>
-                <div className="text-2xl sm:text-3xl font-display font-black text-[#0284C7] tracking-tight">
+                <div className="text-3xl font-display font-black text-[#0284C7] tracking-tight">
                   100%
-                </div>
-                <div className="text-[11px] font-sans font-medium text-slate-700">
-                  Research Driven
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-sky-200/60 flex items-center justify-between">
-                <div className="w-20 h-4 relative">
-                  <svg className="w-full h-full overflow-visible" viewBox="0 0 80 20" fill="none">
-                    <path
-                      d="M 0,16 Q 20,15 35,8 T 60,7 T 80,2"
-                      stroke="#0284C7"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                    />
-                    <circle cx="35" cy="8" r="2" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1" />
-                    <circle cx="80" cy="2" r="2.5" fill="#0284C7" stroke="#FFFFFF" strokeWidth="1" />
-                  </svg>
+              {/* Research Multi-Bar Distribution Graph */}
+              <div className="pt-2 border-t border-sky-200/60">
+                <div className="h-11 flex items-end justify-between gap-1.5 px-0.5">
+                  {[
+                    { label: 'GNN', h: '75%' },
+                    { label: 'FUZZY', h: '90%' },
+                    { label: 'ROV', h: '80%' },
+                    { label: 'LLM', h: '100%' },
+                  ].map((b, i) => (
+                    <div key={i} className="flex-1 flex flex-col items-center gap-0.5 h-full justify-end">
+                      <div className="w-full bg-sky-100 rounded-t-xs h-full relative flex items-end overflow-hidden">
+                        <div
+                          style={{ height: b.h }}
+                          className="w-full bg-gradient-to-t from-[#0284C7] to-sky-400 rounded-t-xs"
+                        />
+                      </div>
+                      <span className="text-[7px] font-mono text-slate-500 font-bold">{b.label}</span>
+                    </div>
+                  ))}
                 </div>
-                <span className="font-mono text-[9px] text-[#0284C7] font-semibold">GNN &amp; Fuzzy</span>
               </div>
             </div>
           </div>
