@@ -1,0 +1,49 @@
+name: 🐛 Bug Report
+description: Report a broken UI element, WebGL shader error, or functional bug
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the **IEEE CIS MUJ** platform! Please fill out the details below.
+  - type: input
+    id: url
+    attributes:
+      label: Affected Route / URL
+      description: Where does this bug occur?
+      placeholder: e.g. /gallery, /events, /about
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear description of what the bug is.
+      placeholder: Describe the unexpected behavior...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step instructions to reproduce the issue.
+      value: |
+        1. Navigate to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Device & Browser Environment
+      options:
+        - Chrome / Chromium (Desktop)
+        - Safari (macOS / iOS)
+        - Firefox (Desktop)
+        - Edge (Desktop)
+        - Mobile Browser (Android / iOS)
+    validations:
+      required: true

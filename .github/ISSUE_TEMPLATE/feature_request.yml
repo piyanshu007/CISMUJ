@@ -1,0 +1,33 @@
+name: 🚀 Feature / Track Proposal
+description: Propose a new interactive feature, research track, or chapter module
+title: "[FEATURE]: "
+labels: ["enhancement", "proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea for the **IEEE CIS MUJ** website or student chapter platform? We'd love to hear it!
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Motivation
+      description: What problem does this solve or what opportunity does it unlock?
+      placeholder: e.g., Students need an interactive neural network layer visualizer for the workshop page...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe your proposed feature, visual design, or architecture.
+      placeholder: Detailed description of the feature...
+    validations:
+      required: true
+  - type: textarea
+    id: technical-context
+    attributes:
+      label: Technical & Framework Context
+      description: List any relevant libraries, shaders, datasets, or APIs involved.
+      placeholder: e.g., WebGL, Framer Motion, Next.js App Router, IEEE vTools API
+    validations:
+      required: false

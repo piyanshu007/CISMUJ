@@ -38,6 +38,33 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: 'IEEE Computational Intelligence Society Student Branch Chapter - Manipal University Jaipur',
+  alternateName: ['IEEE CIS MUJ', 'CIS MUJ', 'IEEE CIS Student Chapter #6248'],
+  url: 'https://cis.ieeemuj.com',
+  logo: 'https://cis.ieeemuj.com/logo-mark.png',
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'IEEE Computational Intelligence Society',
+    url: 'https://cis.ieee.org',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Dehmi Kalan, Jaipur-Ajmer Expressway',
+    addressLocality: 'Jaipur',
+    addressRegion: 'Rajasthan',
+    postalCode: '303007',
+    addressCountry: 'IN',
+  },
+  sameAs: [
+    'https://www.instagram.com/ieee.cismuj/',
+    'https://github.com/piyanshu007/CISMUJ',
+    'https://cis.ieee.org',
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -45,6 +72,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="light scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="bg-white text-slate-900 antialiased selection:bg-[#0284C7] selection:text-white relative">
         <WebsiteEntryAnimation />
         <GlobalSynapseMesh />

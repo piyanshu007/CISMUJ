@@ -248,9 +248,9 @@ export const PhotoMosaicSection: React.FC = () => {
               3D INTERACTIVE ARCHIVE
             </span>
           </div>
-          <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] tracking-tight">
+          <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] tracking-tight">
             Moments in Motion
-          </h2>
+          </h1>
         </div>
 
         {/* Interactive 3D Controls */}
@@ -299,7 +299,7 @@ export const PhotoMosaicSection: React.FC = () => {
             const angle = (index / numPhotos) * 360;
 
             return (
-              <div
+              <article
                 key={photo.id}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -330,15 +330,15 @@ export const PhotoMosaicSection: React.FC = () => {
 
                 {/* Photo Metadata Footer */}
                 <div className="pt-2 px-1 pb-0.5 space-y-0.5">
-                  <h4 className="font-sans font-bold text-xs sm:text-sm text-[#0F172A] uppercase leading-tight group-hover:text-[#0284C7] transition-colors line-clamp-1">
+                  <h3 className="font-sans font-bold text-xs sm:text-sm text-[#0F172A] uppercase leading-tight group-hover:text-[#0284C7] transition-colors line-clamp-1">
                     {photo.title}
-                  </h4>
+                  </h3>
                   <p className="font-mono text-[10px] text-[#0284C7] font-bold tracking-wider flex items-center gap-1">
                     <span>CLICK TO EXPAND</span>
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </p>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
