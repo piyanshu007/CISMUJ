@@ -58,9 +58,9 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-16 sm:pt-28 pb-3 sm:pb-6 relative z-10">
 
-        {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres */}
+        {/* Sweeping Blue Wave Line with Travelling Glossy Spheres (Flowing in background behind the image) */}
         <svg
-          className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
+          className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
           viewBox="0 0 1440 460"
           fill="none"
           preserveAspectRatio="none"
@@ -141,10 +141,10 @@ export const ProjectsGrid: React.FC = () => {
           </g>
         </svg>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 items-center relative z-20">
 
           {/* Left Column: Eyebrow, Large "Projects" Title, Subtitle, CTA */}
-          <div className="lg:col-span-5 space-y-2.5 sm:space-y-4 z-10">
+          <div className="lg:col-span-5 space-y-2.5 sm:space-y-4 relative z-20">
 
             {/* Eyebrow: —— OUR WORK —— */}
             <motion.div
@@ -202,7 +202,7 @@ export const ProjectsGrid: React.FC = () => {
           </div>
 
           {/* Right Column: Exact Untouched Image with Centered CIS Logo in Code */}
-          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[480px]">
+          <div className="lg:col-span-7 relative z-20 flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[480px]">
             <motion.div
               animate={{
                 y: [-6, 6, -6],
