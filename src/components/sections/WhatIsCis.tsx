@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { CyberBrainVisual } from '@/components/animated/CyberBrainVisual';
 
 export const WhatIsCis: React.FC = () => {
   return (
@@ -210,21 +211,16 @@ export const WhatIsCis: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             
-            {/* Left Column: Neural Synapse Graphic Card */}
+            {/* Left Column: Cyber Brain Glowing Neural Visual Card */}
             <div className="lg:col-span-3">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-50 border border-slate-200/80 shadow-xs group"
+                className="w-full flex items-center justify-center"
               >
-                <img
-                  src="/neural-focus.jpg"
-                  alt="Neural Synapse Network"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#0284C7]/10 via-transparent to-transparent pointer-events-none" />
+                <CyberBrainVisual />
               </motion.div>
             </div>
 
