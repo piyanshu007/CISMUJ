@@ -129,14 +129,10 @@ export const RetroStatsTerminal: React.FC = () => {
                     }`}
                   >
                     <div>
-                      {/* Top Metric Header & Growth Chip (Clean, No bulky icons or 3-dots) */}
-                      <div className="flex items-center justify-between mb-1">
+                      {/* Top Metric Header (Clean, No pill badges) */}
+                      <div className="mb-1">
                         <span className="font-mono text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-[#0284C7] transition-colors">
                           {item.title}
-                        </span>
-                        <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-600 border border-emerald-200/60 shadow-2xs">
-                          <TrendingUp className="w-3 h-3 text-emerald-600" />
-                          <span>{item.growth}</span>
                         </span>
                       </div>
 

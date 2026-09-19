@@ -116,13 +116,9 @@ export const CisMujChapter: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full md:w-auto shrink-0">
             {/* Bento Card 1: Students Engaged with Area Graph */}
             <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/90 border border-slate-200/80 shadow-2xs flex flex-col justify-between space-y-2 min-w-[190px]">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+              <div>
+                <span className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-0.5">
                   STUDENTS ENGAGED
-                </span>
-                <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-50 text-emerald-600 border border-emerald-200/60">
-                  <TrendingUp className="w-2.5 h-2.5" />
-                  +40%
                 </span>
               </div>
 
@@ -166,12 +162,9 @@ export const CisMujChapter: React.FC = () => {
 
             {/* Bento Card 2: Research Driven with Velocity Graph */}
             <div className="p-4 sm:p-5 rounded-2xl bg-sky-50/70 border border-sky-200/80 shadow-2xs flex flex-col justify-between space-y-2 min-w-[190px]">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] font-bold text-[#0284C7] uppercase tracking-wider">
+              <div>
+                <span className="font-mono text-[10px] font-bold text-[#0284C7] uppercase tracking-wider block mb-0.5">
                   RESEARCH DRIVEN
-                </span>
-                <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-white text-[#0284C7] border border-sky-200 shadow-2xs">
-                  4 Preprints
                 </span>
               </div>
 
