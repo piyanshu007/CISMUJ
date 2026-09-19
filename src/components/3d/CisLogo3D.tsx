@@ -37,29 +37,24 @@ export const CisLogo3D: React.FC = () => {
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
+    renderer.toneMapping = THREE.NoToneMapping;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
-    // 4. Vibrant Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 3.0);
+    // 4. Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
     scene.add(ambientLight);
-
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.5);
-    keyLight.position.set(5, 6, 6);
-    scene.add(keyLight);
 
     // 5. Create 3D Logo Object Group
     const mainGroup = new THREE.Group();
-    const initialScale = isDesktop ? 1.15 : isTablet ? 0.98 : 0.85;
+    const initialScale = isDesktop ? 1.3 : isTablet ? 1.1 : 0.95;
     mainGroup.scale.set(initialScale, initialScale, initialScale);
     const defaultOffsetX = isDesktop ? 1.35 : isTablet ? 0.75 : 0.0;
     const defaultOffsetY = 0.0;
     mainGroup.position.set(defaultOffsetX, defaultOffsetY, 0);
     scene.add(mainGroup);
 
-    // Clean Official Glowing CIS Logo Texture Loader
+    // Clean Official Vibrant Glowing CIS Logo Texture Loader
     const textureLoader = new THREE.TextureLoader();
     const logoMat = new THREE.MeshBasicMaterial({
       transparent: true,
@@ -68,7 +63,7 @@ export const CisLogo3D: React.FC = () => {
     });
 
     textureLoader.load(
-      '/cis-emblem-clean.png',
+      '/cis-logo-vibrant.png',
       (texture) => {
         texture.colorSpace = THREE.SRGBColorSpace;
         texture.generateMipmaps = true;
@@ -79,12 +74,12 @@ export const CisLogo3D: React.FC = () => {
       },
       undefined,
       (err) => {
-        console.error('Error loading official CIS 3D logo texture:', err);
+        console.error('Error loading vibrant CIS 3D logo texture:', err);
       }
     );
 
-    // Official 1:1 Aspect-Ratio Centered Mesh with Built-in Halo Glow
-    const logoGeo = new THREE.PlaneGeometry(3.3, 3.3);
+    // Centered Mesh with Built-in Radiant Aura
+    const logoGeo = new THREE.PlaneGeometry(3.6, 3.6);
     const logoMesh = new THREE.Mesh(logoGeo, logoMat);
     mainGroup.add(logoMesh);
 
