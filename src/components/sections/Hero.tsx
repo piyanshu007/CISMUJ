@@ -54,7 +54,7 @@ export const Hero: React.FC = () => {
 
       {/* Bottom Hero Status Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-20">
-        <div className="pt-4 border-t border-slate-200 flex items-center justify-center sm:justify-end font-mono text-xs text-slate-600">
+        <div className="pt-2 flex items-center justify-center sm:justify-end font-mono text-xs text-slate-600">
           <a
             href="#events"
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200 text-slate-700 hover:text-[#0284C7] font-bold transition-colors cursor-pointer shadow-xs"
