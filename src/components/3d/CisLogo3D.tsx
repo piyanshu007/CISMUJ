@@ -68,7 +68,7 @@ export const CisLogo3D: React.FC = () => {
     });
 
     textureLoader.load(
-      '/cis-logo-official-3d.png',
+      '/cis-emblem-clean.png',
       (texture) => {
         texture.colorSpace = THREE.SRGBColorSpace;
         texture.generateMipmaps = true;
@@ -250,9 +250,8 @@ export const CisLogo3D: React.FC = () => {
   return (
     <div
       ref={mountRef}
-      className={`w-full h-full cursor-grab select-none ${
-        isInteracting ? 'cursor-grabbing' : ''
-      }`}
+      className={`w-full h-full cursor-grab select-none ${isInteracting ? 'cursor-grabbing' : ''
+        }`}
     />
   );
 };

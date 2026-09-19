@@ -10,14 +10,14 @@ export const Hero: React.FC = () => {
       <div
         className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none"
         style={{
-          maskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 75%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 10%, black 75%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 4%, black 88%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 4%, black 88%, transparent 100%)',
         }}
       >
         <GradientWaves
-          horizonColor="#FFFFFF"
-          waveColor="#E0F2FE"
-          crestColor="#7DD3FC"
+          horizonColor="#BAE6FD"
+          waveColor="#38BDF8"
+          crestColor="#0284C7"
           speed={0.4}
           amplitude={2.5}
           waveScale={0.6}
@@ -29,7 +29,7 @@ export const Hero: React.FC = () => {
           height={5.5}
           fogDepth={15}
           detail="medium"
-          brightness={1}
+          brightness={1.05}
           opacity={1}
           mouseInteraction
           parallaxStrength={0.5}
@@ -39,8 +39,8 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Seamless Soft Top & Bottom Gradient Bleed Overlays */}
-      <div className="absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-white via-white/60 to-transparent pointer-events-none z-10" />
-      <div className="absolute bottom-0 left-0 right-0 h-44 sm:h-56 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none z-10" />
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent pointer-events-none z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-28 sm:h-36 bg-gradient-to-t from-white via-white/50 to-transparent pointer-events-none z-10" />
 
       {/* 1. Full-Screen Interactive 3D Canvas */}
       <div className="absolute inset-0 w-full h-full z-10 overflow-hidden opacity-100 pointer-events-auto">
