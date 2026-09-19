@@ -54,7 +54,7 @@ export const CisLogo3D: React.FC = () => {
     mainGroup.position.set(defaultOffsetX, defaultOffsetY, 0);
     scene.add(mainGroup);
 
-    // Clean Official Vibrant Glowing CIS Logo Texture Loader
+    // Clean Official 4K Ultra-Crisp Glowing CIS Logo Texture Loader
     const textureLoader = new THREE.TextureLoader();
     const logoMat = new THREE.MeshBasicMaterial({
       transparent: true,
@@ -63,7 +63,7 @@ export const CisLogo3D: React.FC = () => {
     });
 
     textureLoader.load(
-      '/cis-logo-vibrant.png',
+      '/cis-logo-4k-crisp.png',
       (texture) => {
         texture.colorSpace = THREE.SRGBColorSpace;
         texture.generateMipmaps = true;
@@ -74,7 +74,7 @@ export const CisLogo3D: React.FC = () => {
       },
       undefined,
       (err) => {
-        console.error('Error loading vibrant CIS 3D logo texture:', err);
+        console.error('Error loading 4k crisp CIS 3D logo texture:', err);
       }
     );
 
