@@ -105,7 +105,7 @@ export const CisLogo3D: React.FC = () => {
     });
 
     textureLoader.load(
-      '/hero-logo-3d.png',
+      '/logo-mark.png',
       (texture) => {
         texture.colorSpace = THREE.SRGBColorSpace;
         texture.generateMipmaps = true;
@@ -120,7 +120,7 @@ export const CisLogo3D: React.FC = () => {
       }
     );
 
-    // Central Clean CIS Logo Mesh (Pure Logo, No Background Clutter)
+    // Central Clean CIS Logo Mesh (Pure Original Official IEEE CIS Emblem Logo)
     const logoGeo = new THREE.PlaneGeometry(2.8, 2.8);
     const logoMesh = new THREE.Mesh(logoGeo, logoMat);
     mainGroup.add(logoMesh);
