@@ -59,40 +59,7 @@ export const CisLogo3D: React.FC = () => {
     mainGroup.position.set(defaultOffsetX, defaultOffsetY, 0);
     scene.add(mainGroup);
 
-    // Soft Radial Glow Aura Canvas Texture
-    const createGlowTexture = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = 512;
-      canvas.height = 512;
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        const gradient = ctx.createRadialGradient(256, 256, 20, 256, 256, 240);
-        gradient.addColorStop(0, 'rgba(56, 189, 248, 0.45)');
-        gradient.addColorStop(0.4, 'rgba(2, 132, 199, 0.20)');
-        gradient.addColorStop(0.8, 'rgba(2, 132, 199, 0.04)');
-        gradient.addColorStop(1, 'rgba(2, 132, 199, 0)');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, 512, 512);
-      }
-      const tex = new THREE.CanvasTexture(canvas);
-      return tex;
-    };
-
-    const glowTex = createGlowTexture();
-    const glowGeo = new THREE.PlaneGeometry(3.8, 3.8);
-    const glowMat = new THREE.MeshBasicMaterial({
-      map: glowTex,
-      transparent: true,
-      opacity: 0.5,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-      side: THREE.DoubleSide,
-    });
-    const glowMesh = new THREE.Mesh(glowGeo, glowMat);
-    glowMesh.position.z = -0.05;
-    mainGroup.add(glowMesh);
-
-    // Clean Official Logo Texture Loader
+    // Clean Official Glowing CIS Logo Texture Loader
     const textureLoader = new THREE.TextureLoader();
     const logoMat = new THREE.MeshBasicMaterial({
       transparent: true,
@@ -101,7 +68,7 @@ export const CisLogo3D: React.FC = () => {
     });
 
     textureLoader.load(
-      '/cis-emblem-clean.png',
+      '/cis-logo-official-3d.png',
       (texture) => {
         texture.colorSpace = THREE.SRGBColorSpace;
         texture.generateMipmaps = true;
@@ -112,13 +79,12 @@ export const CisLogo3D: React.FC = () => {
       },
       undefined,
       (err) => {
-        console.error('Error loading clean official CIS logo texture:', err);
+        console.error('Error loading official CIS 3D logo texture:', err);
       }
     );
 
-    // Precise Aspect-Ratio Matching Plane (187 / 214 = ~0.874)
-    // 2.8 height * 0.874 = ~2.45 width
-    const logoGeo = new THREE.PlaneGeometry(2.45, 2.8);
+    // Official 1:1 Aspect-Ratio Centered Mesh with Built-in Halo Glow
+    const logoGeo = new THREE.PlaneGeometry(3.3, 3.3);
     const logoMesh = new THREE.Mesh(logoGeo, logoMat);
     mainGroup.add(logoMesh);
 
@@ -246,9 +212,6 @@ export const CisLogo3D: React.FC = () => {
       mainGroup.position.y = baseOffsetY + floatY;
       mainGroup.position.x = baseOffsetX + floatX;
 
-      // Soft breathing aura
-      glowMat.opacity = 0.4 + Math.sin(elapsedTime * 2.0) * 0.1;
-
       // Smooth cursor lerp with subtle natural swaying
       currentRotation.x += (targetRotation.x - currentRotation.x) * 0.08;
       currentRotation.y += (targetRotation.y - currentRotation.y) * 0.08;
@@ -276,9 +239,6 @@ export const CisLogo3D: React.FC = () => {
 
       logoGeo.dispose();
       logoMat.dispose();
-      glowGeo.dispose();
-      glowMat.dispose();
-      glowTex.dispose();
 
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
