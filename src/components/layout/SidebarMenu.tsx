@@ -32,8 +32,12 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[100] bg-white h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col justify-between select-none"
+          className="fixed inset-0 z-[100] bg-white/80 backdrop-blur-2xl h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col justify-between select-none"
         >
+          {/* Subtle frosted glass ambient glows */}
+          <div className="absolute top-1/4 right-1/4 w-[600px] h-[500px] bg-sky-200/30 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute bottom-1/4 left-1/4 w-[450px] h-[450px] bg-[#0284C7]/15 rounded-full blur-[120px] pointer-events-none" />
+
           {/* Subtle background giant watermark typography */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden opacity-[0.03]">
             <span className="font-display font-black text-[24vw] tracking-tighter text-[#0F172A] uppercase leading-none select-none">
@@ -41,11 +45,11 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
             </span>
           </div>
 
-          {/* Top Bar: Compact Header (No Scroll) */}
-          <div className="w-full px-4 sm:px-8 py-3 sm:py-4 flex items-center justify-between relative z-20 border-b border-slate-200 shrink-0 bg-white">
+          {/* Top Bar: Compact Header (Frosted Glass) */}
+          <div className="w-full px-4 sm:px-8 py-3 sm:py-4 flex items-center justify-between relative z-20 border-b border-slate-200/70 bg-white/60 backdrop-blur-md shrink-0">
             {/* Left: MUJ Chapter Identity */}
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 p-1 flex items-center justify-center shadow-xs">
+              <div className="w-9 h-9 rounded-xl bg-white/90 border border-slate-200/80 p-1 flex items-center justify-center shadow-xs">
                 <img
                   src="/logo-mark.png"
                   alt="IEEE CIS Logo"
@@ -175,8 +179,8 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
             </div>
           </div>
 
-          {/* Bottom Bar: High-Contrast Footer */}
-          <div className="w-full px-4 sm:px-8 py-3 sm:py-4 relative z-20 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs shrink-0">
+          {/* Bottom Bar: Frosted Glass Footer */}
+          <div className="w-full px-4 sm:px-8 py-3 sm:py-4 relative z-20 border-t border-slate-200/70 bg-white/70 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs shrink-0">
             <div className="flex items-center gap-3 sm:gap-4 font-bold text-xs">
               <a
                 href="https://www.instagram.com/ieee.cismuj/"
