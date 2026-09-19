@@ -9,9 +9,9 @@ export const Hero: React.FC = () => {
       {/* React Bits Gradient Waves Animated Background (White Horizon, Sky Blue Dunes & IEEE Blue Crests) */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
         <GradientWaves
-          horizonColor="#0284C7"
-          waveColor="#034078"
-          crestColor="#001845"
+          horizonColor="#FFFFFF"
+          waveColor="#E0F2FE"
+          crestColor="#7DD3FC"
           speed={0.4}
           amplitude={2.5}
           waveScale={0.6}
