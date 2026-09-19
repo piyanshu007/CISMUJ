@@ -32,7 +32,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[100] bg-white/98 backdrop-blur-2xl h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col justify-between select-none"
+          className="fixed inset-0 z-[100] bg-white h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col justify-between select-none"
         >
           {/* Subtle background giant watermark typography */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden opacity-[0.03]">
@@ -42,7 +42,7 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
           </div>
 
           {/* Top Bar: Compact Header (No Scroll) */}
-          <div className="w-full px-4 sm:px-8 py-3 sm:py-4 flex items-center justify-between relative z-20 border-b border-slate-100/80 shrink-0">
+          <div className="w-full px-4 sm:px-8 py-3 sm:py-4 flex items-center justify-between relative z-20 border-b border-slate-200 shrink-0 bg-white">
             {/* Left: MUJ Chapter Identity */}
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-white border border-slate-200 p-1 flex items-center justify-center shadow-xs">
@@ -175,30 +175,30 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
             </div>
           </div>
 
-          {/* Bottom Bar: Compact Footer (No Scroll) */}
-          <div className="w-full px-4 sm:px-8 py-2.5 sm:py-3.5 relative z-20 border-t border-slate-100/80 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs shrink-0">
-            <div className="flex items-center gap-3 text-slate-500 font-semibold text-[10px] sm:text-[11px]">
+          {/* Bottom Bar: High-Contrast Footer */}
+          <div className="w-full px-4 sm:px-8 py-3 sm:py-4 relative z-20 border-t border-slate-200 bg-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs shrink-0">
+            <div className="flex items-center gap-3 sm:gap-4 font-bold text-xs">
               <a
                 href="https://www.instagram.com/ieee.cismuj/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#0284C7] transition-colors"
+                className="text-[#0F172A] hover:text-[#0284C7] transition-colors py-1"
               >
                 INSTAGRAM
               </a>
-              <span>•</span>
+              <span className="text-slate-300">•</span>
               <a
                 href="https://cis.ieee.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#0284C7] transition-colors"
+                className="text-[#0F172A] hover:text-[#0284C7] transition-colors py-1"
               >
                 IEEE CIS GLOBAL
               </a>
-              <span>•</span>
+              <span className="text-slate-300">•</span>
               <a
                 href="mailto:cis.muj@ieee.org"
-                className="hover:text-[#0284C7] transition-colors"
+                className="text-[#0F172A] hover:text-[#0284C7] transition-colors py-1"
               >
                 CONTACT
               </a>
@@ -208,10 +208,10 @@ export const SidebarMenu: React.FC<SidebarMenuProps> = ({ isOpen, onClose }) => 
               href="https://www.instagram.com/ieee.cismuj/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-1.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-mono text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-xs transition-all cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
             >
               <span>JOIN CHAPTER</span>
-              <ArrowUpRight className="w-3 h-3" />
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
         </motion.div>
