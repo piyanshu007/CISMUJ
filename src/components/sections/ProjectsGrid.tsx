@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS, ProjectCaseStudy } from '@/data/projects';
 import { ArrowRight, X, Layers, Cpu, Activity, Zap, CheckCircle2 } from 'lucide-react';
-import { ProjectsNeuralGraph } from '@/components/animated/ProjectsNeuralGraph';
 
 export const ProjectsGrid: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectCaseStudy | null>(null);
@@ -210,12 +209,30 @@ export const ProjectsGrid: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: 2D Scientific Neural Dendrogram Network (Exact Match to User Reference) */}
-          <div className="lg:col-span-7 relative flex items-center justify-center w-full min-h-[340px] sm:min-h-[420px] lg:min-h-[480px]">
-            <ProjectsNeuralGraph
-              className="w-full h-full"
-              onSelectProject={(project) => setSelectedProject(project)}
-            />
+          {/* Right Column: Exact Artwork (Swirling Crystalline Blue Ribbon with CIS Emblem & Orbital Spheres) */}
+          <div className="lg:col-span-7 relative flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[480px]">
+            <motion.div
+              animate={{
+                y: [-6, 6, -6],
+                rotateZ: [-0.6, 0.6, -0.6],
+              }}
+              transition={{
+                duration: 6.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="relative w-full max-w-[540px] sm:max-w-[680px] lg:max-w-[780px] aspect-[16/9] flex items-center justify-center select-none"
+            >
+              {/* Soft Ambient Ethereal Aura Glow */}
+              <div className="absolute w-48 h-48 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-sky-400/25 via-[#0284C7]/20 to-transparent blur-3xl pointer-events-none" />
+
+              {/* Exact User Artwork */}
+              <img
+                src="/projects-hero-ribbon.png"
+                alt="IEEE CIS Swirling Ribbon & Orbital Constellation"
+                className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_40px_rgba(2,132,199,0.18)]"
+              />
+            </motion.div>
           </div>
         </div>
       </div>
