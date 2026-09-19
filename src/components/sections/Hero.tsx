@@ -25,7 +25,15 @@ export const Hero: React.FC = () => {
           {/* Main Huge Typography (Direct Crisp Black Font with IEEE Blue Accent) */}
           <div className="space-y-1.5 sm:space-y-2">
             <h1 className="text-3xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-black tracking-tight uppercase leading-[0.93] text-[#0F172A] drop-shadow-xs">
-              IEEE COMPUTATIONAL
+              <span className="inline-flex items-center gap-2 sm:gap-3 lg:gap-4 align-baseline">
+                <img
+                  src="/logos/ieee-emblem.svg"
+                  alt="IEEE Emblem"
+                  className="w-7 h-7 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 object-contain inline-block shrink-0 -translate-y-0.5 sm:-translate-y-1"
+                />
+                <span>IEEE</span>
+              </span>{' '}
+              COMPUTATIONAL
               <br />
               <span className="text-[#0284C7]">INTELLIGENCE</span>
               <br />
