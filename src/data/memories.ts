@@ -7,8 +7,16 @@ export interface MemoryEventRecord {
   location: string;
   description: string;
   image: string;
-  photoClass: string;
-  textClass: string;
+  photoPosition: {
+    left: string;
+    top: string;
+    width: string;
+  };
+  textPosition: {
+    left: string;
+    top: string;
+    maxWidth: string;
+  };
 }
 
 export const MEMORY_EVENTS_DATA: MemoryEventRecord[] = [
@@ -21,8 +29,16 @@ export const MEMORY_EVENTS_DATA: MemoryEventRecord[] = [
     location: 'TMA PAI AUDITORIUM',
     description: 'A high-energy hackathon where ideas meet execution. Build. Compete. Create.',
     image: '/events/webforge.jpg',
-    photoClass: 'lg:left-[31%] lg:top-[6%] lg:w-[19%]',
-    textClass: 'lg:left-[51.5%] lg:top-[8%] lg:max-w-[19%]',
+    photoPosition: {
+      left: '31%',
+      top: '6%',
+      width: '19%',
+    },
+    textPosition: {
+      left: '51.5%',
+      top: '8%',
+      maxWidth: '19%',
+    },
   },
   {
     id: 'ragh-perm-sprint',
@@ -33,8 +49,16 @@ export const MEMORY_EVENTS_DATA: MemoryEventRecord[] = [
     location: 'CENTRAL LABS',
     description: 'A hands-on workshop and sprint to tackle real-world problems using computational intelligence.',
     image: '/gallery/workshop.jpg',
-    photoClass: 'lg:left-[7%] lg:top-[37%] lg:w-[15.5%]',
-    textClass: 'lg:left-[23.5%] lg:top-[40%] lg:max-w-[17%]',
+    photoPosition: {
+      left: '7%',
+      top: '37%',
+      width: '15.5%',
+    },
+    textPosition: {
+      left: '23.5%',
+      top: '40%',
+      maxWidth: '17%',
+    },
   },
   {
     id: 'ieee-cis-2025',
@@ -45,8 +69,16 @@ export const MEMORY_EVENTS_DATA: MemoryEventRecord[] = [
     location: 'MAIN CAMPUS AUDITORIUM',
     description: 'Celebrating knowledge, collaboration and the next generation of innovators.',
     image: '/gallery/team_awards.jpg',
-    photoClass: 'lg:left-[57%] lg:top-[38%] lg:w-[17.5%]',
-    textClass: 'lg:left-[75.5%] lg:top-[40%] lg:max-w-[18%]',
+    photoPosition: {
+      left: '57%',
+      top: '38%',
+      width: '17.5%',
+    },
+    textPosition: {
+      left: '75.5%',
+      top: '40%',
+      maxWidth: '18%',
+    },
   },
   {
     id: 'social-outreach-2025',
@@ -57,8 +89,16 @@ export const MEMORY_EVENTS_DATA: MemoryEventRecord[] = [
     location: 'AUDITORIUM',
     description: 'Connecting with communities and creating a positive impact through technology and education.',
     image: '/gallery/orientation.jpg',
-    photoClass: 'lg:left-[22%] lg:top-[66%] lg:w-[16.5%]',
-    textClass: 'lg:left-[39.5%] lg:top-[68%] lg:max-w-[17%]',
+    photoPosition: {
+      left: '22%',
+      top: '66%',
+      width: '16.5%',
+    },
+    textPosition: {
+      left: '39.5%',
+      top: '68%',
+      maxWidth: '17%',
+    },
   },
   {
     id: 'genesis-5',
@@ -69,7 +109,15 @@ export const MEMORY_EVENTS_DATA: MemoryEventRecord[] = [
     location: 'MAIN AUDITORIUM',
     description: 'Annual research symposium showcasing embedded neural hardware, robotics testbeds, and decentralized agent workflows.',
     image: '/events/oneiros.jpg',
-    photoClass: 'lg:left-[64%] lg:top-[66%] lg:w-[16%]',
-    textClass: 'lg:left-[81%] lg:top-[68%] lg:max-w-[18%]',
+    photoPosition: {
+      left: '64%',
+      top: '66%',
+      width: '16%',
+    },
+    textPosition: {
+      left: '81%',
+      top: '68%',
+      maxWidth: '18%',
+    },
   },
 ];

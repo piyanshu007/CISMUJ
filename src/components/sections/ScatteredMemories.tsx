@@ -120,7 +120,13 @@ export const ScatteredMemories: React.FC = () => {
               whileHover={{ scale: 1.03, y: -4 }}
               transition={{ duration: 0.3 }}
               onClick={() => setSelectedMemoryEvent(memoryItem)}
-              className={`absolute ${memoryItem.photoClass} aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-blue-card border border-slate-100 hover:border-sky-300 transition-all cursor-pointer z-10 bg-slate-100 group`}
+              style={{
+                position: 'absolute',
+                left: memoryItem.photoPosition.left,
+                top: memoryItem.photoPosition.top,
+                width: memoryItem.photoPosition.width,
+              }}
+              className="aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-blue-card border border-slate-100 hover:border-sky-300 transition-all cursor-pointer z-10 bg-slate-100 group"
             >
               <img
                 src={memoryItem.image}
@@ -130,7 +136,15 @@ export const ScatteredMemories: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </motion.div>
 
-            <div className={`absolute ${memoryItem.textClass} space-y-2 z-10`}>
+            <div
+              style={{
+                position: 'absolute',
+                left: memoryItem.textPosition.left,
+                top: memoryItem.textPosition.top,
+                maxWidth: memoryItem.textPosition.maxWidth,
+              }}
+              className="space-y-2 z-10"
+            >
               <span className="font-mono text-[10px] font-bold text-[#0284C7] uppercase tracking-wider block">
                 {memoryItem.category}
               </span>
