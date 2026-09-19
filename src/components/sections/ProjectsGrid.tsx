@@ -107,13 +107,6 @@ export const ProjectsGrid: React.FC = () => {
             strokeOpacity="0.4"
           />
 
-          {/* Cyan Marker Dots along the wave paths */}
-          <circle cx="220" cy="330" r="3" fill="#0284C7" />
-          <circle cx="600" cy="300" r="3.5" fill="#0284C7" />
-          <circle cx="960" cy="190" r="3" fill="#38BDF8" />
-          <circle cx="1160" cy="220" r="3.5" fill="#0284C7" />
-          <circle cx="1380" cy="280" r="3" fill="#38BDF8" />
-
           {/* --- TRAVELLING SPHERES (BALLS) ALONG THE WAVE --- */}
           {/* Ball 1: Primary Large Glossy Blue Sphere */}
           <g filter="url(#waveBallGlow)">
@@ -121,7 +114,6 @@ export const ProjectsGrid: React.FC = () => {
               <mpath href="#mainWaveTravelPath" />
             </animateMotion>
             <circle r="7.5" fill="url(#waveBallGrad)" />
-            <circle r="11.5" stroke="#38BDF8" strokeWidth="1" strokeOpacity="0.6" />
           </g>
 
           {/* Ball 2: Staggered Secondary Cyan Sphere */}
@@ -140,12 +132,12 @@ export const ProjectsGrid: React.FC = () => {
             <circle r="5.5" fill="url(#waveBallGrad)" />
           </g>
 
-          {/* Ball 4: Small Quick Photon */}
+          {/* Ball 4: Small Quick Photon Sphere */}
           <g filter="url(#waveBallGlow)">
             <animateMotion dur="7.5s" begin="-5.5s" repeatCount="indefinite">
               <mpath href="#mainWaveTravelPath" />
             </animateMotion>
-            <circle r="4" fill="url(#waveBallCyan)" />
+            <circle r="4.5" fill="url(#waveBallCyan)" />
           </g>
         </svg>
 
