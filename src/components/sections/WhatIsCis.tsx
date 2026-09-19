@@ -211,10 +211,10 @@ export const WhatIsCis: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             
-            {/* Left Column: Cyber Brain Glowing Neural Visual Card */}
-            <div className="lg:col-span-3">
+            {/* Left Column: Cyber Brain Glowing Hero Visual (Unconstrained & Bigger) */}
+            <div className="lg:col-span-4 flex items-center justify-center">
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
@@ -242,7 +242,7 @@ export const WhatIsCis: React.FC = () => {
             </div>
 
             {/* Right Column: 3 Clean Focus Areas with Thin Vertical Dividers */}
-            <div className="lg:col-span-5 grid grid-cols-3 gap-2 sm:gap-4 items-center">
+            <div className="lg:col-span-4 grid grid-cols-3 gap-2 sm:gap-3 items-center">
               
               {/* Focus 1: Machine Learning */}
               <div className="text-center px-2 py-3 space-y-2.5">

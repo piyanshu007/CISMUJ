@@ -3,25 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
-interface SynapseNode {
-  x: number;
-  y: number;
-  radius: number;
-  baseAlpha: number;
-  pulseSpeed: number;
-  pulsePhase: number;
-  connections: number[];
-}
-
-interface SignalPulse {
-  fromNode: number;
-  toNode: number;
-  progress: number;
-  speed: number;
-  color: string;
-  size: number;
-}
-
 interface SparkParticle {
   x: number;
   y: number;
@@ -31,6 +12,7 @@ interface SparkParticle {
   alpha: number;
   decay: number;
   life: number;
+  color: string;
 }
 
 export const CyberBrainVisual: React.FC<{ className?: string }> = ({ className = '' }) => {
@@ -64,120 +46,37 @@ export const CyberBrainVisual: React.FC<{ className?: string }> = ({ className =
     resize();
     window.addEventListener('resize', resize);
 
-    // Anatomically clustered 2D normalized nodes representing brain lobes (x: 0.15 - 0.85, y: 0.15 - 0.85)
-    // Left hemisphere & Right hemisphere & Core & Cerebellum
-    const normalizedNodes = [
-      // Frontal Lobe (Top-Left & Front)
-      { x: 0.28, y: 0.30, r: 2.5 },
-      { x: 0.35, y: 0.22, r: 2.0 },
-      { x: 0.44, y: 0.18, r: 3.0 },
-      { x: 0.25, y: 0.42, r: 2.2 },
-      { x: 0.36, y: 0.36, r: 3.5 }, // Key Frontal Hub
-      { x: 0.46, y: 0.30, r: 2.8 },
-
-      // Parietal & Superior Cortex (Top Center & Right)
-      { x: 0.56, y: 0.19, r: 2.8 },
-      { x: 0.68, y: 0.24, r: 2.2 },
-      { x: 0.76, y: 0.32, r: 2.0 },
-      { x: 0.58, y: 0.32, r: 3.2 }, // Central Sulcus Hub
-      { x: 0.70, y: 0.38, r: 2.6 },
-
-      // Occipital Lobe (Back / Right)
-      { x: 0.82, y: 0.45, r: 2.4 },
-      { x: 0.84, y: 0.56, r: 2.0 },
-      { x: 0.78, y: 0.62, r: 2.8 },
-      { x: 0.70, y: 0.54, r: 3.0 },
-
-      // Temporal Lobe & Insula (Middle Lower)
-      { x: 0.32, y: 0.52, r: 2.8 },
-      { x: 0.42, y: 0.48, r: 3.6 }, // Core Sylvian Hub
-      { x: 0.52, y: 0.46, r: 4.0 }, // Central Thalamic Core
-      { x: 0.60, y: 0.50, r: 3.2 },
-      { x: 0.38, y: 0.62, r: 2.4 },
-      { x: 0.48, y: 0.60, r: 3.0 },
-      { x: 0.58, y: 0.62, r: 2.6 },
-
-      // Cerebellum & Lower Brain (Bottom-Right / Base)
-      { x: 0.66, y: 0.72, r: 2.5 },
-      { x: 0.74, y: 0.74, r: 2.0 },
-      { x: 0.60, y: 0.78, r: 2.2 },
-
-      // Brainstem (Bottom Center)
-      { x: 0.52, y: 0.76, r: 3.0 },
-      { x: 0.50, y: 0.86, r: 2.2 },
-      { x: 0.52, y: 0.94, r: 1.8 },
-    ];
-
-    // Build Synapse Nodes with K-nearest Connections
-    const nodes: SynapseNode[] = normalizedNodes.map((n, i) => {
-      const connections: number[] = [];
-      normalizedNodes.forEach((target, j) => {
-        if (i !== j) {
-          const dx = n.x - target.x;
-          const dy = n.y - target.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 0.22) {
-            connections.push(j);
-          }
-        }
-      });
-
-      return {
-        x: n.x,
-        y: n.y,
-        radius: n.r,
-        baseAlpha: 0.65 + Math.random() * 0.35,
-        pulseSpeed: 1.5 + Math.random() * 2.0,
-        pulsePhase: Math.random() * Math.PI * 2,
-        connections,
-      };
-    });
-
-    // Active signal pulses traversing across neural connections
-    const pulses: SignalPulse[] = [];
-    const maxPulses = 14;
-
-    const spawnPulse = () => {
-      if (pulses.length >= maxPulses) return;
-      const fromIdx = Math.floor(Math.random() * nodes.length);
-      const node = nodes[fromIdx];
-      if (node.connections.length === 0) return;
-      const toIdx = node.connections[Math.floor(Math.random() * node.connections.length)];
-
-      const colors = ['#38bdf8', '#0284c7', '#00f0ff', '#ffffff', '#7dd3fc'];
-      pulses.push({
-        fromNode: fromIdx,
-        toNode: toIdx,
-        progress: 0,
-        speed: 0.012 + Math.random() * 0.018,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        size: 2.0 + Math.random() * 2.0,
-      });
-    };
-
-    // Initialize initial batch of pulses
-    for (let i = 0; i < 8; i++) {
-      spawnPulse();
-    }
-
-    // Spark particles drifting from neural activity
+    // Floating neural spark particles drifting around the brain perimeter
     const particles: SparkParticle[] = [];
-    const maxParticles = 30;
+    const maxParticles = 35;
+    const colors = ['#38BDF8', '#0284C7', '#7DD3FC', '#00F0FF', '#FFFFFF'];
 
     const spawnParticle = () => {
       if (particles.length >= maxParticles) return;
-      const node = nodes[Math.floor(Math.random() * nodes.length)];
+      // Spawn near brain perimeter
+      const angle = Math.random() * Math.PI * 2;
+      const radiusX = width * (0.28 + Math.random() * 0.18);
+      const radiusY = height * (0.25 + Math.random() * 0.18);
+      const centerX = width * 0.5;
+      const centerY = height * 0.48;
+
       particles.push({
-        x: node.x * width + (Math.random() - 0.5) * 20,
-        y: node.y * height + (Math.random() - 0.5) * 20,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: -0.3 - Math.random() * 0.7,
-        size: 1 + Math.random() * 2,
-        alpha: 0.8 + Math.random() * 0.2,
-        decay: 0.008 + Math.random() * 0.012,
+        x: centerX + Math.cos(angle) * radiusX,
+        y: centerY + Math.sin(angle) * radiusY,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: -0.2 - Math.random() * 0.6,
+        size: 1.0 + Math.random() * 2.2,
+        alpha: 0.7 + Math.random() * 0.3,
+        decay: 0.006 + Math.random() * 0.01,
         life: 1.0,
+        color: colors[Math.floor(Math.random() * colors.length)],
       });
     };
+
+    // Pre-populate particles
+    for (let i = 0; i < 20; i++) {
+      spawnParticle();
+    }
 
     let time = 0;
 
@@ -185,116 +84,12 @@ export const CyberBrainVisual: React.FC<{ className?: string }> = ({ className =
       time += 0.016;
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Draw Network Connections (Axons / Synapses)
-      ctx.lineWidth = 0.85;
-      nodes.forEach((node, i) => {
-        const x1 = node.x * width;
-        const y1 = node.y * height;
-
-        node.connections.forEach((targetIdx) => {
-          if (targetIdx > i) {
-            const target = nodes[targetIdx];
-            const x2 = target.x * width;
-            const y2 = target.y * height;
-
-            // Subtle pulsing opacity for network lines
-            const linePulse =
-              0.18 + 0.12 * Math.sin(time * 2 + node.pulsePhase + target.pulsePhase);
-
-            const grad = ctx.createLinearGradient(x1, y1, x2, y2);
-            grad.addColorStop(0, `rgba(2, 132, 199, ${linePulse * 0.9})`);
-            grad.addColorStop(0.5, `rgba(56, 189, 248, ${linePulse * 1.4})`);
-            grad.addColorStop(1, `rgba(2, 132, 199, ${linePulse * 0.9})`);
-
-            ctx.strokeStyle = grad;
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
-          }
-        });
-      });
-
-      // 2. Draw Traveling Signal Pulses (Action Potentials)
-      for (let p = pulses.length - 1; p >= 0; p--) {
-        const pulse = pulses[p];
-        pulse.progress += pulse.speed;
-
-        const from = nodes[pulse.fromNode];
-        const to = nodes[pulse.toNode];
-        if (!from || !to) {
-          pulses.splice(p, 1);
-          continue;
-        }
-
-        const currX = (from.x + (to.x - from.x) * pulse.progress) * width;
-        const currY = (from.y + (to.y - from.y) * pulse.progress) * height;
-
-        // Glowing Signal Head
-        const glowGrad = ctx.createRadialGradient(
-          currX,
-          currY,
-          0,
-          currX,
-          currY,
-          pulse.size * 3.5
-        );
-        glowGrad.addColorStop(0, pulse.color);
-        glowGrad.addColorStop(0.4, 'rgba(56, 189, 248, 0.6)');
-        glowGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
-
-        ctx.fillStyle = glowGrad;
-        ctx.beginPath();
-        ctx.arc(currX, currY, pulse.size * 3.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        // White hot core
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(currX, currY, pulse.size * 0.8, 0, Math.PI * 2);
-        ctx.fill();
-
-        if (pulse.progress >= 1.0) {
-          // Trigger a spark burst at target node
-          if (Math.random() < 0.6) {
-            spawnParticle();
-          }
-          pulses.splice(p, 1);
-          spawnPulse();
-        }
-      }
-
-      // 3. Draw Synaptic Nodes
-      nodes.forEach((node) => {
-        const x = node.x * width;
-        const y = node.y * height;
-        const pulse = Math.sin(time * node.pulseSpeed + node.pulsePhase);
-        const radius = node.radius * (1 + pulse * 0.25);
-        const currentAlpha = Math.max(0.2, Math.min(1, node.baseAlpha + pulse * 0.3));
-
-        // Node Glow Halo
-        const nodeGlow = ctx.createRadialGradient(x, y, 0, x, y, radius * 4);
-        nodeGlow.addColorStop(0, `rgba(56, 189, 248, ${currentAlpha * 0.85})`);
-        nodeGlow.addColorStop(0.5, `rgba(2, 132, 199, ${currentAlpha * 0.35})`);
-        nodeGlow.addColorStop(1, 'rgba(2, 132, 199, 0)');
-
-        ctx.fillStyle = nodeGlow;
-        ctx.beginPath();
-        ctx.arc(x, y, radius * 4, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Node Core
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(x, y, Math.max(1, radius * 0.7), 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // 4. Draw Ambient Spark Particles
-      if (Math.random() < 0.25) {
+      // Spawn new particles continuously
+      if (Math.random() < 0.4) {
         spawnParticle();
       }
 
+      // Draw and update ambient spark particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const part = particles[i];
         part.x += part.vx;
@@ -306,18 +101,35 @@ export const CyberBrainVisual: React.FC<{ className?: string }> = ({ className =
           continue;
         }
 
-        const alpha = part.life * part.alpha;
-        ctx.fillStyle = `rgba(125, 211, 252, ${alpha})`;
+        const currentAlpha = part.life * part.alpha;
+
+        // Particle Glow Halo
+        const glow = ctx.createRadialGradient(
+          part.x,
+          part.y,
+          0,
+          part.x,
+          part.y,
+          part.size * 3
+        );
+        glow.addColorStop(0, part.color);
+        glow.addColorStop(1, 'transparent');
+
+        ctx.fillStyle = glow;
+        ctx.globalAlpha = currentAlpha;
         ctx.beginPath();
-        ctx.arc(part.x, part.y, part.size, 0, Math.PI * 2);
+        ctx.arc(part.x, part.y, part.size * 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // White/Color Core
+        ctx.fillStyle = part.color;
+        ctx.globalAlpha = Math.min(1, currentAlpha * 1.3);
+        ctx.beginPath();
+        ctx.arc(part.x, part.y, part.size * 0.7, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // Ensure pulses keep flowing
-      if (pulses.length < 6) {
-        spawnPulse();
-      }
-
+      ctx.globalAlpha = 1.0;
       animationFrameId = requestAnimationFrame(render);
     };
 
@@ -333,8 +145,8 @@ export const CyberBrainVisual: React.FC<{ className?: string }> = ({ className =
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 16;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -16;
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -20;
     setTilt({ x, y });
   };
 
@@ -349,61 +161,54 @@ export const CyberBrainVisual: React.FC<{ className?: string }> = ({ className =
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
-      className={`relative w-full aspect-[4/3] rounded-2xl flex items-center justify-center select-none overflow-hidden group cursor-pointer ${className}`}
+      className={`relative w-full max-w-[420px] aspect-[16/12] flex items-center justify-center select-none overflow-visible group cursor-pointer ${className}`}
       style={{
-        perspective: '1000px',
+        perspective: '1200px',
       }}
     >
-      {/* Dynamic 3D Tilt Wrapper */}
+      {/* 3D Motion Container (Completely Background-less & Unobstructed) */}
       <motion.div
         animate={{
           rotateX: tilt.y,
           rotateY: tilt.x,
-          scale: isHovered ? 1.04 : 1.0,
+          scale: isHovered ? 1.08 : 1.0,
         }}
-        transition={{ type: 'spring', stiffness: 220, damping: 20 }}
-        className="relative w-full h-full flex items-center justify-center"
+        transition={{ type: 'spring', stiffness: 240, damping: 22 }}
+        className="relative w-full h-full flex items-center justify-center overflow-visible"
       >
-        {/* Ambient Soft Cyber Glow Aura (No Harsh Box, Pure Radiance) */}
+        {/* Soft Radial Ambient Glow in Background (Blends seamlessly into page) */}
         <div
-          className="absolute inset-0 pointer-events-none rounded-2xl opacity-65 group-hover:opacity-90 transition-opacity duration-500"
+          className="absolute inset-0 pointer-events-none -m-10 opacity-70 group-hover:opacity-100 transition-opacity duration-700"
           style={{
             background:
-              'radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.22) 0%, rgba(2, 132, 199, 0.10) 45%, transparent 75%)',
+              'radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.28) 0%, rgba(2, 132, 199, 0.12) 40%, transparent 70%)',
           }}
         />
 
-        {/* Ambient Back Glow Orb behind Brain Core */}
-        <div className="absolute w-36 h-36 rounded-full bg-[#0284C7]/20 blur-2xl pointer-events-none animate-pulse" />
+        {/* Ambient Core Lighting Pulse */}
+        <div className="absolute w-44 h-44 rounded-full bg-[#0284C7]/25 blur-3xl pointer-events-none animate-pulse" />
 
-        {/* Primary Glowing Holographic Cyber Brain Artwork (Transparent Background-less) */}
+        {/* Floating Ambient Neural Sparks Canvas (Behind and around the brain) */}
+        <canvas
+          ref={canvasRef}
+          className="absolute -inset-10 w-[calc(100%+80px)] h-[calc(100%+80px)] pointer-events-none z-10"
+        />
+
+        {/* HERO CYBER BRAIN: Crisp, Bold, 100% Foreground & Completely Unobstructed */}
         <motion.img
           src="/cyber-brain-transparent.png"
           alt="Cybernetic Neural Network Brain"
           animate={{
-            y: [-3, 3, -3],
+            y: [-4, 4, -4],
+            rotateZ: [-0.5, 0.5, -0.5],
           }}
           transition={{
-            duration: 4.5,
+            duration: 5.0,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="relative w-full h-full object-contain pointer-events-none select-none z-10 filter drop-shadow-[0_8px_24px_rgba(2,132,199,0.35)] group-hover:drop-shadow-[0_12px_32px_rgba(56,189,248,0.55)] transition-all duration-500 scale-95"
+          className="relative w-full h-full object-contain pointer-events-none select-none z-20 scale-110 sm:scale-120 drop-shadow-[0_12px_36px_rgba(2,132,199,0.45)] group-hover:drop-shadow-[0_16px_48px_rgba(56,189,248,0.75)] transition-all duration-500"
         />
-
-        {/* Dynamic HTML5 Canvas Overlay with Realtime Traveling Synaptic Pulses & Particles */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 w-full h-full pointer-events-none z-20"
-        />
-
-        {/* Futuristic Subtle Top-Right Cyber Badge Indicator */}
-        <div className="absolute top-2.5 right-2.5 z-30 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/80 backdrop-blur-md border border-sky-200/60 shadow-2xs">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#0284C7] animate-ping" />
-          <span className="font-mono text-[9px] font-bold text-[#0284C7] tracking-wider uppercase">
-            NEURAL CORE
-          </span>
-        </div>
       </motion.div>
     </div>
   );
