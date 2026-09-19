@@ -58,6 +58,97 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-16 sm:pt-28 pb-3 sm:pb-6 relative z-10">
 
+        {/* Sweeping Blue Wave Line with Cyan Constellation Marker Dots & Travelling Glossy Spheres */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-visible"
+          viewBox="0 0 1440 460"
+          fill="none"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <radialGradient id="waveBallGrad" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stopColor="#FFFFFF" />
+              <stop offset="30%" stopColor="#7DD3FC" />
+              <stop offset="75%" stopColor="#0284C7" />
+              <stop offset="100%" stopColor="#0369A1" />
+            </radialGradient>
+            <radialGradient id="waveBallCyan" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stopColor="#E0F2FE" />
+              <stop offset="35%" stopColor="#38BDF8" />
+              <stop offset="80%" stopColor="#0284C7" />
+              <stop offset="100%" stopColor="#075985" />
+            </radialGradient>
+            <filter id="waveBallGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#0284C7" floodOpacity="0.75" />
+            </filter>
+            {/* Natural wave paths flowing gracefully across hero */}
+            <path
+              id="mainWaveTravelPath"
+              d="M -40,320 C 220,330 380,270 600,300 C 820,330 960,190 1160,220 C 1280,240 1380,280 1480,290"
+            />
+            <path
+              id="secondaryWaveTravelPath"
+              d="M -40,350 C 240,360 440,295 660,325 C 880,355 1020,220 1220,250 C 1340,270 1420,300 1480,305"
+            />
+          </defs>
+
+          {/* Visible Wave Paths */}
+          <path
+            d="M 40,320 C 220,330 380,270 600,300 C 820,330 960,190 1160,220 C 1280,240 1380,280 1460,290"
+            stroke="#0284C7"
+            strokeWidth="1.5"
+            strokeOpacity="0.5"
+          />
+          <path
+            d="M 60,350 C 240,360 440,295 660,325 C 880,355 1020,220 1220,250 C 1340,270 1420,300 1460,305"
+            stroke="#38BDF8"
+            strokeWidth="1.0"
+            strokeDasharray="5 5"
+            strokeOpacity="0.4"
+          />
+
+          {/* Cyan Marker Dots along the wave paths */}
+          <circle cx="220" cy="330" r="3" fill="#0284C7" />
+          <circle cx="600" cy="300" r="3.5" fill="#0284C7" />
+          <circle cx="960" cy="190" r="3" fill="#38BDF8" />
+          <circle cx="1160" cy="220" r="3.5" fill="#0284C7" />
+          <circle cx="1380" cy="280" r="3" fill="#38BDF8" />
+
+          {/* --- TRAVELLING SPHERES (BALLS) ALONG THE WAVE --- */}
+          {/* Ball 1: Primary Large Glossy Blue Sphere */}
+          <g filter="url(#waveBallGlow)">
+            <animateMotion dur="9s" repeatCount="indefinite">
+              <mpath href="#mainWaveTravelPath" />
+            </animateMotion>
+            <circle r="7.5" fill="url(#waveBallGrad)" />
+            <circle r="11.5" stroke="#38BDF8" strokeWidth="1" strokeOpacity="0.6" />
+          </g>
+
+          {/* Ball 2: Staggered Secondary Cyan Sphere */}
+          <g filter="url(#waveBallGlow)">
+            <animateMotion dur="9s" begin="-4.5s" repeatCount="indefinite">
+              <mpath href="#mainWaveTravelPath" />
+            </animateMotion>
+            <circle r="6" fill="url(#waveBallCyan)" />
+          </g>
+
+          {/* Ball 3: Tertiary Sphere on Secondary Path */}
+          <g filter="url(#waveBallGlow)">
+            <animateMotion dur="11s" begin="-2.5s" repeatCount="indefinite">
+              <mpath href="#secondaryWaveTravelPath" />
+            </animateMotion>
+            <circle r="5.5" fill="url(#waveBallGrad)" />
+          </g>
+
+          {/* Ball 4: Small Quick Photon */}
+          <g filter="url(#waveBallGlow)">
+            <animateMotion dur="7.5s" begin="-5.5s" repeatCount="indefinite">
+              <mpath href="#mainWaveTravelPath" />
+            </animateMotion>
+            <circle r="4" fill="url(#waveBallCyan)" />
+          </g>
+        </svg>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 items-center">
 
           {/* Left Column: Eyebrow, Large "Projects" Title, Subtitle, CTA */}
@@ -118,12 +209,12 @@ export const ProjectsGrid: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Column: Exact Artwork (High-Res Swirling Ribbon with Centered CIS Logo) */}
+          {/* Right Column: Exact Untouched Image with Centered CIS Logo in Code */}
           <div className="lg:col-span-7 relative flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-[480px]">
             <motion.div
               animate={{
                 y: [-6, 6, -6],
-                rotateZ: [-0.5, 0.5, -0.5],
+                rotateZ: [-0.4, 0.4, -0.4],
               }}
               transition={{
                 duration: 6.5,
@@ -135,12 +226,34 @@ export const ProjectsGrid: React.FC = () => {
               {/* Soft Ambient Ethereal Aura Glow */}
               <div className="absolute w-52 h-52 sm:w-88 sm:h-88 rounded-full bg-gradient-to-tr from-sky-400/25 via-[#0284C7]/20 to-transparent blur-3xl pointer-events-none" />
 
-              {/* Exact High-Res Ribbon Artwork with Centered CIS Logo */}
+              {/* Exact Untouched Ribbon Artwork */}
               <img
-                src="/projects-hero-ribbon.png"
+                src="/projects-hero-ribbon-orig.png"
                 alt="IEEE CIS Swirling Ribbon & Orbital Constellation"
                 className="w-full h-full object-contain pointer-events-none select-none relative z-10 filter drop-shadow-[0_16px_40px_rgba(2,132,199,0.18)]"
               />
+
+              {/* Centered IEEE CIS Fluid Logo Emblem directly inside the open loop in code */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+                <motion.div
+                  initial={{ scale: 0.85, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.15 }}
+                  className="relative flex items-center justify-center -translate-x-[4%] -translate-y-[2%]"
+                >
+                  {/* Soft emblem back aura */}
+                  <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-[#0284C7]/20 blur-xl pointer-events-none" />
+
+                  {/* Logo Emblem centered inside the open orbital loop */}
+                  <div className="relative w-16 h-16 sm:w-22 sm:h-22 md:w-26 md:h-26 flex items-center justify-center">
+                    <img
+                      src="/logo-mark.png"
+                      alt="IEEE CIS Emblem"
+                      className="w-full h-full object-contain filter drop-shadow-[0_6px_22px_rgba(2,132,199,0.45)]"
+                    />
+                  </div>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
