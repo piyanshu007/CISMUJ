@@ -228,16 +228,15 @@ export const PhotoMosaicSection: React.FC = () => {
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <DarkVeil
           hueShift={215}
-          warpAmount={0.35}
-          speed={0.35}
+          warpAmount={0.4}
+          speed={0.4}
           noiseIntensity={0.02}
-          scanlineIntensity={0.03}
+          scanlineIntensity={0.02}
           scanlineFrequency={0.05}
           lightMode={true}
         />
-        {/* Soft edge blend overlays for seamless page integration */}
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/70 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-transparent pointer-events-none" />
+        {/* Soft bottom edge fade for seamless transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent pointer-events-none" />
       </div>
 
       {/* Top Section Header with Interactive 3D Controls */}

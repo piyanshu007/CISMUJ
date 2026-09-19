@@ -61,47 +61,50 @@ vec4 cppn_fn(vec2 coordinate,float in0,float in1,float in2){
 }
 
 void mainImage(out vec4 fragColor,in vec2 fragCoord){
-    vec2 uv=fragCoord/uResolution.xy*2.-1.;
-    uv.x*=uResolution.x/uResolution.y;
-    uv.y*=-1.;
-    uv+=uWarp*vec2(sin(uv.y*6.283+uTime*0.5),cos(uv.x*6.283+uTime*0.5))*0.05;
-    fragColor=cppn_fn(uv,0.1*sin(0.3*uTime),0.1*sin(0.69*uTime),0.1*sin(0.44*uTime));
+    vec2 uv = (fragCoord - 0.5 * uResolution.xy) / min(uResolution.x, uResolution.y) * 2.0;
+    uv.y *= -1.0;
+    uv += uWarp * vec2(sin(uv.y * 4.0 + uTime * 0.4), cos(uv.x * 4.0 + uTime * 0.4)) * 0.12;
+    fragColor = cppn_fn(uv, 0.16 * sin(0.3 * uTime), 0.16 * sin(0.69 * uTime), 0.16 * sin(0.44 * uTime));
 }
 
 void main(){
-    vec4 col;mainImage(col,gl_FragCoord.xy);
-    col.rgb=hueShiftRGB(col.rgb,uHueShift);
-    float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
-    col.rgb*=1.-(scanline_val*scanline_val)*uScan;
-    col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
-    vec3 result=clamp(col.rgb,0.0,1.0);
+    vec4 col;
+    mainImage(col, gl_FragCoord.xy);
+    col.rgb = hueShiftRGB(col.rgb, uHueShift);
+    float scanline_val = sin(gl_FragCoord.y * uScanFreq) * 0.5 + 0.5;
+    col.rgb *= 1.0 - (scanline_val * scanline_val) * uScan;
+    vec3 result = clamp(col.rgb, 0.0, 1.0);
 
     if(uLightMode > 0.5){
-      // Compute neural ribbon density from CPPN output
-      float v = clamp((col.r * 0.299 + col.g * 0.587 + col.b * 0.114) * 1.35, 0.0, 1.0);
-      float ribbon = smoothstep(0.06, 0.88, v);
+      // Rich neural veil contours combining all feature channels
+      float e1 = smoothstep(0.03, 0.92, col.r);
+      float e2 = smoothstep(0.05, 0.88, col.g);
+      float e3 = smoothstep(0.07, 0.85, col.b);
+      float density = clamp(e1 * 0.55 + e2 * 0.35 + e3 * 0.25, 0.0, 1.0);
       
-      // Gorgeous gradient shades of blue across the fluid ribbon contours
-      vec3 deepNavy = vec3(0.03, 0.24, 0.68);   // #083DAD Deep Royal Blue
-      vec3 azureBlue = vec3(0.01, 0.52, 0.89);  // #0284E3 Vibrant Azure
-      vec3 skyBlue = vec3(0.25, 0.70, 0.98);    // #40B2FA Sky Blue
-      vec3 iceBlue = vec3(0.78, 0.90, 1.00);    // #C7E6FF Soft Icy Mist
+      // Darker, rich, vibrant gradient shades of blue
+      vec3 deepNavy = vec3(0.01, 0.12, 0.45);     // #021F73 Rich Deep Navy / Cobalt
+      vec3 sapphireBlue = vec3(0.01, 0.30, 0.78); // #034DC7 Bold Sapphire
+      vec3 azureBlue = vec3(0.02, 0.50, 0.92);    // #0580EB Radiant Azure
+      vec3 skyBlue = vec3(0.18, 0.68, 0.98);      // #2EAEFA Electric Sky Blue
+      vec3 cyanIce = vec3(0.55, 0.85, 0.99);      // #8CD9FC Luminous Cyan Ice
       vec3 whiteBg = vec3(1.0, 1.0, 1.0);
 
       // Multi-stop blue gradient interpolator
-      vec3 blueGrad = mix(deepNavy, azureBlue, smoothstep(0.12, 0.42, v));
-      blueGrad = mix(blueGrad, skyBlue, smoothstep(0.42, 0.72, v));
-      blueGrad = mix(blueGrad, iceBlue, smoothstep(0.72, 0.96, v));
+      vec3 blueGrad = mix(deepNavy, sapphireBlue, smoothstep(0.08, 0.35, density));
+      blueGrad = mix(blueGrad, azureBlue, smoothstep(0.35, 0.62, density));
+      blueGrad = mix(blueGrad, skyBlue, smoothstep(0.62, 0.84, density));
+      blueGrad = mix(blueGrad, cyanIce, smoothstep(0.84, 0.98, density));
       
-      // Soft organic alpha blending onto pure white background
-      float opacity = smoothstep(0.04, 0.70, ribbon) * 0.85;
+      // Increased darkness and opacity for bold presence across entire area
+      float opacity = smoothstep(0.02, 0.55, density) * 0.92;
       result = mix(whiteBg, blueGrad, opacity);
       
-      // Subtle fine texture
-      result += (rand(gl_FragCoord.xy + uTime) - 0.5) * uNoise * 0.3;
+      // Subtle organic texture
+      result += (rand(gl_FragCoord.xy + uTime) - 0.5) * uNoise * 0.25;
       result = clamp(result, 0.0, 1.0);
     }
-    gl_FragColor=vec4(result,1.0);
+    gl_FragColor = vec4(result, 1.0);
 }
 `;
 
