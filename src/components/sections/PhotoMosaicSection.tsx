@@ -222,33 +222,34 @@ export const PhotoMosaicSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#030712] text-white pt-24 sm:pt-28 pb-14 sm:pb-20 overflow-hidden border-b border-slate-800/80 select-none"
+      className="relative w-full bg-white text-[#0F172A] pt-24 sm:pt-28 pb-14 sm:pb-20 overflow-hidden border-b border-slate-200 select-none"
     >
-      {/* React Bits DarkVeil Background (CPPN fluid ribbons in IEEE CIS Sapphire/Electric Blue) */}
+      {/* React Bits DarkVeil Background (CPPN fluid ribbons in white + gradient shades of blue) */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <DarkVeil
           hueShift={215}
           warpAmount={0.35}
           speed={0.35}
-          noiseIntensity={0.03}
-          scanlineIntensity={0.05}
-          scanlineFrequency={0.06}
+          noiseIntensity={0.02}
+          scanlineIntensity={0.03}
+          scanlineFrequency={0.05}
+          lightMode={true}
         />
-        {/* Deep atmospheric gradients for smooth edge blend */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-[#030712]/70" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030712]/60 via-transparent to-transparent" />
+        {/* Soft edge blend overlays for seamless page integration */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/70 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-transparent pointer-events-none" />
       </div>
 
       {/* Top Section Header with Interactive 3D Controls */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8 relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-6 h-px bg-sky-400" />
-            <span className="font-mono text-[11px] font-bold text-sky-400 tracking-widest uppercase">
+            <div className="w-6 h-px bg-[#0284C7]" />
+            <span className="font-mono text-[11px] font-bold text-[#0284C7] tracking-widest uppercase">
               3D INTERACTIVE ARCHIVE
             </span>
           </div>
-          <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight drop-shadow-[0_4px_24px_rgba(2,132,199,0.35)]">
+          <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] tracking-tight">
             Moments in Motion
           </h2>
         </div>
@@ -257,14 +258,14 @@ export const PhotoMosaicSection: React.FC = () => {
         <div className="flex items-center gap-1.5">
           <button
             onClick={rotateLeft}
-            className="p-2.5 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-400 text-slate-200 hover:text-sky-400 transition-all shadow-[0_4px_16px_rgba(0,0,0,0.5)] cursor-pointer active:scale-95 backdrop-blur-md"
+            className="p-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] transition-all shadow-xs cursor-pointer active:scale-95"
             aria-label="Rotate Left"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={rotateRight}
-            className="p-2.5 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-400 text-slate-200 hover:text-sky-400 transition-all shadow-[0_4px_16px_rgba(0,0,0,0.5)] cursor-pointer active:scale-95 backdrop-blur-md"
+            className="p-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] transition-all shadow-xs cursor-pointer active:scale-95"
             aria-label="Rotate Right"
           >
             <ChevronRight className="w-4 h-4" />
@@ -284,7 +285,7 @@ export const PhotoMosaicSection: React.FC = () => {
         style={{ perspective: '1100px' }}
       >
         {/* Soft ground depth shadow to make cards look completely free & floating */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[280px] sm:w-[500px] lg:w-[620px] h-[32px] bg-sky-950/40 blur-2xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[280px] sm:w-[500px] lg:w-[620px] h-[32px] bg-slate-800/[0.08] blur-2xl rounded-full pointer-events-none" />
 
         {/* 3D Carousel Cylinder */}
         <div
@@ -305,7 +306,7 @@ export const PhotoMosaicSection: React.FC = () => {
                   e.stopPropagation();
                   setActivePhoto(photo);
                 }}
-                className="absolute inset-0 rounded-2xl bg-slate-900/85 backdrop-blur-xl p-3 border border-slate-700/70 hover:border-sky-400 shadow-[0_12px_32px_rgba(0,0,0,0.7)] hover:shadow-[0_16px_40px_rgba(2,132,199,0.35)] transition-all duration-300 flex flex-col justify-between cursor-pointer group will-change-transform"
+                className="absolute inset-0 rounded-2xl bg-white p-3 border border-slate-200 hover:border-[#0284C7] shadow-[0_10px_28px_rgba(15,23,42,0.08)] hover:shadow-[0_16px_36px_rgba(2,132,199,0.22)] transition-all duration-300 flex flex-col justify-between cursor-pointer group will-change-transform"
                 style={{
                   transformStyle: 'preserve-3d',
                   transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
@@ -313,7 +314,7 @@ export const PhotoMosaicSection: React.FC = () => {
                 }}
               >
                 {/* Photo Card Frame */}
-                <div className="relative w-full h-[72%] rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+                <div className="relative w-full h-[72%] rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
                   <img
                     src={photo.image}
                     alt={photo.title}
@@ -322,7 +323,7 @@ export const PhotoMosaicSection: React.FC = () => {
                   />
                   {/* Subtle top chip */}
                   <div className="absolute top-2 left-2">
-                    <span className="px-2 py-0.5 rounded-md bg-slate-950/90 backdrop-blur-md text-white font-mono text-[9px] font-bold uppercase tracking-wider border border-sky-400/30">
+                    <span className="px-2 py-0.5 rounded-md bg-slate-900/90 backdrop-blur-md text-white font-mono text-[9px] font-bold uppercase tracking-wider border border-white/20">
                       {photo.category}
                     </span>
                   </div>
@@ -330,10 +331,10 @@ export const PhotoMosaicSection: React.FC = () => {
 
                 {/* Photo Metadata Footer */}
                 <div className="pt-2 px-1 pb-0.5 space-y-0.5">
-                  <h4 className="font-sans font-bold text-xs sm:text-sm text-white uppercase leading-tight group-hover:text-sky-400 transition-colors line-clamp-1">
+                  <h4 className="font-sans font-bold text-xs sm:text-sm text-[#0F172A] uppercase leading-tight group-hover:text-[#0284C7] transition-colors line-clamp-1">
                     {photo.title}
                   </h4>
-                  <p className="font-mono text-[10px] text-sky-400 font-bold tracking-wider flex items-center gap-1">
+                  <p className="font-mono text-[10px] text-[#0284C7] font-bold tracking-wider flex items-center gap-1">
                     <span>CLICK TO EXPAND</span>
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </p>
@@ -348,7 +349,7 @@ export const PhotoMosaicSection: React.FC = () => {
       <AnimatePresence>
         {activePhoto && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
             onClick={() => setActivePhoto(null)}
           >
             <motion.div
@@ -356,34 +357,34 @@ export const PhotoMosaicSection: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-slate-900 rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-700 relative text-white"
+              className="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-200 relative"
             >
               <button
                 onClick={() => setActivePhoto(null)}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-slate-800/80 hover:bg-slate-700 text-white transition-colors cursor-pointer border border-slate-600"
+                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white transition-colors cursor-pointer"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="relative aspect-video w-full bg-slate-950">
+              <div className="relative aspect-video w-full bg-slate-100">
                 <img
                   src={activePhoto.image}
                   alt={activePhoto.title}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute bottom-3 left-4">
-                  <span className="px-3 py-1 rounded-full bg-sky-500 text-white font-mono text-[10px] font-bold tracking-wider uppercase shadow-md border border-sky-400/40">
+                  <span className="px-3 py-1 rounded-full bg-[#0284C7] text-white font-mono text-[10px] font-bold tracking-wider uppercase shadow-md">
                     {activePhoto.category}
                   </span>
                 </div>
               </div>
 
               <div className="p-6 space-y-2">
-                <h3 className="font-sans text-xl sm:text-2xl font-bold text-white">
+                <h3 className="font-sans text-xl sm:text-2xl font-bold text-[#0F172A]">
                   {activePhoto.title}
                 </h3>
-                <p className="font-sans text-slate-300 text-sm leading-relaxed">
+                <p className="font-sans text-slate-600 text-sm leading-relaxed">
                   {activePhoto.caption}
                 </p>
               </div>

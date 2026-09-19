@@ -75,12 +75,31 @@ void main(){
     col.rgb*=1.-(scanline_val*scanline_val)*uScan;
     col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
     vec3 result=clamp(col.rgb,0.0,1.0);
-    if(uLightMode>0.5){
-      float energy=max(result.r,max(result.g,result.b));
-      vec3 hue=result/max(energy,0.001);
-      float coverage=smoothstep(0.08,0.82,energy);
-      vec3 ink=mix(hue*0.32,hue*0.78,smoothstep(0.0,1.0,energy));
-      result=mix(vec3(1.0),ink,coverage*0.82);
+
+    if(uLightMode > 0.5){
+      // Compute neural ribbon density from CPPN output
+      float v = clamp((col.r * 0.299 + col.g * 0.587 + col.b * 0.114) * 1.35, 0.0, 1.0);
+      float ribbon = smoothstep(0.06, 0.88, v);
+      
+      // Gorgeous gradient shades of blue across the fluid ribbon contours
+      vec3 deepNavy = vec3(0.03, 0.24, 0.68);   // #083DAD Deep Royal Blue
+      vec3 azureBlue = vec3(0.01, 0.52, 0.89);  // #0284E3 Vibrant Azure
+      vec3 skyBlue = vec3(0.25, 0.70, 0.98);    // #40B2FA Sky Blue
+      vec3 iceBlue = vec3(0.78, 0.90, 1.00);    // #C7E6FF Soft Icy Mist
+      vec3 whiteBg = vec3(1.0, 1.0, 1.0);
+
+      // Multi-stop blue gradient interpolator
+      vec3 blueGrad = mix(deepNavy, azureBlue, smoothstep(0.12, 0.42, v));
+      blueGrad = mix(blueGrad, skyBlue, smoothstep(0.42, 0.72, v));
+      blueGrad = mix(blueGrad, iceBlue, smoothstep(0.72, 0.96, v));
+      
+      // Soft organic alpha blending onto pure white background
+      float opacity = smoothstep(0.04, 0.70, ribbon) * 0.85;
+      result = mix(whiteBg, blueGrad, opacity);
+      
+      // Subtle fine texture
+      result += (rand(gl_FragCoord.xy + uTime) - 0.5) * uNoise * 0.3;
+      result = clamp(result, 0.0, 1.0);
     }
     gl_FragColor=vec4(result,1.0);
 }
@@ -101,13 +120,13 @@ export interface DarkVeilProps {
 
 export default function DarkVeil({
   hueShift = 215,
-  noiseIntensity = 0.03,
-  scanlineIntensity = 0.05,
+  noiseIntensity = 0.02,
+  scanlineIntensity = 0.03,
   speed = 0.35,
-  scanlineFrequency = 0.06,
+  scanlineFrequency = 0.05,
   warpAmount = 0.35,
   resolutionScale = 1,
-  lightMode = false,
+  lightMode = true,
   className = '',
   style,
 }: DarkVeilProps) {
