@@ -58,9 +58,9 @@ export const ProjectsGrid: React.FC = () => {
       {/* ============================================================ */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-16 sm:pt-28 pb-3 sm:pb-6 relative z-10">
 
-        {/* Sweeping Blue Wave Line with Travelling Glossy Spheres (Flowing in background behind the image) */}
+        {/* Sweeping Blue Wave Line with Travelling Glossy Spheres (Desktop Only - Hidden on Mobile / Android / iOS) */}
         <svg
-          className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
+          className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
           viewBox="0 0 1440 460"
           fill="none"
           preserveAspectRatio="none"
