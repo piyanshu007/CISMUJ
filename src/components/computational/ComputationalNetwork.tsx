@@ -104,7 +104,7 @@ export const ComputationalNetwork: React.FC = () => {
         if (nodeA.x < 0 || nodeA.x > width) nodeA.vx *= -1;
         if (nodeA.y < 0 || nodeA.y > height) nodeA.vy *= -1;
 
-        // Cursor repulsion
+        // Pointer proximity repulsion
         const dxMouse = mouse.x - nodeA.x;
         const dyMouse = mouse.y - nodeA.y;
         const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);

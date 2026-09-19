@@ -35,7 +35,7 @@ export const JoinCTA: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram @ieee.cismuj"
-              className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-[#0284C7] hover:bg-[#0369A1] text-white flex items-center justify-center shadow-blue-sm hover:shadow-blue-md transition-all duration-300 cursor-pointer hover:-translate-y-1"
+              className="btn-icon-square bg-[#0284C7] hover:bg-[#0369A1] text-white shadow-blue-sm hover:shadow-blue-md"
             >
               <Instagram className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </a>
@@ -46,7 +46,7 @@ export const JoinCTA: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="IEEE Global Portal"
-              className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-white hover:bg-slate-50 text-[#0F172A] hover:text-[#0284C7] border border-slate-200 hover:border-[#0284C7] flex items-center justify-center shadow-xs hover:shadow-md transition-all duration-300 cursor-pointer hover:-translate-y-1"
+              className="btn-icon-square bg-white hover:bg-slate-50 text-[#0F172A] hover:text-[#0284C7] border border-slate-200 hover:border-[#0284C7] shadow-xs hover:shadow-md"
             >
               <Globe className="w-5 h-5 sm:w-6 sm:h-6" />
             </a>
@@ -55,7 +55,7 @@ export const JoinCTA: React.FC = () => {
             <a
               href="mailto:cis.muj@ieee.org"
               aria-label="Email Directors"
-              className="w-13 h-13 sm:w-16 sm:h-16 rounded-2xl bg-white hover:bg-slate-50 text-[#0F172A] hover:text-[#0284C7] border border-slate-200 hover:border-[#0284C7] flex items-center justify-center shadow-xs hover:shadow-md transition-all duration-300 cursor-pointer hover:-translate-y-1"
+              className="btn-icon-square bg-white hover:bg-slate-50 text-[#0F172A] hover:text-[#0284C7] border border-slate-200 hover:border-[#0284C7] shadow-xs hover:shadow-md"
             >
               <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
             </a>

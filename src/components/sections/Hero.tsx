@@ -79,17 +79,17 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Action CTAs */}
-          <div className="pt-2 flex flex-wrap items-center gap-3 font-mono text-xs">
+          <div className="pt-2 flex flex-wrap items-center gap-3">
             <a
               href="/events"
-              className="px-6 py-3.5 rounded-xl bg-[#0284C7] hover:bg-[#0369A1] text-white font-bold tracking-wider shadow-blue-sm hover:shadow-blue-md transition-all cursor-pointer inline-block hover:-translate-y-0.5"
+              className="btn-brand-primary"
             >
               EXPLORE EVENTS &amp; HACKS
             </a>
 
             <a
               href="/newsletter"
-              className="px-6 py-3.5 rounded-xl bg-white/90 hover:bg-slate-50 text-[#0F172A] border border-slate-200 font-bold tracking-wider backdrop-blur-md transition-all cursor-pointer shadow-xs hover:border-[#0284C7] inline-block hover:-translate-y-0.5"
+              className="btn-brand-secondary"
             >
               READ OUR NEWSLETTER
             </a>

@@ -74,13 +74,13 @@ export const ScatteredMemories: React.FC = () => {
         </svg>
 
         {/* 1. Header Column (Top Left) */}
-        <div className="absolute left-[4%] top-[6%] max-w-[25%] space-y-4 z-10">
+        <header className="absolute left-[4%] top-[6%] max-w-[25%] space-y-4 z-10">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-px bg-[#0284C7]" />
+            <span aria-hidden="true" className="w-8 h-px bg-[#0284C7] inline-block" />
             <span className="font-mono text-[11px] font-bold text-[#0284C7] tracking-widest uppercase">
               OUR EVENTS
             </span>
-            <div className="w-8 h-px bg-[#0284C7]" />
+            <span aria-hidden="true" className="w-8 h-px bg-[#0284C7] inline-block" />
           </div>
 
           <h2 className="font-sans font-light text-5xl xl:text-6xl tracking-tight leading-[1.08] text-slate-900">
@@ -91,10 +91,10 @@ export const ScatteredMemories: React.FC = () => {
           <p className="font-sans text-xs text-slate-500 leading-relaxed max-w-sm pt-1">
             IEEE CIS brings together workshops, competitions, talks, projects and community experiences to build a stronger, smarter tomorrow.
           </p>
-        </div>
+        </header>
 
         {/* 2. Top-Right 3D Glossy Orbital Spheres */}
-        <motion.div
+        <motion.figure
           animate={{
             y: [-6, 6, -6],
             rotate: [-1, 1, -1],
@@ -104,18 +104,18 @@ export const ScatteredMemories: React.FC = () => {
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="absolute right-[2%] top-[3%] w-[26%] max-w-[340px] pointer-events-none z-10"
+          className="absolute right-[2%] top-[3%] w-[26%] max-w-[340px] pointer-events-none z-10 m-0"
         >
           <img
             src="/orbital-cluster-trans.png"
             alt="3D Orbital Cyan Spheres"
             className="w-full h-auto object-contain select-none filter drop-shadow-emblem-lg"
           />
-        </motion.div>
+        </motion.figure>
 
         {/* 3. The 5 Event Cards & Detail Blocks */}
         {MEMORY_EVENTS_DATA.map((memoryItem) => (
-          <React.Fragment key={memoryItem.id}>
+          <article key={memoryItem.id}>
             <motion.div
               whileHover={{ scale: 1.03, y: -4 }}
               transition={{ duration: 0.3 }}
@@ -126,7 +126,7 @@ export const ScatteredMemories: React.FC = () => {
                 top: memoryItem.photoPosition.top,
                 width: memoryItem.photoPosition.width,
               }}
-              className="aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-blue-card border border-slate-100 hover:border-sky-300 transition-all cursor-pointer z-10 bg-slate-100 group"
+              className="constellation-card group"
             >
               <img
                 src={memoryItem.image}
@@ -161,7 +161,7 @@ export const ScatteredMemories: React.FC = () => {
               <div className="space-y-0.5 font-mono text-[10px] text-slate-500 font-semibold uppercase">
                 <p className="flex items-center gap-1.5">
                   <Calendar className="w-3 h-3 text-[#0284C7] shrink-0" />
-                  <span>{memoryItem.date}</span>
+                  <time dateTime={memoryItem.year}>{memoryItem.date}</time>
                 </p>
                 <p className="flex items-center gap-1.5 truncate">
                   <MapPin className="w-3 h-3 text-[#0284C7] shrink-0" />
@@ -174,6 +174,7 @@ export const ScatteredMemories: React.FC = () => {
               </p>
 
               <button
+                type="button"
                 onClick={() => setSelectedMemoryEvent(memoryItem)}
                 className="font-mono text-[10px] font-bold text-[#0284C7] hover:text-sky-700 uppercase tracking-wider flex items-center gap-1.5 transition-colors cursor-pointer pt-1 group"
               >
@@ -181,7 +182,7 @@ export const ScatteredMemories: React.FC = () => {
                 <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
-          </React.Fragment>
+          </article>
         ))}
       </div>
 
@@ -189,13 +190,13 @@ export const ScatteredMemories: React.FC = () => {
       {/* MOBILE / TABLET RESPONSIVE FLOW (< 1024px)                   */}
       {/* ============================================================ */}
       <div className="lg:hidden px-4 sm:px-6 space-y-5 max-w-xl mx-auto">
-        <div className="space-y-1.5 text-center sm:text-left">
+        <header className="space-y-1.5 text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start gap-2">
-            <div className="w-5 h-px bg-[#0284C7]" />
+            <span aria-hidden="true" className="w-5 h-px bg-[#0284C7] inline-block" />
             <span className="font-mono text-[10px] font-bold text-[#0284C7] tracking-widest uppercase">
               OUR EVENTS
             </span>
-            <div className="w-5 h-px bg-[#0284C7]" />
+            <span aria-hidden="true" className="w-5 h-px bg-[#0284C7] inline-block" />
           </div>
 
           <h2 className="font-sans font-light text-2xl sm:text-4xl tracking-tight text-slate-900 leading-tight">
@@ -206,7 +207,7 @@ export const ScatteredMemories: React.FC = () => {
           <p className="font-sans text-xs text-slate-500 leading-relaxed max-w-sm mx-auto sm:mx-0">
             Workshops, hackathons, and community experiences driving computational intelligence.
           </p>
-        </div>
+        </header>
 
         {/* Interactive Constellation Rail */}
         <div className="relative py-1">

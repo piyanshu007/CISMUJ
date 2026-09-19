@@ -43,15 +43,16 @@ const brandLogos: PureLogoItem[] = [
 
 export const TechMarquee: React.FC = () => {
   return (
-    <section className="w-full py-4 sm:py-6 bg-white border-b border-slate-100 overflow-hidden relative select-none">
+    <section className="w-full py-4 sm:py-6 bg-white border-b border-slate-100 overflow-hidden relative select-none" aria-label="Partner and Event Highlights">
+      <h2 className="sr-only">Partner and Event Highlights</h2>
       {/* Subtle edge fades for infinite depth */}
       <div className="absolute left-0 inset-y-0 w-16 sm:w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 inset-y-0 w-16 sm:w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
-      {/* Single Continuous Flowing Row with Pure Logos (No Background Tabs) */}
-      <div className="flex w-max items-center animate-marquee space-x-8 sm:space-x-12 hover:[animation-play-state:paused]">
+      {/* Single Continuous Flowing Row with Pure Logos */}
+      <ul className="flex w-max items-center animate-marquee space-x-8 sm:space-x-12 hover:[animation-play-state:paused] list-none p-0 m-0">
         {[...brandLogos, ...brandLogos, ...brandLogos, ...brandLogos].map((item, idx) => (
-          <div
+          <li
             key={`logo-${idx}`}
             className="flex items-center justify-center px-4 sm:px-6 transition-transform duration-300 hover:scale-110 shrink-0 cursor-pointer"
           >
@@ -60,9 +61,9 @@ export const TechMarquee: React.FC = () => {
               alt={item.alt}
               className={`${item.className} w-auto object-contain filter contrast-[1.05]`}
             />
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

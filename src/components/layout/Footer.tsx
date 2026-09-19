@@ -23,6 +23,7 @@ export const Footer: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16 relative z-10">
+        <h2 className="sr-only">Footer Navigation and Contact</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-8 mb-6 sm:mb-14">
           
           {/* Col 1 & 2: Chapter Overview & Brand Identity */}
@@ -92,9 +93,9 @@ export const Footer: React.FC = () => {
           <div className="grid grid-cols-2 gap-4 sm:gap-6 md:contents">
             {/* Col 3: Quick Links */}
             <div className="space-y-2 sm:space-y-3 font-sans">
-              <h4 className="text-[#0F172A] font-bold text-xs sm:text-sm tracking-wide flex items-center gap-1 sm:gap-1.5">
+              <h3 className="text-[#0F172A] font-bold text-xs sm:text-sm tracking-wide flex items-center gap-1 sm:gap-1.5">
                 <span className="text-[#0284C7] font-mono font-black">&gt;</span> Quick Links
-              </h4>
+              </h3>
               <ul className="space-y-1.5 sm:space-y-2 text-slate-600 text-[11px] sm:text-xs">
                 <li>
                   <Link href="/" className="hover:text-[#0284C7] hover:translate-x-1 inline-block transition-all">
@@ -136,9 +137,9 @@ export const Footer: React.FC = () => {
 
             {/* Col 4: Resources */}
             <div className="space-y-2 sm:space-y-3 font-sans">
-              <h4 className="text-[#0F172A] font-bold text-xs sm:text-sm tracking-wide flex items-center gap-1 sm:gap-1.5">
+              <h3 className="text-[#0F172A] font-bold text-xs sm:text-sm tracking-wide flex items-center gap-1 sm:gap-1.5">
                 <span className="text-[#0284C7] font-mono font-black">&gt;</span> Resources
-              </h4>
+              </h3>
               <ul className="space-y-1.5 sm:space-y-2 text-slate-600 text-[11px] sm:text-xs">
                 <li>
                   <a
@@ -212,9 +213,9 @@ export const Footer: React.FC = () => {
 
           {/* Col 5: Contact Info */}
           <div className="space-y-2 sm:space-y-3 font-sans">
-            <h4 className="text-[#0F172A] font-bold text-xs sm:text-sm tracking-wide flex items-center gap-1 sm:gap-1.5">
+            <h3 className="text-[#0F172A] font-bold text-xs sm:text-sm tracking-wide flex items-center gap-1 sm:gap-1.5">
               <span className="text-[#0284C7] font-mono font-black">&gt;</span> Contact
-            </h4>
+            </h3>
             
             <div className="space-y-2 sm:space-y-3.5 text-[11px] sm:text-xs text-slate-600 pt-0.5 sm:pt-1">
               {/* Person / Leadership */}

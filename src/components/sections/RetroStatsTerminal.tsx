@@ -56,15 +56,15 @@ export const RetroStatsTerminal: React.FC = () => {
 
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-14">
+        <header className="space-y-2 sm:space-y-3 mb-6 sm:mb-14">
           <div className="flex items-center gap-2 font-mono text-[10px] sm:text-xs text-[#0284C7] font-bold tracking-widest uppercase">
             <span>TELEMETRY &amp; IMPACT METRICS</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-black text-[#0F172A] tracking-tight">
             IEEE CIS <span className="text-[#0284C7]">MUJ</span> by the Numbers
           </h2>
-          <div className="w-12 sm:w-16 h-1 bg-[#0284C7] rounded-full shadow-[0_2px_8px_rgba(2,132,199,0.3)]" />
-        </div>
+          <span aria-hidden="true" className="w-12 sm:w-16 h-1 bg-[#0284C7] rounded-full inline-block shadow-[0_2px_8px_rgba(2,132,199,0.3)]" />
+        </header>
 
         {/* ============================================================ */}
         {/* MOBILE VIEW (< lg): Smartphone Mockup as Centerpiece         */}
@@ -81,8 +81,9 @@ export const RetroStatsTerminal: React.FC = () => {
           />
 
           {/* Bottom Navigation Controls */}
-          <div className="flex items-center justify-between max-w-[340px] mx-auto px-2">
+          <nav aria-label="Mobile Stats Navigation" className="flex items-center justify-between max-w-[340px] mx-auto px-2">
             <button
+              type="button"
               onClick={handlePreviousMetric}
               aria-label="Previous Stat"
               className="p-2.5 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] bg-white shadow-2xs transition-all cursor-pointer active:scale-95"
@@ -98,6 +99,7 @@ export const RetroStatsTerminal: React.FC = () => {
                 {CHAPTER_STATS_DATA.map((_, idx) => (
                   <button
                     key={idx}
+                    type="button"
                     onClick={() => handleSelectMetric(idx)}
                     aria-label={`Go to metric ${idx + 1}`}
                     className={`h-1.5 rounded-full transition-all cursor-pointer ${
@@ -109,13 +111,14 @@ export const RetroStatsTerminal: React.FC = () => {
             </div>
 
             <button
+              type="button"
               onClick={handleNextMetric}
               aria-label="Next Stat"
               className="p-2.5 rounded-full border border-slate-200 hover:border-[#0284C7] text-slate-700 hover:text-[#0284C7] bg-white shadow-2xs transition-all cursor-pointer active:scale-95"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
-          </div>
+          </nav>
         </div>
 
         {/* ============================================================ */}
@@ -129,7 +132,7 @@ export const RetroStatsTerminal: React.FC = () => {
                 const isActive = activeMetricIndex === metricIdx;
 
                 return (
-                  <motion.div
+                  <motion.article
                     key={statMetric.id}
                     onClick={() => handleSelectMetric(metricIdx)}
                     whileHover={{ y: -3 }}
@@ -146,13 +149,13 @@ export const RetroStatsTerminal: React.FC = () => {
                         </span>
                       </div>
 
-                      <div className="text-4xl font-display font-black text-[#0F172A] tracking-tight">
+                      <h3 className="text-4xl font-display font-black text-[#0F172A] tracking-tight">
                         {statMetric.metric}
-                      </div>
+                      </h3>
                     </div>
 
                     <StatGraphVisual item={statMetric} prefix="desktop" />
-                  </motion.div>
+                  </motion.article>
                 );
               })}
             </div>
