@@ -273,39 +273,24 @@ export const ScatteredMemories: React.FC = () => {
       {/* Interactive Constellation Deck with Swipe & Waypoint Rail    */}
       {/* ============================================================ */}
       <div className="lg:hidden px-4 sm:px-6 space-y-5 max-w-xl mx-auto">
-        {/* Header Block with Floating 3D Cluster Visual */}
-        <div className="relative flex items-start justify-between gap-3">
-          <div className="space-y-1.5 flex-1">
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-px bg-[#0284C7]" />
-              <span className="font-mono text-[10px] font-bold text-[#0284C7] tracking-widest uppercase">
-                OUR EVENTS
-              </span>
-              <div className="w-5 h-px bg-[#0284C7]" />
-            </div>
-
-            <h2 className="font-sans font-light text-2xl sm:text-4xl tracking-tight text-slate-900 leading-tight">
-              Ideas become <br />
-              <span className="text-[#0284C7] font-normal">experiences.</span>
-            </h2>
-
-            <p className="font-sans text-xs text-slate-500 leading-relaxed max-w-xs">
-              Workshops, hackathons, and community experiences driving computational intelligence.
-            </p>
+        {/* Header Block */}
+        <div className="space-y-1.5 text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-2">
+            <div className="w-5 h-px bg-[#0284C7]" />
+            <span className="font-mono text-[10px] font-bold text-[#0284C7] tracking-widest uppercase">
+              OUR EVENTS
+            </span>
+            <div className="w-5 h-px bg-[#0284C7]" />
           </div>
 
-          {/* 3D Cluster Preview for Mobile */}
-          <motion.div
-            animate={{ y: [-3, 3, -3], rotate: [-1, 1, -1] }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-20 sm:w-28 shrink-0 pointer-events-none mt-1"
-          >
-            <img
-              src="/orbital-cluster-trans.png"
-              alt="3D Cluster"
-              className="w-full h-auto object-contain filter drop-shadow-[0_4px_16px_rgba(2,132,199,0.15)]"
-            />
-          </motion.div>
+          <h2 className="font-sans font-light text-2xl sm:text-4xl tracking-tight text-slate-900 leading-tight">
+            Ideas become <br />
+            <span className="text-[#0284C7] font-normal">experiences.</span>
+          </h2>
+
+          <p className="font-sans text-xs text-slate-500 leading-relaxed max-w-sm mx-auto sm:mx-0">
+            Workshops, hackathons, and community experiences driving computational intelligence.
+          </p>
         </div>
 
         {/* Interactive Constellation Rail (Waypoint Nodes & Category Selector) */}
