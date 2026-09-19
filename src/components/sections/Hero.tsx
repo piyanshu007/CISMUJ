@@ -1,13 +1,24 @@
 import React from 'react';
 import { CisLogo3D } from '../3d/CisLogo3D';
-import { FluidGradientCanvas } from '../animated/FluidGradientCanvas';
+import { DitherWave } from '../animated/DitherWave';
 import { ArrowDown } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
     <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-white border-b border-slate-200 overflow-hidden select-none">
-      {/* Real-time Flowing Fluid Liquid Gradient Canvas (Light Blue & IEEE Blue Chromatic Loops) */}
-      <FluidGradientCanvas className="z-0" />
+      {/* Dither Wave Animated Background (Retro Dithering Wave Pattern in Light Blue & IEEE Blue) */}
+      <DitherWave
+        className="z-0"
+        waveSpeed={0.55}
+        waveFrequency={1.3}
+        waveAmplitude={0.48}
+        ditherSize={2.0}
+        color1="#0284C7"
+        color2="#38BDF8"
+        color3="#BAE6FD"
+        color4="#FFFFFF"
+        interactive={true}
+      />
 
       {/* 1. Full-Screen Interactive 3D Canvas */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden opacity-100 pointer-events-auto">
