@@ -1,71 +1,13 @@
-'use client';
-
 import React from 'react';
-import { motion } from 'framer-motion';
 import { CisLogo3D } from '../3d/CisLogo3D';
+import { FluidGradientCanvas } from '../animated/FluidGradientCanvas';
 import { ArrowDown } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
     <section className="relative min-h-[85vh] lg:min-h-screen flex flex-col justify-between pt-20 sm:pt-24 pb-6 sm:pb-8 bg-white border-b border-slate-200 overflow-hidden select-none">
-      {/* Fluid Ambient Light-Blue & Vibrant Blue Animated Mesh Gradients */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {/* Top-Right Glowing Aura behind 3D CIS Logo */}
-        <motion.div
-          animate={{
-            x: [0, 25, -20, 0],
-            y: [0, -20, 15, 0],
-            scale: [1, 1.08, 0.95, 1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="absolute -top-20 right-0 lg:right-10 w-[550px] sm:w-[780px] h-[500px] sm:h-[680px] rounded-full opacity-70 blur-3xl pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(circle at 60% 40%, rgba(56, 189, 248, 0.45) 0%, rgba(2, 132, 199, 0.3) 40%, rgba(224, 242, 254, 0.2) 70%, transparent 85%)',
-          }}
-        />
-
-        {/* Center-Left Ambient Wash behind Main Typography */}
-        <motion.div
-          animate={{
-            x: [0, -20, 15, 0],
-            y: [0, 25, -15, 0],
-            scale: [1, 0.96, 1.06, 1],
-          }}
-          transition={{
-            duration: 14,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="absolute top-1/4 -left-16 w-[480px] sm:w-[680px] h-[420px] sm:h-[580px] rounded-full opacity-60 blur-3xl pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(circle at 40% 50%, rgba(224, 242, 254, 0.85) 0%, rgba(125, 211, 252, 0.38) 45%, rgba(2, 132, 199, 0.15) 75%, transparent 90%)',
-          }}
-        />
-
-        {/* Dynamic Center Fluid Gradient Loop Core */}
-        <motion.div
-          animate={{
-            rotate: [0, 180, 360],
-            scale: [1, 1.05, 0.98, 1],
-          }}
-          transition={{
-            duration: 24,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute top-1/3 right-1/4 w-[420px] sm:w-[560px] h-[380px] sm:h-[480px] rounded-[48%] opacity-45 blur-3xl pointer-events-none"
-          style={{
-            background:
-              'conic-gradient(from 0deg at 50% 50%, rgba(56, 189, 248, 0.42) 0deg, rgba(2, 132, 199, 0.32) 120deg, rgba(224, 242, 254, 0.55) 240deg, rgba(56, 189, 248, 0.42) 360deg)',
-          }}
-        />
-      </div>
+      {/* Real-time Flowing Fluid Liquid Gradient Canvas (Light Blue & IEEE Blue Chromatic Loops) */}
+      <FluidGradientCanvas className="z-0" />
 
       {/* 1. Full-Screen Interactive 3D Canvas */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden opacity-100 pointer-events-auto">
